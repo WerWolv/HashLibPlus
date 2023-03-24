@@ -8,41 +8,41 @@ namespace ChecksumHashTests
 {
 	TEST_CASE("Crc32PKZipTests")
 	{
-		string HashOfEmptyData = "00000000";
-		string HashOfDefaultData = "D07C1A60";
-		string HashOfOnetoNine = "CBF43926";
-		string HashOfABCDE = "8587D865";
+		std::string HashOfEmptyData = "00000000";
+		std::string HashOfDefaultData = "D07C1A60";
+		std::string HashOfOnetoNine = "CBF43926";
+		std::string HashOfABCDE = "8587D865";
 		
 		IHash HashInstance = HashFactory::Checksum::CreateCRC32_PKZIP();
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -50,10 +50,10 @@ namespace ChecksumHashTests
 		SECTION("TestEmptyStream")
 		{
 			// Read empty file to stream
-			ifstream stream("EmptyFile.txt");
+            std::ifstream stream("EmptyFile.txt");
 
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeStream(stream)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeStream(stream)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -67,8 +67,8 @@ namespace ChecksumHashTests
 			HashInstance->TransformString(DefaultData.substr(9, 3));
 			HashInstance->TransformString(DefaultData.substr(12));
 
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->TransformFinal()->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -93,8 +93,8 @@ namespace ChecksumHashTests
 
 				HashInstance->TransformBytes(ChunkedDataBytes, i, Count);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -103,7 +103,7 @@ namespace ChecksumHashTests
 		SECTION("TestAnotherChunkedDataIncrementalHash")
 		{
 			size_t x, size, i;
-			string temp;
+			std::string temp;
 			IHash HashInstanceCopy = nullptr;
 
 			HashInstanceCopy = HashInstance->Clone();
@@ -123,8 +123,8 @@ namespace ChecksumHashTests
 				temp = ChunkedData.substr((i - size), ChunkedData.size() - ((i - size)));
 				HashInstance->TransformString(temp);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -143,10 +143,10 @@ namespace ChecksumHashTests
 			Copy = Original->Clone();
 
 			Original->TransformBytes(ChunkTwo);
-			string String = Original->TransformFinal()->ToString();
+			std::string String = Original->TransformFinal()->ToString();
 
 			Copy->TransformBytes(ChunkTwo);
-			string ActualString = Copy->TransformFinal()->ToString();
+			std::string ActualString = Copy->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}

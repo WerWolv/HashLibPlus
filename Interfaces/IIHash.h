@@ -2,13 +2,13 @@
 #define IHASH_H
 
 #include <fstream>
-#include "Utils/HashLibTypes.h"
+#include "../Utils/HashLibTypes.h"
 //#include "Interfaces/IHashResult.h"
 
 class IIHash
 {
 public:
-	virtual string GetName() const = 0;
+	virtual std::string GetName() const = 0;
 	virtual Int32 GetBlockSize() const = 0;
 	virtual Int32 GetHashSize() const = 0;
 	virtual Int32 GetBufferSize() const = 0;

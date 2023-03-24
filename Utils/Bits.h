@@ -99,28 +99,28 @@ public:
 				UInt64(Int64(size_t(0) - (bool((ShiftBits & 63) != 0)))))) << (64 - (ShiftBits & 63)))));
 	} // end function Asr64
 
-	inline static UInt32 RotateLeft32(const UInt32 a_value, Int32 a_n)
+	inline static UInt32 rotateLeft32(const UInt32 a_value, Int32 a_n)
 	{
 		a_n = a_n & 31;
 		return (a_value << a_n) | (a_value >> (32 - a_n));
-	} // end function RotateLeft32
+	} // end function rotateLeft32
 	
-	inline static UInt64 RotateLeft64(const UInt64 a_value, Int32 a_n)
+	inline static UInt64 rotateLeft64(const UInt64 a_value, Int32 a_n)
 	{
 		a_n = a_n & 63;
 		return (a_value << a_n) | (a_value >> (64 - a_n));
-	} // end function RotateLeft64
+	} // end function rotateLeft64
 
-	inline static UInt32 RotateRight32(const UInt32 a_value, Int32 a_n)
+	inline static UInt32 rotateRight32(const UInt32 a_value, Int32 a_n)
 	{
 		a_n = a_n & 31;
 		return (a_value >> a_n) | (a_value << (32 - a_n));
-	} // end function RotateRight32
+	} // end function rotateRight32
 
-	inline static UInt64 RotateRight64(const UInt64 a_value, Int32 a_n)
+	inline static UInt64 rotateRight64(const UInt64 a_value, Int32 a_n)
 	{
 		a_n = a_n & 63;
 		return (a_value >> a_n) | (a_value << (64 - a_n));
-	} // end function RotateRight64
+	} // end function rotateRight64
 
 }; // end class Bits

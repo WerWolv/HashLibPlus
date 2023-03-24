@@ -59,7 +59,7 @@ public:
 	
 	static IBlake2BConfig CreateBlake2BConfig(const Int32 a_hash_size = HashSize::HashSize512)
 	{
-		return make_shared<Blake2BConfig>(a_hash_size);
+		return std::make_shared<Blake2BConfig>(a_hash_size);
 	}
 
 	~Blake2BConfig()
@@ -69,7 +69,7 @@ public:
 
 	static IBlake2BConfig GetDefaultConfig()
 	{
-		return make_shared<Blake2BConfig>();
+		return std::make_shared<Blake2BConfig>();
 	}
 
 	virtual HashLibByteArray GetPersonalization() const
@@ -123,7 +123,7 @@ public:
 		result._personalisation = _personalisation;
 		result._salt = _salt;
 
-		return make_shared<Blake2BConfig>(result);
+		return std::make_shared<Blake2BConfig>(result);
 	}
 
 	virtual void Clear()
@@ -183,7 +183,7 @@ public:
 
 	static IBlake2BTreeConfig CreateBlake2BTreeConfig()
 	{
-		return make_shared<Blake2BTreeConfig>();
+		return std::make_shared<Blake2BTreeConfig>();
 	}
 
 	static IBlake2BTreeConfig GetSequentialTreeConfig()
@@ -197,12 +197,12 @@ public:
 		result._innerHashSize = 0;
 		result._isLastNode = false;
 
-		return make_shared<Blake2BTreeConfig>(result);
+		return std::make_shared<Blake2BTreeConfig>(result);
 	}
 
 	static IBlake2BTreeConfig GetDefaultTreeConfig() 
 	{
-		return make_shared<Blake2BTreeConfig>();
+		return std::make_shared<Blake2BTreeConfig>();
 	}
 
 	virtual byte GetFanOut() const
@@ -292,7 +292,7 @@ public:
 		result._nodeOffset = _nodeOffset;
 		result._isLastNode = _isLastNode;
 
-		return make_shared<Blake2BTreeConfig>(result);
+		return std::make_shared<Blake2BTreeConfig>(result);
 	}
 
 private:

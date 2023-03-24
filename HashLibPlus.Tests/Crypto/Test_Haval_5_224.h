@@ -8,12 +8,12 @@ namespace CryptoHashTests
 {
 	TEST_CASE("Haval_5_224Tests")
 	{
-		string HashOfEmptyData = "4A0513C032754F5582A758D35917AC9ADF3854219B39E3AC77D1837E";
-		string HashOfDefaultData = "D5FEA825ED7B8CBF23938425BAFDBEE9AD127A685EFCA4559BD54892";
-		string HashOfOnetoNine = "2EAADFB8007D9A4D8D7F21182C2913D569F801B44D0920D4CE8A01F0";
-		string HashOfABCDE = "D8CBE8D06DC58095EC0E69F1C1A4D4A90893AAE80401779CEB6646A9";
-		string HashOfDefaultDataWithHMACWithShortKey = "12B6415C63F4BBA34F0ADD23EEB74AC7EE8A07420D652BF619B9E9D1";
-		string HashOfDefaultDataWithHMACWithLongKey = "CFA8D05FEE7A22F7A2BBDF3A218157910FB682517421A416C6DE0895";
+		std::string HashOfEmptyData = "4A0513C032754F5582A758D35917AC9ADF3854219B39E3AC77D1837E";
+		std::string HashOfDefaultData = "D5FEA825ED7B8CBF23938425BAFDBEE9AD127A685EFCA4559BD54892";
+		std::string HashOfOnetoNine = "2EAADFB8007D9A4D8D7F21182C2913D569F801B44D0920D4CE8A01F0";
+		std::string HashOfABCDE = "D8CBE8D06DC58095EC0E69F1C1A4D4A90893AAE80401779CEB6646A9";
+		std::string HashOfDefaultDataWithHMACWithShortKey = "12B6415C63F4BBA34F0ADD23EEB74AC7EE8A07420D652BF619B9E9D1";
+		std::string HashOfDefaultDataWithHMACWithLongKey = "CFA8D05FEE7A22F7A2BBDF3A218157910FB682517421A416C6DE0895";
 
 		IHash HashInstance = HashFactory::Crypto::CreateHaval_5_224();
 		IHMACNotBuildIn HMACInstance = HashFactory::HMAC::CreateHMAC(HashInstance);
@@ -23,8 +23,8 @@ namespace CryptoHashTests
 			IHMACNotBuildIn hmac = HashFactory::HMAC::CreateHMAC(HashInstance);
 			hmac->SetKey(HMACLongKeyBytes);
 
-			string String = HashOfDefaultDataWithHMACWithLongKey;
-			string ActualString = hmac->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultDataWithHMACWithLongKey;
+			std::string ActualString = hmac->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -34,40 +34,40 @@ namespace CryptoHashTests
 			IHMACNotBuildIn hmac = HashFactory::HMAC::CreateHMAC(HashInstance);
 			hmac->SetKey(HMACShortKeyBytes);
 
-			string String = HashOfDefaultDataWithHMACWithShortKey;
-			string ActualString = hmac->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultDataWithHMACWithShortKey;
+			std::string ActualString = hmac->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -75,10 +75,10 @@ namespace CryptoHashTests
 		SECTION("TestEmptyStream")
 		{
 			// Read empty file to stream
-			ifstream stream("EmptyFile.txt");
+			std::ifstream stream("EmptyFile.txt");
 
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeStream(stream)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeStream(stream)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -92,8 +92,8 @@ namespace CryptoHashTests
 			HashInstance->TransformString(DefaultData.substr(9, 3));
 			HashInstance->TransformString(DefaultData.substr(12));
 
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->TransformFinal()->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -118,8 +118,8 @@ namespace CryptoHashTests
 
 				HashInstance->TransformBytes(ChunkedDataBytes, i, Count);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -128,7 +128,7 @@ namespace CryptoHashTests
 		SECTION("TestAnotherChunkedDataIncrementalHash")
 		{
 			size_t x, size, i;
-			string temp;
+			std::string temp;
 			IHash HashInstanceCopy = nullptr;
 
 			HashInstanceCopy = HashInstance->Clone();
@@ -148,8 +148,8 @@ namespace CryptoHashTests
 				temp = ChunkedData.substr((i - size), ChunkedData.size() - ((i - size)));
 				HashInstance->TransformString(temp);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -168,10 +168,10 @@ namespace CryptoHashTests
 			Copy = Original->Clone();
 
 			Original->TransformBytes(ChunkTwo);
-			string String = Original->TransformFinal()->ToString();
+			std::string String = Original->TransformFinal()->ToString();
 
 			Copy->TransformBytes(ChunkTwo);
-			string ActualString = Copy->TransformFinal()->ToString();
+			std::string ActualString = Copy->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -205,10 +205,10 @@ namespace CryptoHashTests
 			Copy = Original->CloneHMAC();
 
 			Original->TransformBytes(ChunkTwo);
-			string String = Original->TransformFinal()->ToString();
+			std::string String = Original->TransformFinal()->ToString();
 
 			Copy->TransformBytes(ChunkTwo);
-			string ActualString = Copy->TransformFinal()->ToString();
+			std::string ActualString = Copy->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}

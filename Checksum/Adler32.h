@@ -44,7 +44,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Adler32>(HashInstance);
+		return std::make_shared<Adler32>(HashInstance);
 	}
 
 	virtual void Initialize() override
@@ -55,7 +55,7 @@ public:
 
 	virtual IHashResult TransformFinal() override
 	{
-		IHashResult result = make_shared<HashResult>(int32_t((_b << 16) | _a));
+		IHashResult result = std::make_shared<HashResult>(int32_t((_b << 16) | _a));
 
 		Initialize();
 

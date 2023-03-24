@@ -40,9 +40,9 @@ public:
 
 	} // end function toUpper
 
-	inline static string toUpper(const string& value)
+	inline static std::string toUpper(const std::string& value)
 	{
-		string temp;
+		std::string temp;
 		for (UInt32 i = 0; i < value.length(); i++)
 		{
 			temp += toupper(value[i]);
@@ -296,15 +296,15 @@ public:
 		a_out[size_t(a_index) + 7] = (byte)a_in;
 	} // end function ReadUInt64AsBytesBE
 
-	static string ConvertBytesToHexString(const HashLibByteArray& a_in, const bool a_group = false)
+	static std::string ConvertBytesToHexString(const HashLibByteArray& a_in, const bool a_group = false)
 	{
-		if (a_in.empty()) return string("");
+		if (a_in.empty()) return std::string("");
 		return ConvertBytesToHexString(&a_in[0], (UInt32)a_in.size(), a_group);
 	} // end function ConvertBytesToHexString
 
-	static string ConvertBytesToHexString(const byte* a_in, const UInt32 size, const bool a_group = false)
+	static std::string ConvertBytesToHexString(const byte* a_in, const UInt32 size, const bool a_group = false)
 	{
-		string hex = BitConverter::ToString(a_in, 0, size);
+		std::string hex = BitConverter::ToString(a_in, 0, size);
 		transform(hex.begin(), hex.end(), hex.begin(), ::toupper);
 
 		if (size == 1)
@@ -314,7 +314,7 @@ public:
 
 		if (size == 2)
 		{
-			string result;
+			std::string result;
 			remove_copy(hex.begin(), hex.end(), back_inserter(result), '-');
 
 			return result;
@@ -322,7 +322,7 @@ public:
 
 		if (a_group)
 		{
-			string workstring = BitConverter::ToString(a_in, 0, size);
+			std::string workstring = BitConverter::ToString(a_in, 0, size);
 			transform(workstring.begin(), workstring.end(), workstring.begin(), ::toupper);
 
 			HashLibStringArray arr = Converters::SplitString(workstring, '-');
@@ -344,29 +344,29 @@ public:
 			return hex;
 		} // end if
 
-		string result;
+		std::string result;
 		remove_copy(hex.begin(), hex.end(), back_inserter(result), '-');
 
 		return result;
 	} // end function ConvertBytesToHexString
 
-	static inline HashLibByteArray ConvertHexStringToBytes(const string& _a_in)
+	static inline HashLibByteArray ConvertHexStringToBytes(const std::string& _a_in)
 	{
-		string a_in = _a_in;
+		std::string a_in = _a_in;
 
 		remove(a_in.begin(), a_in.end(), '-');
 		HashLibByteArray result(a_in.size() >> 1);
 
 		for (UInt32 i = 0, j = 0; i < a_in.length(); i += 2, j += 1)
 		{
-			string byteStr = a_in.substr(i, 2);
+			std::string byteStr = a_in.substr(i, 2);
 			result[j] = (char)strtol(byteStr.c_str(), 0, 16);
 		} // end for
 
 		return result;
 	} // end function ConvertHexStringToBytes
 
-	static inline HashLibByteArray ConvertStringToBytes(const string& a_in)
+	static inline HashLibByteArray ConvertStringToBytes(const std::string& a_in)
 	{
 		HashLibByteArray arr(a_in.length());
 		for (UInt32 i = 0; i < a_in.length(); i += 1)
@@ -377,7 +377,7 @@ public:
 		return arr;
 	} // end function ConvertStringToBytes
 
-	static HashLibStringArray SplitString(const string& S, const char Delimiter)
+	static HashLibStringArray SplitString(const std::string& S, const char Delimiter)
 	{
 		Int32 PosStart, PosDel, SplitPoints, I, Len;
 		HashLibStringArray result;
@@ -397,7 +397,7 @@ public:
 			Len = 1;
 			PosStart = 0;
 			PosDel = (Int32)S.find(Delimiter, 0);
-			while (PosDel != string::npos)
+			while (PosDel != std::string::npos)
 			{
 				result[I] = S.substr(PosStart, size_t(PosDel) - PosStart);
 				PosStart = PosDel + Len;

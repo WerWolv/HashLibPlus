@@ -9,13 +9,13 @@ namespace XOFTests
 {
 	TEST_CASE("Blake3XOFTests")
 	{
-		string ExpectedString, ActualString;
+		std::string ExpectedString, ActualString;
 
-		string HashOfEmptyData = "AF1349B9F5F9A1A6A0404DEA36DCC9499BCB25C9ADC112B7CC9A93CAE41F3262E00F03E7B69AF26B7FAAF09FCD333050338DDFE085B8CC869CA98B206C08243A";
-		string HashOfDefaultData = "BB8DB7E4155BFDB254AD49D8D3105C57B6AC3E783E6D316A75E8B8F8911EB41F800B6ACB7F3593E1787BF62433D016B800B75C14C4E3E395FC5571ADEB1A7143";
-		string HashOfOnetoNine = "B7D65B48420D1033CB2595293263B6F72EABEE20D55E699D0DF1973B3C9DEED15042F0A21EE5D17C59E507AE27E48A7CD85F69DCD816C5F421883F36E513D9FE";
-		string HashOfABCDE = "0648C03B5AD9BB6DDF8306EEF6A33EBAE8F89CB4741150C1AE9CD662FDCC1EE2AB9CED8A57741468B7C3163AF41767186CE877C7AE21260064FD4EAD6004D549";
-		string XofOfEmptyData =
+		std::string HashOfEmptyData = "AF1349B9F5F9A1A6A0404DEA36DCC9499BCB25C9ADC112B7CC9A93CAE41F3262E00F03E7B69AF26B7FAAF09FCD333050338DDFE085B8CC869CA98B206C08243A";
+		std::string HashOfDefaultData = "BB8DB7E4155BFDB254AD49D8D3105C57B6AC3E783E6D316A75E8B8F8911EB41F800B6ACB7F3593E1787BF62433D016B800B75C14C4E3E395FC5571ADEB1A7143";
+		std::string HashOfOnetoNine = "B7D65B48420D1033CB2595293263B6F72EABEE20D55E699D0DF1973B3C9DEED15042F0A21EE5D17C59E507AE27E48A7CD85F69DCD816C5F421883F36E513D9FE";
+		std::string HashOfABCDE = "0648C03B5AD9BB6DDF8306EEF6A33EBAE8F89CB4741150C1AE9CD662FDCC1EE2AB9CED8A57741468B7C3163AF41767186CE877C7AE21260064FD4EAD6004D549";
+		std::string XofOfEmptyData =
 			"AF1349B9F5F9A1A6A0404DEA36DCC9499BCB25C9ADC112B7CC9A93CAE41F3262E00F03E7B69AF26B7FAAF09FCD333050338DDFE085B8CC869CA98B206C08243A26F5"
 			"487789E8F660AFE6C99EF9E0C52B92E7393024A80459CF91F476F9FFDBDA7001C22E159B402631F277CA96F2DEFDF1078282314E763699A31C5363165421CCE14D30F"
 			"8A03E49EE25D2EA3CD48A568957B378A65AF65FC35FB3E9E12B81CA2D82CDEE16C68908A6772F827564336933C89E6908B2F9C7D1811C0EB795CBD5898FE6F5E8AF7633"
@@ -37,7 +37,7 @@ namespace XOFTests
 
 		SECTION("TestCheckTestVectors")
 		{
-			const string keyString = "whats the Elvish word for friend";
+			const std::string keyString = "whats the Elvish word for friend";
 
 			HashLibByteArray fullInput(1 << 15);
 			for(size_t i = 0; i < fullInput.size(); i++)
@@ -81,32 +81,32 @@ namespace XOFTests
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}

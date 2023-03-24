@@ -52,7 +52,7 @@ protected:
 		_state.resize(25);
 	} // end constructor
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		switch (GetHashMode())
 		{
@@ -118,22 +118,22 @@ protected:
 			BCu = Abu ^ Agu ^ Aku ^ Amu ^ Asu;
 
 			// thetaRhoPiChiIotaPrepareTheta(LRound  , A, E)
-			Da = BCu ^ Bits::RotateLeft64(BCe, 1);
-			De = BCa ^ Bits::RotateLeft64(BCi, 1);
-			Di = BCe ^ Bits::RotateLeft64(BCo, 1);
-			Do = BCi ^ Bits::RotateLeft64(BCu, 1);
-			Du = BCo ^ Bits::RotateLeft64(BCa, 1);
+			Da = BCu ^ Bits::rotateLeft64(BCe, 1);
+			De = BCa ^ Bits::rotateLeft64(BCi, 1);
+			Di = BCe ^ Bits::rotateLeft64(BCo, 1);
+			Do = BCi ^ Bits::rotateLeft64(BCu, 1);
+			Du = BCo ^ Bits::rotateLeft64(BCa, 1);
 
 			Aba = Aba ^ Da;
 			BCa = Aba;
 			Age = Age ^ De;
-			BCe = Bits::RotateLeft64(Age, 44);
+			BCe = Bits::rotateLeft64(Age, 44);
 			Aki = Aki ^ Di;
-			BCi = Bits::RotateLeft64(Aki, 43);
+			BCi = Bits::rotateLeft64(Aki, 43);
 			Amo = Amo ^ Do;
-			BCo = Bits::RotateLeft64(Amo, 21);
+			BCo = Bits::rotateLeft64(Amo, 21);
 			Asu = Asu ^ Du;
-			BCu = Bits::RotateLeft64(Asu, 14);
+			BCu = Bits::rotateLeft64(Asu, 14);
 			Eba = BCa ^ ((~BCe) & BCi);
 			Eba = Eba ^ RC[LRound];
 			Ebe = BCe ^ ((~BCi) & BCo);
@@ -142,15 +142,15 @@ protected:
 			Ebu = BCu ^ ((~BCa) & BCe);
 
 			Abo = Abo ^ Do;
-			BCa = Bits::RotateLeft64(Abo, 28);
+			BCa = Bits::rotateLeft64(Abo, 28);
 			Agu = Agu ^ Du;
-			BCe = Bits::RotateLeft64(Agu, 20);
+			BCe = Bits::rotateLeft64(Agu, 20);
 			Aka = Aka ^ Da;
-			BCi = Bits::RotateLeft64(Aka, 3);
+			BCi = Bits::rotateLeft64(Aka, 3);
 			Ame = Ame ^ De;
-			BCo = Bits::RotateLeft64(Ame, 45);
+			BCo = Bits::rotateLeft64(Ame, 45);
 			Asi = Asi ^ Di;
-			BCu = Bits::RotateLeft64(Asi, 61);
+			BCu = Bits::rotateLeft64(Asi, 61);
 			Ega = BCa ^ ((~BCe) & BCi);
 			Ege = BCe ^ ((~BCi) & BCo);
 			Egi = BCi ^ ((~BCo) & BCu);
@@ -158,15 +158,15 @@ protected:
 			Egu = BCu ^ ((~BCa) & BCe);
 
 			Abe = Abe ^ De;
-			BCa = Bits::RotateLeft64(Abe, 1);
+			BCa = Bits::rotateLeft64(Abe, 1);
 			Agi = Agi ^ Di;
-			BCe = Bits::RotateLeft64(Agi, 6);
+			BCe = Bits::rotateLeft64(Agi, 6);
 			Ako = Ako ^ Do;
-			BCi = Bits::RotateLeft64(Ako, 25);
+			BCi = Bits::rotateLeft64(Ako, 25);
 			Amu = Amu ^ Du;
-			BCo = Bits::RotateLeft64(Amu, 8);
+			BCo = Bits::rotateLeft64(Amu, 8);
 			Asa = Asa ^ Da;
-			BCu = Bits::RotateLeft64(Asa, 18);
+			BCu = Bits::rotateLeft64(Asa, 18);
 			Eka = BCa ^ ((~BCe) & BCi);
 			Eke = BCe ^ ((~BCi) & BCo);
 			Eki = BCi ^ ((~BCo) & BCu);
@@ -174,15 +174,15 @@ protected:
 			Eku = BCu ^ ((~BCa) & BCe);
 
 			Abu = Abu ^ Du;
-			BCa = Bits::RotateLeft64(Abu, 27);
+			BCa = Bits::rotateLeft64(Abu, 27);
 			Aga = Aga ^ Da;
-			BCe = Bits::RotateLeft64(Aga, 36);
+			BCe = Bits::rotateLeft64(Aga, 36);
 			Ake = Ake ^ De;
-			BCi = Bits::RotateLeft64(Ake, 10);
+			BCi = Bits::rotateLeft64(Ake, 10);
 			Ami = Ami ^ Di;
-			BCo = Bits::RotateLeft64(Ami, 15);
+			BCo = Bits::rotateLeft64(Ami, 15);
 			Aso = Aso ^ Do;
-			BCu = Bits::RotateLeft64(Aso, 56);
+			BCu = Bits::rotateLeft64(Aso, 56);
 			Ema = BCa ^ ((~BCe) & BCi);
 			Eme = BCe ^ ((~BCi) & BCo);
 			Emi = BCi ^ ((~BCo) & BCu);
@@ -190,15 +190,15 @@ protected:
 			Emu = BCu ^ ((~BCa) & BCe);
 
 			Abi = Abi ^ Di;
-			BCa = Bits::RotateLeft64(Abi, 62);
+			BCa = Bits::rotateLeft64(Abi, 62);
 			Ago = Ago ^ Do;
-			BCe = Bits::RotateLeft64(Ago, 55);
+			BCe = Bits::rotateLeft64(Ago, 55);
 			Aku = Aku ^ Du;
-			BCi = Bits::RotateLeft64(Aku, 39);
+			BCi = Bits::rotateLeft64(Aku, 39);
 			Ama = Ama ^ Da;
-			BCo = Bits::RotateLeft64(Ama, 41);
+			BCo = Bits::rotateLeft64(Ama, 41);
 			Ase = Ase ^ De;
-			BCu = Bits::RotateLeft64(Ase, 2);
+			BCu = Bits::rotateLeft64(Ase, 2);
 			Esa = BCa ^ ((~BCe) & BCi);
 			Ese = BCe ^ ((~BCi) & BCo);
 			Esi = BCi ^ ((~BCo) & BCu);
@@ -213,22 +213,22 @@ protected:
 			BCu = Ebu ^ Egu ^ Eku ^ Emu ^ Esu;
 
 			// thetaRhoPiChiIotaPrepareTheta(LRound+1, E, A)
-			Da = BCu ^ Bits::RotateLeft64(BCe, 1);
-			De = BCa ^ Bits::RotateLeft64(BCi, 1);
-			Di = BCe ^ Bits::RotateLeft64(BCo, 1);
-			Do = BCi ^ Bits::RotateLeft64(BCu, 1);
-			Du = BCo ^ Bits::RotateLeft64(BCa, 1);
+			Da = BCu ^ Bits::rotateLeft64(BCe, 1);
+			De = BCa ^ Bits::rotateLeft64(BCi, 1);
+			Di = BCe ^ Bits::rotateLeft64(BCo, 1);
+			Do = BCi ^ Bits::rotateLeft64(BCu, 1);
+			Du = BCo ^ Bits::rotateLeft64(BCa, 1);
 
 			Eba = Eba ^ Da;
 			BCa = Eba;
 			Ege = Ege ^ De;
-			BCe = Bits::RotateLeft64(Ege, 44);
+			BCe = Bits::rotateLeft64(Ege, 44);
 			Eki = Eki ^ Di;
-			BCi = Bits::RotateLeft64(Eki, 43);
+			BCi = Bits::rotateLeft64(Eki, 43);
 			Emo = Emo ^ Do;
-			BCo = Bits::RotateLeft64(Emo, 21);
+			BCo = Bits::rotateLeft64(Emo, 21);
 			Esu = Esu ^ Du;
-			BCu = Bits::RotateLeft64(Esu, 14);
+			BCu = Bits::rotateLeft64(Esu, 14);
 			Aba = BCa ^ ((~BCe) & BCi);
 			Aba = Aba ^ RC[LRound + 1];
 			Abe = BCe ^ ((~BCi) & BCo);
@@ -237,15 +237,15 @@ protected:
 			Abu = BCu ^ ((~BCa) & BCe);
 
 			Ebo = Ebo ^ Do;
-			BCa = Bits::RotateLeft64(Ebo, 28);
+			BCa = Bits::rotateLeft64(Ebo, 28);
 			Egu = Egu ^ Du;
-			BCe = Bits::RotateLeft64(Egu, 20);
+			BCe = Bits::rotateLeft64(Egu, 20);
 			Eka = Eka ^ Da;
-			BCi = Bits::RotateLeft64(Eka, 3);
+			BCi = Bits::rotateLeft64(Eka, 3);
 			Eme = Eme ^ De;
-			BCo = Bits::RotateLeft64(Eme, 45);
+			BCo = Bits::rotateLeft64(Eme, 45);
 			Esi = Esi ^ Di;
-			BCu = Bits::RotateLeft64(Esi, 61);
+			BCu = Bits::rotateLeft64(Esi, 61);
 			Aga = BCa ^ ((~BCe) & BCi);
 			Age = BCe ^ ((~BCi) & BCo);
 			Agi = BCi ^ ((~BCo) & BCu);
@@ -253,15 +253,15 @@ protected:
 			Agu = BCu ^ ((~BCa) & BCe);
 
 			Ebe = Ebe ^ De;
-			BCa = Bits::RotateLeft64(Ebe, 1);
+			BCa = Bits::rotateLeft64(Ebe, 1);
 			Egi = Egi ^ Di;
-			BCe = Bits::RotateLeft64(Egi, 6);
+			BCe = Bits::rotateLeft64(Egi, 6);
 			Eko = Eko ^ Do;
-			BCi = Bits::RotateLeft64(Eko, 25);
+			BCi = Bits::rotateLeft64(Eko, 25);
 			Emu = Emu ^ Du;
-			BCo = Bits::RotateLeft64(Emu, 8);
+			BCo = Bits::rotateLeft64(Emu, 8);
 			Esa = Esa ^ Da;
-			BCu = Bits::RotateLeft64(Esa, 18);
+			BCu = Bits::rotateLeft64(Esa, 18);
 			Aka = BCa ^ ((~BCe) & BCi);
 			Ake = BCe ^ ((~BCi) & BCo);
 			Aki = BCi ^ ((~BCo) & BCu);
@@ -269,15 +269,15 @@ protected:
 			Aku = BCu ^ ((~BCa) & BCe);
 
 			Ebu = Ebu ^ Du;
-			BCa = Bits::RotateLeft64(Ebu, 27);
+			BCa = Bits::rotateLeft64(Ebu, 27);
 			Ega = Ega ^ Da;
-			BCe = Bits::RotateLeft64(Ega, 36);
+			BCe = Bits::rotateLeft64(Ega, 36);
 			Eke = Eke ^ De;
-			BCi = Bits::RotateLeft64(Eke, 10);
+			BCi = Bits::rotateLeft64(Eke, 10);
 			Emi = Emi ^ Di;
-			BCo = Bits::RotateLeft64(Emi, 15);
+			BCo = Bits::rotateLeft64(Emi, 15);
 			Eso = Eso ^ Do;
-			BCu = Bits::RotateLeft64(Eso, 56);
+			BCu = Bits::rotateLeft64(Eso, 56);
 			Ama = BCa ^ ((~BCe) & BCi);
 			Ame = BCe ^ ((~BCi) & BCo);
 			Ami = BCi ^ ((~BCo) & BCu);
@@ -285,15 +285,15 @@ protected:
 			Amu = BCu ^ ((~BCa) & BCe);
 
 			Ebi = Ebi ^ Di;
-			BCa = Bits::RotateLeft64(Ebi, 62);
+			BCa = Bits::rotateLeft64(Ebi, 62);
 			Ego = Ego ^ Do;
-			BCe = Bits::RotateLeft64(Ego, 55);
+			BCe = Bits::rotateLeft64(Ego, 55);
 			Eku = Eku ^ Du;
-			BCi = Bits::RotateLeft64(Eku, 39);
+			BCi = Bits::rotateLeft64(Eku, 39);
 			Ema = Ema ^ Da;
-			BCo = Bits::RotateLeft64(Ema, 41);
+			BCo = Bits::rotateLeft64(Ema, 41);
 			Ese = Ese ^ De;
-			BCu = Bits::RotateLeft64(Ese, 2);
+			BCu = Bits::rotateLeft64(Ese, 2);
 			Asa = BCa ^ ((~BCe) & BCi);
 			Ase = BCe ^ ((~BCi) & BCo);
 			Asi = BCi ^ ((~BCo) & BCu);
@@ -408,8 +408,6 @@ const HashLibUInt64Array SHA3::RC = HashLibUInt64Array({
 	});
 
 
-#pragma region SHA3 Family
-
 class SHA3_224 : public SHA3
 {
 public:
@@ -428,7 +426,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SHA3_224>(HashInstance);
+		return std::make_shared<SHA3_224>(HashInstance);
 	}
 
 }; // end class SHA3_224
@@ -451,7 +449,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SHA3_256>(HashInstance);
+		return std::make_shared<SHA3_256>(HashInstance);
 	}
 
 }; // end class SHA3_256
@@ -474,7 +472,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SHA3_384>(HashInstance);
+		return std::make_shared<SHA3_384>(HashInstance);
 	}
 
 }; // end class SHA3_384
@@ -497,15 +495,11 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SHA3_512>(HashInstance);
+		return std::make_shared<SHA3_512>(HashInstance);
 	}
 
 }; // end class SHA3_512
 
-#pragma endregion
-
-
-#pragma region Keccak Family
 
 class Keccak : public SHA3
 {
@@ -538,7 +532,7 @@ protected:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Keccak_224>(HashInstance);
+		return std::make_shared<Keccak_224>(HashInstance);
 	}
 
 }; // end class Keccak_224
@@ -559,7 +553,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Keccak_256>(HashInstance);
+		return std::make_shared<Keccak_256>(HashInstance);
 	}
 
 }; // end class Keccak_256
@@ -580,7 +574,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Keccak_288>(HashInstance);
+		return std::make_shared<Keccak_288>(HashInstance);
 	}
 
 }; // end class Keccak_288
@@ -601,7 +595,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Keccak_384>(HashInstance);
+		return std::make_shared<Keccak_384>(HashInstance);
 	}
 
 }; // end class Keccak_384
@@ -622,15 +616,11 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Keccak_512>(HashInstance);
+		return std::make_shared<Keccak_512>(HashInstance);
 	}
 
 }; // end class Keccak_512
 
-#pragma endregion
-
-
-#pragma region Shake Family
 
 class Shake : public SHA3, public virtual IIXOF
 {
@@ -665,7 +655,7 @@ public:
 
 		Initialize();
 
-		return make_shared<HashResult>(temp);
+		return std::make_shared<HashResult>(temp);
 	} // end function TransformFinal
 
 	virtual UInt64 GetXOFSizeInBits() const
@@ -715,7 +705,7 @@ public:
 
 			UInt64 blockOffset = _digest_pos & 7;
 			UInt64 diff = (UInt64)_shake_buffer.size() - blockOffset;
-			UInt64 count = min(outputLength, diff);
+			UInt64 count = std::min(outputLength, diff);
 
 			memmove(&a_destination[(Int32)destinationOffset], &_shake_buffer[(Int32)blockOffset], (size_t)count);
 
@@ -800,12 +790,12 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<Shake_128>(Copy());
+		return std::make_shared<Shake_128>(Copy());
 	} // end function Clone
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<Shake_128>(Copy());
+		return std::make_shared<Shake_128>(Copy());
 	} // end function CloneXOF
 }; // end class Shake_128
 
@@ -842,19 +832,15 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<Shake_256>(Copy());
+		return std::make_shared<Shake_256>(Copy());
 	} // end function Clone
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<Shake_256>(Copy());
+		return std::make_shared<Shake_256>(Copy());
 	} // end function CloneXOF
 }; // end class Shake_256
 
-#pragma endregion
-
-
-#pragma region CShake Family
 
 class CShake : public Shake
 {
@@ -1007,12 +993,12 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<CShake_128>(Copy());
+		return std::make_shared<CShake_128>(Copy());
 	} // end function Clone
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<CShake_128>(Copy());
+		return std::make_shared<CShake_128>(Copy());
 	} // end function CloneXOF
 }; // end class CShake_128
 
@@ -1051,13 +1037,11 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<CShake_256>(Copy());
+		return std::make_shared<CShake_256>(Copy());
 	} // end function Clone
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<CShake_256>(Copy());
+		return std::make_shared<CShake_256>(Copy());
 	} // end function CloneXOF
 }; // end class CShake_256
-
-#pragma endregion

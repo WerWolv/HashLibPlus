@@ -237,13 +237,13 @@ protected:
 				UInt32 dd = state[d];
 
 				aa = aa + bb + x;
-				dd = Bits::RotateRight32(dd ^ aa, 16);
+				dd = Bits::rotateRight32(dd ^ aa, 16);
 				cc += dd;
-				bb = Bits::RotateRight32(bb ^ cc, 12);
+				bb = Bits::rotateRight32(bb ^ cc, 12);
 				aa = aa + bb + y;
-				dd = Bits::RotateRight32(dd ^ aa, 8);
+				dd = Bits::rotateRight32(dd ^ aa, 8);
 				cc += dd;
-				bb = Bits::RotateRight32(bb ^ cc, 7);
+				bb = Bits::rotateRight32(bb ^ cc, 7);
 
 				state[a] = aa;
 				state[b] = bb;
@@ -354,7 +354,7 @@ protected:
 				}
 
 				// Copy input bytes into the chunk block.
-				Int32 count = min(BlockSizeInBytes - _blockLen, dataLength);
+				Int32 count = std::min(BlockSizeInBytes - _blockLen, dataLength);
 				memmove(&_block[0] + _blockLen, dataPtr + index, count);
 
 				_blockLen += count;
@@ -413,7 +413,7 @@ protected:
 				throw ArgumentOutOfRangeHashLibException(MaximumOutputLengthExceeded);
 
 			UInt64 remainder = MaxDigestLengthInBytes - Offset;
-			UInt64 OutputLength = min(outputLength, remainder);
+			UInt64 OutputLength = std::min(outputLength, remainder);
 
 			while (outputLength > 0)
 			{
@@ -428,7 +428,7 @@ protected:
 
 				UInt64 diff = (UInt64)_block.size() - blockOffset;
 
-				Int32 count = (Int32)min(outputLength, diff);
+				Int32 count = (Int32)std::min(outputLength, diff);
 
 				memmove(&dest[0] + destOffset, &_block[0] + blockOffset, count);
 
@@ -640,7 +640,7 @@ public:
 			}
 
 			// Compress input bytes into the current chunk state.
-			Int32 count = min(ChunkSize - ChunkState.BytesConsumed, length);
+			Int32 count = std::min(ChunkSize - ChunkState.BytesConsumed, length);
 			ChunkState.Update(dataPtr2, count);
 
 			dataPtr2 += count;
@@ -658,14 +658,14 @@ public:
 
 		InternalDoOutput(tempRes, 0, (UInt64)tempRes.size());
 
-		IHashResult result = make_shared<HashResult>(tempRes);
+		IHashResult result = std::make_shared<HashResult>(tempRes);
 
 		Initialize();
 
 		return result;
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("%s_%u", _name.c_str(), GetHashSize() * 8);
 	}
@@ -679,7 +679,7 @@ public:
 		result.Used = Used;
 		result.SetBufferSize(GetBufferSize());
 
-		return make_shared<Blake3>(result);
+		return std::make_shared<Blake3>(result);
 	}
 
 	// maximum size in bytes this digest output reader can produce
@@ -781,7 +781,7 @@ public:
 		_xofSizeInBits = a_hash._xofSizeInBits;
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return _name;
 	}
@@ -814,12 +814,12 @@ public:
 
 	virtual IHash Clone() const
 	{		
-		return make_shared<Blake3XOF>(*this);
+		return std::make_shared<Blake3XOF>(*this);
 	}
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<Blake3XOF>(*this);
+		return std::make_shared<Blake3XOF>(*this);
 	}
 	
 	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length)
@@ -837,7 +837,7 @@ public:
 
 		Initialize();
 
-		IHashResult result = make_shared<HashResult>(buffer);
+		IHashResult result = std::make_shared<HashResult>(buffer);
 
 		return result;
 	}

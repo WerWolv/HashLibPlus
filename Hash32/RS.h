@@ -43,7 +43,7 @@ public:
 		HashInstance._hash = _hash;
 		HashInstance._a = _a;
 
-		IHash _hash = make_shared<RS>(HashInstance);
+		IHash _hash = std::make_shared<RS>(HashInstance);
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -57,7 +57,7 @@ public:
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

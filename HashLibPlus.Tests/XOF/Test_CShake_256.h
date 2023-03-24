@@ -8,16 +8,16 @@ namespace XOFTests
 {
 	TEST_CASE("CShake_256Tests")
 	{
-		string ExpectedString, ActualString;
+		std::string ExpectedString, ActualString;
 
 		HashLibByteArray EmailSignature =
 		{ 0x45, 0x6D, 0x61, 0x69, 0x6C, 0x20, 0x53, 0x69, 0x67, 0x6E, 0x61, 0x74, 0x75, 0x72, 0x65 };
 
-		string HashOfEmptyData = "46B9DD2B0BA88D13233B3FEB743EEB243FCD52EA62B81B82B50C27646ED5762F";
-		string HashOfDefaultData = "922279516284A34F384ADA776D3606FBEC97875E716E6EA0FFCF9372AAB696BE";
-		string HashOfOnetoNine = "24347B9C4B6DA2FC9CDE08C87F33EDD2E603C8DCD6840E6B3920F62B1DD69D7B";
-		string HashOfABCDE = "98AD79D7ED29F585AD1AFFBC2BB5B5F244917F97CEA8B5424FDC6F7377A22042";
-		string XofOfEmptyData =
+		std::string HashOfEmptyData = "46B9DD2B0BA88D13233B3FEB743EEB243FCD52EA62B81B82B50C27646ED5762F";
+		std::string HashOfDefaultData = "922279516284A34F384ADA776D3606FBEC97875E716E6EA0FFCF9372AAB696BE";
+		std::string HashOfOnetoNine = "24347B9C4B6DA2FC9CDE08C87F33EDD2E603C8DCD6840E6B3920F62B1DD69D7B";
+		std::string HashOfABCDE = "98AD79D7ED29F585AD1AFFBC2BB5B5F244917F97CEA8B5424FDC6F7377A22042";
+		std::string XofOfEmptyData =
 			"46B9DD2B0BA88D13233B3FEB743EEB243FCD52EA62B81B82B50C27646ED5762FD75DC4DDD8C0F200CB05019D67B592F6FC821C49479AB48640292EACB3B7C4BE141E96616FB1395"
 			"7692CC7EDD0B45AE3DC07223C8E92937BEF84BC0EAB862853349EC75546F58FB7C2775C38462C5010D846C185C15111E595522A6BCD16CF86F3D122109E3B1FDD943B6AEC468A2D"
 			"621A7C06C6A957C62B54DAFC3BE87567D677231395F6147293B68CEAB7A9E0C58D864E8EFDE4E1B9A46CBE854713672F5CAAAE314ED9083DAB4B099F8E300F01B8650F1F4B1D8F"
@@ -33,7 +33,7 @@ namespace XOFTests
 			"F24BC6B6D7A3D307CE7B1731E7DF59690D0530D7F2F5BB9ED37D180169A6C1BB022252AB8CC6860E3CF1F1414C90A19350B526E3741E500717769CDD09D268CC3F8"
 			"8B5D521C70AA8BBE631FBF08905A0A833D2005830717ADBA3233DD591BC505C7B13A9D5672AD4BE10C744AC33D9E92A23BDEE6E14D470EE7DC142FE4EFF4182A49BEEEC8E4";
 
-		string XofOfZeroToOneHundredAndNinetyNine = "07DC27B11E51FBAC75BC7B3C1D983E8B4B85FB1DEFAF218912AC864302730917";
+		std::string XofOfZeroToOneHundredAndNinetyNine = "07DC27B11E51FBAC75BC7B3C1D983E8B4B85FB1DEFAF218912AC864302730917";
 
 		IHash HashInstance = HashFactory::XOF::CreateCShake_256(EmptyBytes, EmptyBytes, 256);
 		IXOF XofInstance = HashFactory::XOF::CreateCShake_256(EmptyBytes, EmptyBytes, 8000);
@@ -42,32 +42,32 @@ namespace XOFTests
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}

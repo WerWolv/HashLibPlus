@@ -39,7 +39,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Tiger2>(HashInstance);
+		return std::make_shared<Tiger2>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -51,7 +51,7 @@ public:
 		BlockHash::Initialize();
 	} // end function Initialize
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("Tiger2_%u_%u", rounds, _hash_size * 8);
 	}
@@ -982,7 +982,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Tiger2_Base>(HashInstance);
+		return std::make_shared<Tiger2_Base>(HashInstance);
 	} // end function Clone
 }; // end class Tiger2_Base
 
@@ -999,7 +999,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Tiger2_128>(HashInstance);
+		return std::make_shared<Tiger2_128>(HashInstance);
 	} // end function Clone
 
 	Tiger2_128(const HashSize& a_hash_size, const HashRounds& a_rounds)
@@ -1008,17 +1008,17 @@ public:
 
 	static IHash CreateRound3()
 	{
-		return make_shared<Tiger2_128>(HashSize128, Rounds3);
+		return std::make_shared<Tiger2_128>(HashSize128, Rounds3);
 	}
 
 	static IHash CreateRound4()
 	{
-		return make_shared<Tiger2_128>(HashSize128, Rounds4);
+		return std::make_shared<Tiger2_128>(HashSize128, Rounds4);
 	}
 
 	static IHash CreateRound5()
 	{
-		return make_shared<Tiger2_128>(HashSize128, Rounds5);
+		return std::make_shared<Tiger2_128>(HashSize128, Rounds5);
 	}
 }; // end class Tiger2_128
 
@@ -1035,7 +1035,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Tiger2_160>(HashInstance);
+		return std::make_shared<Tiger2_160>(HashInstance);
 	} // end function Clone
 
 	Tiger2_160(const HashSize& a_hash_size, const HashRounds& a_rounds)
@@ -1044,17 +1044,17 @@ public:
 
 	static IHash CreateRound3()
 	{
-		return make_shared<Tiger2_160>(HashSize160, Rounds3);
+		return std::make_shared<Tiger2_160>(HashSize160, Rounds3);
 	}
 
 	static IHash CreateRound4()
 	{
-		return make_shared<Tiger2_160>(HashSize160, Rounds4);
+		return std::make_shared<Tiger2_160>(HashSize160, Rounds4);
 	}
 
 	static IHash CreateRound5()
 	{
-		return make_shared<Tiger2_160>(HashSize160, Rounds5);
+		return std::make_shared<Tiger2_160>(HashSize160, Rounds5);
 	}
 }; // end class Tiger2_160
 
@@ -1071,7 +1071,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Tiger2_192>(HashInstance);
+		return std::make_shared<Tiger2_192>(HashInstance);
 	} // end function Clone
 
 	Tiger2_192(const HashSize& a_hash_size, const HashRounds& a_rounds)
@@ -1080,16 +1080,16 @@ public:
 
 	static IHash CreateRound3()
 	{
-		return make_shared<Tiger2_192>(HashSize192, Rounds3);
+		return std::make_shared<Tiger2_192>(HashSize192, Rounds3);
 	}
 
 	static IHash CreateRound4()
 	{
-		return make_shared<Tiger2_192>(HashSize192, Rounds4);
+		return std::make_shared<Tiger2_192>(HashSize192, Rounds4);
 	}
 
 	static IHash CreateRound5()
 	{
-		return make_shared<Tiger2_192>(HashSize192, Rounds5);
+		return std::make_shared<Tiger2_192>(HashSize192, Rounds5);
 	}
 }; // end class Tiger2_192

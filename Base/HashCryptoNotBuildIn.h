@@ -96,7 +96,7 @@ public:
 
 		Initialize();
 
-		return make_shared<HashResult>(tempresult);
+		return std::make_shared<HashResult>(tempresult);
 	} // end function TransformFinal
 
 private:

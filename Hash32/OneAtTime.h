@@ -42,7 +42,7 @@ public:
 		OneAtTime HashInstance = OneAtTime();
 		HashInstance._hash = _hash;
 
-		IHash _hash = make_shared<OneAtTime>(HashInstance);
+		IHash _hash = std::make_shared<OneAtTime>(HashInstance);
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -59,7 +59,7 @@ public:
 		_hash = _hash ^ (_hash >> 11);
 		_hash = _hash + (_hash << 15);
 
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

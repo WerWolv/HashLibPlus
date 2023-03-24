@@ -156,7 +156,7 @@ public:
 
 		HashLibByteArray buffer = HashLibByteArray(GetHashSize());
 		Converters::ReadUInt64AsBytesLE(_v0 ^ _v1 ^ _v2 ^ _v3, buffer, 0);
-		IHashResult result = make_shared<HashResult>(buffer);
+		IHashResult result = std::make_shared<HashResult>(buffer);
 		Initialize();
 		return result;
 	} // end function TransformFinal
@@ -168,18 +168,18 @@ protected:
 	{
 		_v0 = _v0 + _v1;
 		_v2 = _v2 + _v3;
-		_v1 = Bits::RotateLeft64(_v1, 13);
-		_v3 = Bits::RotateLeft64(_v3, 16);
+		_v1 = Bits::rotateLeft64(_v1, 13);
+		_v3 = Bits::rotateLeft64(_v3, 16);
 		_v1 = _v1 ^ _v0;
 		_v3 = _v3 ^ _v2;
-		_v0 = Bits::RotateLeft64(_v0, 32);
+		_v0 = Bits::rotateLeft64(_v0, 32);
 		_v2 = _v2 + _v1;
 		_v0 = _v0 + _v3;
-		_v1 = Bits::RotateLeft64(_v1, 17);
-		_v3 = Bits::RotateLeft64(_v3, 21);
+		_v1 = Bits::rotateLeft64(_v1, 17);
+		_v3 = Bits::rotateLeft64(_v3, 21);
 		_v1 = _v1 ^ _v2;
 		_v3 = _v3 ^ _v0;
-		_v2 = Bits::RotateLeft64(_v2, 32);
+		_v2 = Bits::rotateLeft64(_v2, 32);
 	} // end function Compress
 
 	inline void CompressTimes(const Int32 a_times)
@@ -370,7 +370,7 @@ public:
 
 		HashLibByteArray buffer = HashLibByteArray(GetHashSize());
 		Converters::ReadUInt64AsBytesLE(_v0 ^ _v1 ^ _v2 ^ _v3, buffer, 0);
-		IHashResult result = make_shared<HashResult>(buffer);
+		IHashResult result = std::make_shared<HashResult>(buffer);
 		Initialize();
 		return result;
 	} // end function TransformFinal
@@ -401,14 +401,14 @@ public:
 	
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<SipHash64_2_4>(Copy());
+		IHash _hash = std::make_shared<SipHash64_2_4>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<SipHash64_2_4>(Copy());
+		IHashWithKey _hash = std::make_shared<SipHash64_2_4>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}

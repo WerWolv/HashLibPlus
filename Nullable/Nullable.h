@@ -62,11 +62,6 @@ public:
 		return _value;
 	} // end operator T()
 
-	operator Nullable<T>() const
-	{
-		return *this;
-	} // end operator Nullable<T>()
-
 	Nullable<T> operator+(const Nullable<T>& aValue)
 	{
 		Nullable<T> result = Nullable<T>();
@@ -82,7 +77,7 @@ public:
 				return result.SetValue(NewAddInt(GetValue(), aValue.GetValue()));
 			if (typeid(T) == typeid(float))
 				return result.SetValue(AddFloat(GetValue(), aValue.GetValue()));
-			if (typeid(T) == typeid(string))
+			if (typeid(T) == typeid(std::string))
 				return result.SetValue(AddString(GetValue(), aValue.GetValue()));
 			if (typeid(T) == typeid(Int64))
 				return result.SetValue(AddInt64(GetValue(), aValue.GetValue()));
@@ -111,7 +106,7 @@ private:
 
 	static T AddString(const Nullable<T>& aString, const Nullable<T>& bString)
 	{
-		string _Value = string(aString) + string(bString);
+        std::string _Value = string(aString) + string(bString);
 		return CastBack(_Value);
 	} // end function AddString
 
@@ -157,7 +152,7 @@ private:
 		else if (typeid(T) == typeid(UInt64));
 		else if (typeid(T) == typeid(float));
 		else if (typeid(T) == typeid(double));
-		else if (typeid(T) == typeid(string));
+		else if (typeid(T) == typeid(std::string));
 		else throw UnsupportedTypeHashLibException(UnsupportedType);
 	} // end function CheckType
 
@@ -178,9 +173,9 @@ private:
 
 private:
 	T _value;
-	string _initValue;
+    std::string _initValue;
 	T _default;
-	string _initDefault;
+    std::string _initDefault;
 
 	//static const char *CannotAssignPointerToNullable;
 	static const char* UnsupportedType;

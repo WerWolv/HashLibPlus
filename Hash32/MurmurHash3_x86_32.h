@@ -44,7 +44,7 @@ public:
 
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<MurmurHash3_x86_32>(Copy());
+		IHashWithKey _hash = std::make_shared<MurmurHash3_x86_32>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -52,7 +52,7 @@ public:
 
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<MurmurHash3_x86_32>(Copy());
+		IHash _hash = std::make_shared<MurmurHash3_x86_32>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -127,7 +127,7 @@ public:
 	{
 		Finish();
 
-		IHashResult result = make_shared<HashResult>(_h);
+		IHashResult result = std::make_shared<HashResult>(_h);
 
 		Initialize();
 
@@ -155,11 +155,11 @@ private:
 		UInt32 k = a_data;
 		
 		k = k * C1;
-		k = Bits::RotateLeft32(k, 15);
+		k = Bits::rotateLeft32(k, 15);
 		k = k * C2;
 
 		_h = _h ^ k;
-		_h = Bits::RotateLeft32(_h, 13);
+		_h = Bits::rotateLeft32(_h, 13);
 		_h = (_h * 5) + C3;
 	} // end function TransformUInt32Fast
 
@@ -193,7 +193,7 @@ private:
 				 k = k ^ (_buf[1] << 8);
 				 k = k ^ _buf[0];
 				 k = k * C1;
-				 k = Bits::RotateLeft32(k, 15);
+				 k = Bits::rotateLeft32(k, 15);
 				 k = k * C2;
 				 _h = _h ^ k;
 				 break;
@@ -202,7 +202,7 @@ private:
 				 k = k ^ (_buf[1] << 8);
 				 k = k ^ _buf[0];
 				 k = k * C1;
-				 k = Bits::RotateLeft32(k, 15);
+				 k = Bits::rotateLeft32(k, 15);
 				 k = k * C2;
 				 _h = _h ^ k;
 				 break;
@@ -210,7 +210,7 @@ private:
 			 case 1:
 				 k = k ^ _buf[0];
 				 k = k * C1;
-				 k = Bits::RotateLeft32(k, 15);
+				 k = Bits::rotateLeft32(k, 15);
 				 k = k * C2;
 				 _h = _h ^ k;
 			 } // end switch

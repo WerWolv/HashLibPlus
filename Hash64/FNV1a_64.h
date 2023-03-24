@@ -43,17 +43,17 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<FNV1a_64>(HashInstance);
+		return std::make_shared<FNV1a_64>(HashInstance);
 	}
 
 	virtual void Initialize()
 	{
-		_hash = 14695981039346656037;
+		_hash = 14695981039346656037ULL;
 	} // end function Initialize
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

@@ -30,14 +30,10 @@
 #include <vector>
 #include <string.h>
 
-using namespace std;
-
-#pragma region HashLibPlus Exceptions
-
-class HashLibException : public runtime_error
+class HashLibException : public std::runtime_error
 {
 public:
-	HashLibException(const string& text)
+	HashLibException(const std::string& text)
 		: runtime_error(text.c_str())
 	{}  // end constructor
 
@@ -49,7 +45,7 @@ public:
 class InvalidOperationHashLibException : public HashLibException
 {
 public:
-	InvalidOperationHashLibException(const string& text)
+	InvalidOperationHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -61,7 +57,7 @@ public:
 class IndexOutOfRangeHashLibException : public HashLibException
 {
 public:
-	IndexOutOfRangeHashLibException(const string& text)
+	IndexOutOfRangeHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -73,7 +69,7 @@ public:
 class ArgumentInvalidHashLibException : public HashLibException
 {
 public:
-	ArgumentInvalidHashLibException(const string& text)
+	ArgumentInvalidHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -85,7 +81,7 @@ public:
 class ArgumentHashLibException : public HashLibException
 {
 public:
-	ArgumentHashLibException(const string& text)
+	ArgumentHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -97,7 +93,7 @@ public:
 class ArgumentNullHashLibException : HashLibException
 {
 public:
-	ArgumentNullHashLibException(const string& text)
+	ArgumentNullHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -109,7 +105,7 @@ public:
 class ArgumentOutOfRangeHashLibException : public HashLibException
 {
 public:
-	ArgumentOutOfRangeHashLibException(const string& text)
+	ArgumentOutOfRangeHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -121,7 +117,7 @@ public:
 class NullReferenceHashLibException : public HashLibException
 {
 public:
-	NullReferenceHashLibException(const string& text)
+	NullReferenceHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -133,7 +129,7 @@ public:
 class UnsupportedTypeHashLibException : public HashLibException
 {
 public:
-	UnsupportedTypeHashLibException(const string& text)
+	UnsupportedTypeHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -145,7 +141,7 @@ public:
 class NotImplementedHashLibException : public HashLibException
 {
 public:
-	NotImplementedHashLibException(const string& text)
+	NotImplementedHashLibException(const std::string& text)
 		: HashLibException(text)
 	{}
 
@@ -154,10 +150,7 @@ public:
 	{}
 }; // end class NotImplementedHashLibException
 
-#pragma endregion
 
-
-#pragma region Integer Types
 
 /// <summary>
 /// Represents a Byte.
@@ -195,57 +188,51 @@ using Int64 = int64_t;
 /// </summary>
 using UInt64 = uint64_t;
 
-#pragma endregion
-
-
-#pragma region HashLibPlus Types
 
 /// <summary>
 /// Represents a dynamic array of Byte.
 /// </summary>
-using HashLibByteArray = vector<byte>;
+using HashLibByteArray = std::vector<byte>;
 
 /// <summary>
 /// Represents a dynamic array of UInt32.
 /// </summary>
-using HashLibUInt32Array = vector<UInt32>;
+using HashLibUInt32Array = std::vector<UInt32>;
 
 /// <summary>
 /// Represents a dynamic array of UInt64.
 /// </summary>
-using HashLibUInt64Array = vector<UInt64>;
+using HashLibUInt64Array = std::vector<UInt64>;
 
 /// <summary>
 /// Represents a dynamic array of String.
 /// </summary>
-using HashLibStringArray = vector<string>;
+using HashLibStringArray = std::vector<std::string>;
 
-using HashLibMatrixStringArray = vector<HashLibStringArray>;
+using HashLibMatrixStringArray = std::vector<HashLibStringArray>;
 
 /// <summary>
 /// Represents a dynamic array of Char.
 /// </summary>
-using HashLibCharArray = vector<char>;
+using HashLibCharArray = std::vector<char>;
 
 /// <summary>
 /// Represents a dynamic array of array of UInt8.
 /// </summary>
-using HashLibMatrixByteArray = vector<HashLibByteArray>;
+using HashLibMatrixByteArray = std::vector<HashLibByteArray>;
 
 /// <summary>
 /// Represents a dynamic array of array of UInt32.
 /// </summary>
-using HashLibMatrixUInt32Array = vector<HashLibUInt32Array>;
+using HashLibMatrixUInt32Array = std::vector<HashLibUInt32Array>;
 
 /// <summary>
 /// Represents a dynamic array of array of UInt64.
 /// </summary>
-using HashLibMatrixUInt64Array = vector<HashLibUInt64Array>;
+using HashLibMatrixUInt64Array = std::vector<HashLibUInt64Array>;
 
 template<class T>
-using HashLibGenericArray = vector<T>;
-
-#pragma endregion
+using HashLibGenericArray = std::vector<T>;
 
 
 /// <summary>

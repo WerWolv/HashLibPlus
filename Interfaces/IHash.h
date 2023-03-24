@@ -28,22 +28,20 @@
 #include "IHashResult.h"
 #include "../Utils/HashLibTypes.h"
 
-using namespace std;
-
 class IIHash;
 
-typedef shared_ptr<IIHash> IHash;
+typedef std::shared_ptr<IIHash> IHash;
 
 class IIHash
 {
-	friend ostream& operator<<(ostream& output, const IHash& _hash)
+	friend std::ostream& operator<<(std::ostream& output, const IHash& _hash)
 	{
 		output << _hash->GetName();
 		return output;
 	}
 
 public:
-	virtual string GetName() const = 0;
+	virtual std::string GetName() const = 0;
 	virtual Int32 GetBlockSize() const = 0;
 	virtual Int32 GetHashSize() const = 0;
 	virtual Int32 GetBufferSize() const = 0;
@@ -51,11 +49,11 @@ public:
 
 	virtual IHash Clone() const = 0;
 
-	virtual IHashResult ComputeString(const string& a_data) = 0;
+	virtual IHashResult ComputeString(const std::string& a_data) = 0;
 	virtual IHashResult ComputeBytes(const HashLibByteArray& a_data) = 0;
 	virtual IHashResult ComputeUntyped(const void* a_data, const Int64 a_length) = 0;
-	virtual IHashResult ComputeStream(ifstream& a_stream, const Int64 a_length = -1) = 0;
-	virtual IHashResult ComputeFile(const string& a_file_name,
+	virtual IHashResult ComputeStream(std::ifstream& a_stream, const Int64 a_length = -1) = 0;
+	virtual IHashResult ComputeFile(const std::string& a_file_name,
 		const Int64 a_from = 0, const Int64 a_length = -1) = 0;
 
 	virtual void Initialize() = 0;
@@ -68,9 +66,9 @@ public:
 
 	virtual IHashResult TransformFinal() = 0;
 
-	virtual void TransformString(const string& a_data) = 0;
-	virtual void TransformStream(ifstream& a_stream, const Int64 a_length = -1) = 0;
-	virtual void TransformFile(const string& a_file_name,
+	virtual void TransformString(const std::string& a_data) = 0;
+	virtual void TransformStream(std::ifstream& a_stream, const Int64 a_length = -1) = 0;
+	virtual void TransformFile(const std::string& a_file_name,
 		const Int64 a_from = 0, const Int64 a_length = -1) = 0;
 
 }; // end class IHash

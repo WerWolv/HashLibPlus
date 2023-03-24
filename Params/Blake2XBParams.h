@@ -41,8 +41,8 @@ public:
 
 	Blake2XBConfig(const IBlake2BConfig config, const IBlake2BTreeConfig treeConfig)
 	{
-		_config = ::move(config);
-		_treeConfig = ::move(treeConfig);
+		_config = std::move(config);
+		_treeConfig = std::move(treeConfig);
 	}
 
 	virtual IBlake2BConfig GetConfig() const
@@ -67,24 +67,24 @@ public:
 
 	virtual void SetConfig(const IBlake2BConfig value)
 	{
-		_config = ::move(value);
+		_config = std::move(value);
 	}
 
 	virtual void SetTreeConfig(const IBlake2BTreeConfig value) 
 	{
-		_treeConfig = ::move(value);
+		_treeConfig = std::move(value);
 	}
 
 	virtual IBlake2XBConfig Clone() const
 	{
-		return make_shared<Blake2XBConfig>(
+		return std::make_shared<Blake2XBConfig>(
 			_config ? _config->Clone() : nullptr, 
 			_treeConfig ? _treeConfig->Clone() : nullptr);
 	}
 
 	static IBlake2XBConfig CreateBlake2XBConfig(IBlake2BConfig config, IBlake2BTreeConfig treeConfig)
 	{
-		return make_shared<Blake2XBConfig>(config, treeConfig);
+		return std::make_shared<Blake2XBConfig>(config, treeConfig);
 	}
 
 }; // end class 

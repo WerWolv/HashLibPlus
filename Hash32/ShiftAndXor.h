@@ -42,7 +42,7 @@ public:
 		ShiftAndXor HashInstance = ShiftAndXor();
 		HashInstance._hash = _hash;
 
-		IHash _hash = make_shared<ShiftAndXor>(HashInstance);
+		IHash _hash = std::make_shared<ShiftAndXor>(HashInstance);
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -55,7 +55,7 @@ public:
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

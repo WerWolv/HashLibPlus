@@ -42,13 +42,13 @@ public:
 		const UInt64 _check, const HashLibStringArray& _Names)
 		: Hash(4, 1)
 	{
-		_crcAlgorithm = make_shared<_CRC>(32, _poly, _Init, _refIn, _refOut, _XorOut, _check, _Names);
+		_crcAlgorithm = std::make_shared<_CRC>(32, _poly, _Init, _refIn, _refOut, _XorOut, _check, _Names);
 	} // end constructor
 
 	~_CRC32()
 	{} // end destructor
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return _crcAlgorithm->GetName();
 	}

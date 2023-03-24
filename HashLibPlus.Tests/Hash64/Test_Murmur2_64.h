@@ -8,11 +8,11 @@ namespace Hash64Tests
 {
 	TEST_CASE("Murmur2_64Tests")
 	{
-		string HashOfEmptyData = "0000000000000000";
-		string HashOfDefaultData = "831EFD69DC9E99F9";
-		string HashOfOnetoNine = "4977490251674330";
-		string HashOfABCDE = "1182974836D6DBB7";
-		string HashOfDefaultDataWithEightByteKey = "FF0A342F0AF9ADC6";
+		std::string HashOfEmptyData = "0000000000000000";
+		std::string HashOfDefaultData = "831EFD69DC9E99F9";
+		std::string HashOfOnetoNine = "4977490251674330";
+		std::string HashOfABCDE = "1182974836D6DBB7";
+		std::string HashOfDefaultDataWithEightByteKey = "FF0A342F0AF9ADC6";
 		
 		IHashWithKey HashInstance = HashFactory::Hash64::CreateMurmur2_64();
 
@@ -21,40 +21,40 @@ namespace Hash64Tests
 			IHashWithKey hashWithKey = HashInstance->CloneHashWithKey();
 			hashWithKey->SetKey(MaxUInt64Bytes);
 
-			string ActualString = hashWithKey->ComputeBytes(DefaultDataBytes)->ToString();
-			string ExpectedString = HashOfDefaultDataWithEightByteKey;
+			std::string ActualString = hashWithKey->ComputeBytes(DefaultDataBytes)->ToString();
+			std::string ExpectedString = HashOfDefaultDataWithEightByteKey;
 
 			REQUIRE(ExpectedString == ActualString);
 		}
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -62,10 +62,10 @@ namespace Hash64Tests
 		SECTION("TestEmptyStream")
 		{
 			// Read empty file to stream
-			ifstream stream("EmptyFile.txt");
+			std::ifstream stream("EmptyFile.txt");
 
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeStream(stream)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeStream(stream)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -79,8 +79,8 @@ namespace Hash64Tests
 			HashInstance->TransformString(DefaultData.substr(9, 3));
 			HashInstance->TransformString(DefaultData.substr(12));
 
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->TransformFinal()->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -105,8 +105,8 @@ namespace Hash64Tests
 
 				HashInstance->TransformBytes(ChunkedDataBytes, i, Count);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -115,7 +115,7 @@ namespace Hash64Tests
 		SECTION("TestAnotherChunkedDataIncrementalHash")
 		{
 			size_t x, size, i;
-			string temp;
+			std::string temp;
 			IHash HashInstanceCopy = nullptr;
 
 			HashInstanceCopy = HashInstance->Clone();
@@ -135,8 +135,8 @@ namespace Hash64Tests
 				temp = ChunkedData.substr((i - size), ChunkedData.size() - ((i - size)));
 				HashInstance->TransformString(temp);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -155,10 +155,10 @@ namespace Hash64Tests
 			Copy = Original->Clone();
 
 			Original->TransformBytes(ChunkTwo);
-			string String = Original->TransformFinal()->ToString();
+			std::string String = Original->TransformFinal()->ToString();
 
 			Copy->TransformBytes(ChunkTwo);
-			string ActualString = Copy->TransformFinal()->ToString();
+			std::string ActualString = Copy->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}

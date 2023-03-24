@@ -66,7 +66,7 @@ public:
 		
 		Converters::le32_copy(&derivationIv[0], 0, &ivWords[0], 0, Blake3::KeyLengthInBytes);
 		
-		_xof = make_shared<Blake3XOF>(32, ivWords, flagDeriveKeyMaterial);
+		_xof = std::make_shared<Blake3XOF>(32, ivWords, flagDeriveKeyMaterial);
 	}
 
 	virtual void Clear()
@@ -74,7 +74,7 @@ public:
 		ArrayUtils::zeroFill(_srcKey);
 	} //
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return "PBKDF_Blake3NotBuildIn";
 	}
@@ -85,7 +85,7 @@ public:
 		result._srcKey = _srcKey;
 		result._xof = _xof->CloneXOF();
 
-		return make_shared<PBKDF_Blake3NotBuildInAdapter>(result);
+		return std::make_shared<PBKDF_Blake3NotBuildInAdapter>(result);
 	} //
 
 	virtual HashLibByteArray GetBytes(const Int32 bc)

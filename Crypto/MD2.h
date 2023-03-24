@@ -47,7 +47,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<MD2>(HashInstance);
+		return std::make_shared<MD2>(HashInstance);
 	}
 
 	virtual void Initialize()

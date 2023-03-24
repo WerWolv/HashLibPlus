@@ -51,7 +51,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<RadioGatun64>(HashInstance);
+		return std::make_shared<RadioGatun64>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -149,7 +149,7 @@ private:
 		i = 0;
 		while (i < 19)
 		{
-			_mill[i] = Bits::RotateRight64(a[(7 * i) % 19], (i * (i + 1)) >> 1);
+			_mill[i] = Bits::rotateRight64(a[(7 * i) % 19], (i * (i + 1)) >> 1);
 			i++;
 		} // end while
 

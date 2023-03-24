@@ -237,19 +237,19 @@ public:
 		return *(float *)(&val);
 	} // end function ToFloat
 	
-	inline static string ToString(const HashLibByteArray &value)
+	inline static std::string ToString(const HashLibByteArray &value)
 	{
 		return BitConverter::ToString(value, 0);
 	} // end function ToString
 	
-	inline static string ToString(const HashLibByteArray &value, const Int32 StartIndex)
+	inline static std::string ToString(const HashLibByteArray &value, const Int32 StartIndex)
 	{
 		return BitConverter::ToString((byte *)&value[0], StartIndex, (Int32)value.size() - StartIndex);
 	} // end function ToString
 
-	inline static string ToString(const byte *value, const Int32 StartIndex, const Int32 Length)
+	inline static std::string ToString(const byte *value, const Int32 StartIndex, const Int32 Length)
 	{
-		string result;
+        std::string result;
 
 		Int32 chArrayLength = Length * 3;
 
@@ -269,7 +269,7 @@ public:
 			Idx += 3;
 		} // end while
 		
-		result = string((char *)&chArray[0], size_t(chArrayLength) - 1);
+		result = std::string((char *)&chArray[0], size_t(chArrayLength) - 1);
 
 		delete[] chArray;
 

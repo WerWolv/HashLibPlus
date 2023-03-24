@@ -8,16 +8,16 @@ namespace XOFTests
 {
 	TEST_CASE("CShake_128Tests")
 	{
-		string ExpectedString, ActualString;
+		std::string ExpectedString, ActualString;
 
 		HashLibByteArray EmailSignature =
 		{ 0x45, 0x6D, 0x61, 0x69, 0x6C, 0x20, 0x53, 0x69, 0x67, 0x6E, 0x61, 0x74, 0x75, 0x72, 0x65 };
 		
-		string HashOfEmptyData = "7F9C2BA4E88F827D616045507605853E";
-		string HashOfDefaultData = "10F69AD42A1BDE254004CD13B5176D6D";
-		string HashOfOnetoNine = "1ACA6B9E651B5F20079A305CA8F86D39";
-		string HashOfABCDE = "907C1B3F41470218D0DFD8FEDDDA93C1";
-		string XofOfEmptyData =
+		std::string HashOfEmptyData = "7F9C2BA4E88F827D616045507605853E";
+		std::string HashOfDefaultData = "10F69AD42A1BDE254004CD13B5176D6D";
+		std::string HashOfOnetoNine = "1ACA6B9E651B5F20079A305CA8F86D39";
+		std::string HashOfABCDE = "907C1B3F41470218D0DFD8FEDDDA93C1";
+		std::string XofOfEmptyData =
 			"7F9C2BA4E88F827D616045507605853ED73B8093F6EFBC88EB1A6EACFA66EF263CB1EEA988004B93103CFB0AEEFD2A686E"
 			"01FA4A58E8A3639CA8A1E3F9AE57E235B8CC873C23DC62B8D260169AFA2F75AB916A58D974918835D25E6A435085B2BADFD6DFAAC359A5EFBB7BCC"
 			"4B59D538DF9A04302E10C8BC1CBF1A0B3A5120EA17CDA7CFAD765F5623474D368CCCA8AF0007CD9F5E4C849F167A580B14AABDEFAEE7EEF47CB0FCA9767BE1FDA69419DFB927E9DF07348B196691ABAEB580B32DEF58538B8D23F87732EA63B02B4FA0F4873360E2841928CD60DD4CEE8CC0D4C922A96188D0326"
@@ -31,7 +31,7 @@ namespace XOFTests
 			"5E72DE36434584EF567C643D344294E8B2086B87F69C3BDC0D5969857082987CA1C63B7182E86898FB9B8039E75EDA219E289331610369271867B145B2908293963CD677C9A1AE6CEB28289B254CDEB76B12F33CE5CF3743131BFB550F0197BFE16AFF92367227ADC5074FE3DC0D8D116253980A38636BC9D29F79"
 			"9BBB2D76A0A5F138B8C73BA484D6588764E331D70C378C0641F2D9";
 
-		string XofOfZeroToOneHundredAndNinetyNine = "C5221D50E4F822D96A2E8881A961420F";
+		std::string XofOfZeroToOneHundredAndNinetyNine = "C5221D50E4F822D96A2E8881A961420F";
 
 		IHash HashInstance = HashFactory::XOF::CreateCShake_128(EmptyBytes, EmptyBytes, 128);
 		IXOF XofInstance = HashFactory::XOF::CreateCShake_128(EmptyBytes, EmptyBytes, 8000);
@@ -40,32 +40,32 @@ namespace XOFTests
 				
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}

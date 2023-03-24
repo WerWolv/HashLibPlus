@@ -24,7 +24,7 @@ HashLibByteArray GenerateRepeatingBytes(const byte start, const UInt32 count) {
 } // end function GenerateRepeatingBytes
 
 // Global Constants
-const vector<Int32> ChunkSizes = {
+const std::vector<Int32> ChunkSizes = {
 			1, // Test many chunk of < sizeof(int)
 			2, // Test many chunk of < sizeof(int)
 			3, // Test many chunk of < sizeof(int)
@@ -104,15 +104,15 @@ const vector<Int32> ChunkSizes = {
 // 1023, 1024};
 
 const HashLibByteArray BytesABCDE = { 0x61, 0x62, 0x63, 0x64, 0x65 };
-const string EmptyData = "";
-const string DefaultData = "HashLib4Pascal";
-const string OneToNine = "123456789";
-const string ChunkedData =
+const std::string EmptyData = "";
+const std::string DefaultData = "HashLib4Pascal";
+const std::string OneToNine = "123456789";
+const std::string ChunkedData =
 "HashLib4Pascal012345678HashLib4Pascal012345678HashLib4Pascal012345678HashLib4Pascal012345678";
-const string EEAABEEF = "EEAABEEF";
-const string ZeroToThreeInHex = "00010203";
-const string ZeroToFifteenInHex = "000102030405060708090A0B0C0D0E0F";
-const string ZeroToOneHundredAndNinetyNineInHex =
+const std::string EEAABEEF = "EEAABEEF";
+const std::string ZeroToThreeInHex = "00010203";
+const std::string ZeroToFifteenInHex = "000102030405060708090A0B0C0D0E0F";
+const std::string ZeroToOneHundredAndNinetyNineInHex =
 "000102030405060708090A0B0C0D0E0F"
 "101112131415161718191A1B1C1D1E1F" "202122232425262728292A2B2C2D2E2F"
 "303132333435363738393A3B3C3D3E3F" "404142434445464748494A4B4C4D4E4F"
@@ -191,11 +191,11 @@ int checkEmptyFileExist()
 {
 	const char* filename = "EmptyFile.txt";
 
-	ifstream file(filename);
+    std::ifstream file(filename);
 	if (!file)
 	{
 		// create file
-		file.open(filename, fstream::app); 
+		file.open(filename, std::fstream::app);
 		file.close();
 		return 0;
 	}

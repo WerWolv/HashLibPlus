@@ -64,8 +64,8 @@ public:
 	{
 		_name = __func__;
 
-		_config = ::move(a_Config);
-		_treeConfig = ::move(a_TreeConfig);
+		_config = std::move(a_Config);
+		_treeConfig = std::move(a_TreeConfig);
 		_doTransformKeyBlock = a_DoTransformKeyBlock;
 
 		_state.resize(8);
@@ -99,7 +99,7 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<Blake2B>(CloneInternal());
+		return std::make_shared<Blake2B>(CloneInternal());
 	}
 
 	virtual void Initialize()
@@ -203,14 +203,14 @@ public:
 
 		Converters::le64_copy(&_state[0], 0, &tempRes[0], 0, (Int32)tempRes.size());
 
-		IHashResult result = make_shared<HashResult>(tempRes);
+		IHashResult result = std::make_shared<HashResult>(tempRes);
 
 		Initialize();
 
 		return result;
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("%s_%u", _name.c_str(), GetHashSize() * 8);
 	}
@@ -289,1357 +289,1357 @@ private:
 		// G(0, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m0;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m1;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(0, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m2;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m3;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(0, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m4;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m5;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(0, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m6;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m7;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(0, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m8;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m9;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(0, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m10;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m11;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(0, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m12;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m13;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(0, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m14;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m15;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(1)
 		// G(1, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m14;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m10;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(1, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m4;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m8;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(1, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m9;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m15;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(1, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m13;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m6;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(1, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m1;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m12;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(1, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m0;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m2;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(1, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m11;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m7;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(1, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m5;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m3;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(2)
 		// G(2, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m11;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m8;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(2, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m12;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m0;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(2, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m5;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m2;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(2, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m15;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m13;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(2, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m10;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m14;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(2, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m3;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m6;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(2, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m7;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m1;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(2, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m9;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m4;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(3)
 		// G(3, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m7;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m9;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(3, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m3;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m1;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(3, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m13;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m12;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(3, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m11;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m14;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(3, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m2;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m6;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(3, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m5;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m10;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(3, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m4;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m0;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(3, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m15;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m8;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(4)
 		// G(4, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m9;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m0;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(4, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m5;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m7;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(4, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m2;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m4;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(4, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m10;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m15;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(4, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m14;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m1;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(4, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m11;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m12;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(4, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m6;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m8;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(4, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m3;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m13;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(5)
 		// G(5, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m2;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m12;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(5, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m6;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m10;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(5, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m0;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m11;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(5, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m8;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m3;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(5, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m4;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m13;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(5, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m7;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m5;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(5, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m15;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m14;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(5, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m1;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m9;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(6)
 		// G(6, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m12;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m5;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(6, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m1;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m15;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(6, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m14;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m13;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(6, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m4;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m10;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(6, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m0;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m7;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(6, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m6;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m3;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(6, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m9;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m2;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(6, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m8;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m11;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(7)
 		// G(7, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m13;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m11;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(7, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m7;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m14;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(7, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m12;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m1;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(7, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m3;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m9;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(7, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m5;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m0;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(7, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m15;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m4;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(7, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m8;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m6;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(7, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m2;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m10;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(8)
 		// G(8, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m6;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m15;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(8, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m14;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m9;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(8, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m11;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m3;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(8, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m0;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m8;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(8, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m12;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m2;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(8, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m13;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m7;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(8, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m1;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m4;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(8, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m10;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m5;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(9)
 		// G(9, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m10;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m2;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(9, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m8;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m4;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(9, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m7;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m6;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(9, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m1;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m5;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(9, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m15;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m11;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(9, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m9;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m14;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(9, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m3;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m12;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(9, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m13;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m0;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(10)
 		// G(10, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m0;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m1;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(10, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m2;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m3;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(10, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m4;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m5;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(10, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m6;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m7;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(10, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m8;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m9;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(10, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m10;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m11;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(10, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m12;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m13;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(10, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m14;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m15;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// ##### Round(11)
 		// G(11, 0, v0, v4, v8, v12)
 		v0 = v0 + v4 + m14;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v0 = v0 + v4 + m10;
 		v12 = v12 ^ v0;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v8 = v8 + v12;
 		v4 = v4 ^ v8;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// G(11, 1, v1, v5, v9, v13)
 		v1 = v1 + v5 + m4;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v1 = v1 + v5 + m8;
 		v13 = v13 ^ v1;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v9 = v9 + v13;
 		v5 = v5 ^ v9;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(11, 2, v2, v6, v10, v14)
 		v2 = v2 + v6 + m9;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v2 = v2 + v6 + m15;
 		v14 = v14 ^ v2;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v10 = v10 + v14;
 		v6 = v6 ^ v10;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(11, 3, v3, v7, v11, v15)
 		v3 = v3 + v7 + m13;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v3 = v3 + v7 + m6;
 		v15 = v15 ^ v3;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v11 = v11 + v15;
 		v7 = v7 ^ v11;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(11, 4, v0, v5, v10, v15)
 		v0 = v0 + v5 + m1;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 32);
+		v15 = Bits::rotateRight64(v15, 32);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 24);
+		v5 = Bits::rotateRight64(v5, 24);
 		v0 = v0 + v5 + m12;
 		v15 = v15 ^ v0;
-		v15 = Bits::RotateRight64(v15, 16);
+		v15 = Bits::rotateRight64(v15, 16);
 		v10 = v10 + v15;
 		v5 = v5 ^ v10;
-		v5 = Bits::RotateRight64(v5, 63);
+		v5 = Bits::rotateRight64(v5, 63);
 
 		// G(11, 5, v1, v6, v11, v12)
 		v1 = v1 + v6 + m0;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 32);
+		v12 = Bits::rotateRight64(v12, 32);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 24);
+		v6 = Bits::rotateRight64(v6, 24);
 		v1 = v1 + v6 + m2;
 		v12 = v12 ^ v1;
-		v12 = Bits::RotateRight64(v12, 16);
+		v12 = Bits::rotateRight64(v12, 16);
 		v11 = v11 + v12;
 		v6 = v6 ^ v11;
-		v6 = Bits::RotateRight64(v6, 63);
+		v6 = Bits::rotateRight64(v6, 63);
 
 		// G(11, 6, v2, v7, v8, v13)
 		v2 = v2 + v7 + m11;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 32);
+		v13 = Bits::rotateRight64(v13, 32);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 24);
+		v7 = Bits::rotateRight64(v7, 24);
 		v2 = v2 + v7 + m7;
 		v13 = v13 ^ v2;
-		v13 = Bits::RotateRight64(v13, 16);
+		v13 = Bits::rotateRight64(v13, 16);
 		v8 = v8 + v13;
 		v7 = v7 ^ v8;
-		v7 = Bits::RotateRight64(v7, 63);
+		v7 = Bits::rotateRight64(v7, 63);
 
 		// G(11, 7, v3, v4, v9, v14)
 		v3 = v3 + v4 + m5;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 32);
+		v14 = Bits::rotateRight64(v14, 32);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 24);
+		v4 = Bits::rotateRight64(v4, 24);
 		v3 = v3 + v4 + m3;
 		v14 = v14 ^ v3;
-		v14 = Bits::RotateRight64(v14, 16);
+		v14 = Bits::rotateRight64(v14, 16);
 		v9 = v9 + v14;
 		v4 = v4 ^ v9;
-		v4 = Bits::RotateRight64(v4, 63);
+		v4 = Bits::rotateRight64(v4, 63);
 
 		// Finalization
 		_state[0] = _state[0] ^ v0 ^ v8;
@@ -1739,7 +1739,7 @@ private:
 		if (xofSizeInBytes == UInt64(UnknownDigestLengthInBytes))
 			return Blake2BHashSize;
 		
-		return (Int32)min((UInt64)Blake2BHashSize, diff);
+		return (Int32)std::min((UInt64)Blake2BHashSize, diff);
 	}
 
 	HashLibByteArray GetResult()
@@ -1762,19 +1762,19 @@ public:
 		_xofBuffer.resize(Blake2BHashSize);
 
 		// Create initial config for output hashes.
-		IBlake2BConfig tempC = ::move(config->GetConfig());
+		IBlake2BConfig tempC = std::move(config->GetConfig());
 
 		if (tempC == nullptr)
-			tempC = make_shared<Blake2BConfig>();
+			tempC = std::make_shared<Blake2BConfig>();
 
-		IBlake2BConfig temp = make_shared<Blake2BConfig>();
+		IBlake2BConfig temp = std::make_shared<Blake2BConfig>();
 		temp->SetSalt(tempC->GetSalt());
 		temp->SetPersonalization(tempC->GetPersonalization());
 
 		_outputConfig = Blake2XBConfig::CreateBlake2XBConfig(temp, Blake2BTreeConfig::GetDefaultTreeConfig());
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("%s_%s_%u", _name.c_str(), "XOFSizeInBytes",
 			dynamic_cast<const IIXOF*>(&(*this))->GetXOFSizeInBits() >> 3);
@@ -1803,7 +1803,7 @@ public:
 	Blake2XB Copy() const
 	{
 		// Xof Cloning
-		Blake2XB HashInstance = Blake2XB(make_shared<Blake2XBConfig>(_config, _treeConfig));
+		Blake2XB HashInstance = Blake2XB(std::make_shared<Blake2XBConfig>(_config, _treeConfig));
 		HashInstance.SetXOFSizeInBits(GetXOFSizeInBits());
 
 		// Blake2XB Cloning
@@ -1831,12 +1831,12 @@ public:
 
 	virtual IHash Clone() const
 	{	
-		return make_shared<Blake2XB>(Copy());
+		return std::make_shared<Blake2XB>(Copy());
 	}
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<Blake2XB>(Copy());
+		return std::make_shared<Blake2XB>(Copy());
 	}
 
 	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length)
@@ -1853,7 +1853,7 @@ public:
 
 		Initialize();
 
-		return make_shared<HashResult>(buffer);
+		return std::make_shared<HashResult>(buffer);
 	}
 
 	virtual UInt64 GetXOFSizeInBits() const
@@ -1915,7 +1915,7 @@ public:
 
 			UInt64 diff = _xofBuffer.size() - blockOffset;
 
-			UInt64 count = min(outputLength, diff);
+			UInt64 count = std::min(outputLength, diff);
 
 			memmove(&a_destination[destinationOffset], &_xofBuffer[blockOffset], (size_t)count);
 			

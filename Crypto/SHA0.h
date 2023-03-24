@@ -45,7 +45,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SHA0>(HashInstance);
+		return std::make_shared<SHA0>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -178,286 +178,286 @@ protected:
 		D = _state[3];
 		E = _state[4];
 
-		E = (data[0] + C1 + Bits::RotateLeft32(A, 5) +
+		E = (data[0] + C1 + Bits::rotateLeft32(A, 5) +
 			(D ^ (B & (C ^ D)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[1] + C1 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[1] + C1 + Bits::rotateLeft32(E, 5) +
 			(C ^ (A & (B ^ C)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[2] + C1 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[2] + C1 + Bits::rotateLeft32(D, 5) +
 			(B ^ (E & (A ^ B)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[3] + C1 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[3] + C1 + Bits::rotateLeft32(C, 5) +
 			(A ^ (D & (E ^ A)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[4] + C1 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[4] + C1 + Bits::rotateLeft32(B, 5) +
 			(E ^ (C & (D ^ E)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[5] + C1 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[5] + C1 + Bits::rotateLeft32(A, 5) +
 			(D ^ (B & (C ^ D)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[6] + C1 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[6] + C1 + Bits::rotateLeft32(E, 5) +
 			(C ^ (A & (B ^ C)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[7] + C1 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[7] + C1 + Bits::rotateLeft32(D, 5) +
 			(B ^ (E & (A ^ B)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[8] + C1 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[8] + C1 + Bits::rotateLeft32(C, 5) +
 			(A ^ (D & (E ^ A)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[9] + C1 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[9] + C1 + Bits::rotateLeft32(B, 5) +
 			(E ^ (C & (D ^ E)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[10] + C1 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[10] + C1 + Bits::rotateLeft32(A, 5) +
 			(D ^ (B & (C ^ D)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[11] + C1 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[11] + C1 + Bits::rotateLeft32(E, 5) +
 			(C ^ (A & (B ^ C)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[12] + C1 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[12] + C1 + Bits::rotateLeft32(D, 5) +
 			(B ^ (E & (A ^ B)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[13] + C1 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[13] + C1 + Bits::rotateLeft32(C, 5) +
 			(A ^ (D & (E ^ A)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[14] + C1 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[14] + C1 + Bits::rotateLeft32(B, 5) +
 			(E ^ (C & (D ^ E)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[15] + C1 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[15] + C1 + Bits::rotateLeft32(A, 5) +
 			(D ^ (B & (C ^ D)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[16] + C1 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[16] + C1 + Bits::rotateLeft32(E, 5) +
 			(C ^ (A & (B ^ C)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[17] + C1 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[17] + C1 + Bits::rotateLeft32(D, 5) +
 			(B ^ (E & (A ^ B)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[18] + C1 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[18] + C1 + Bits::rotateLeft32(C, 5) +
 			(A ^ (D & (E ^ A)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[19] + C1 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[19] + C1 + Bits::rotateLeft32(B, 5) +
 			(E ^ (C & (D ^ E)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[20] + C2 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[20] + C2 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[21] + C2 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[21] + C2 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[22] + C2 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[22] + C2 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[23] + C2 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[23] + C2 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[24] + C2 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[24] + C2 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[25] + C2 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[25] + C2 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[26] + C2 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[26] + C2 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[27] + C2 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[27] + C2 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[28] + C2 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[28] + C2 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[29] + C2 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[29] + C2 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[30] + C2 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[30] + C2 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[31] + C2 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[31] + C2 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[32] + C2 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[32] + C2 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[33] + C2 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[33] + C2 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[34] + C2 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[34] + C2 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[35] + C2 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[35] + C2 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[36] + C2 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[36] + C2 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[37] + C2 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[37] + C2 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[38] + C2 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[38] + C2 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[39] + C2 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[39] + C2 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[40] + C3 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[40] + C3 + Bits::rotateLeft32(A, 5) +
 			((B & C) | (D & (B | C)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[41] + C3 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[41] + C3 + Bits::rotateLeft32(E, 5) +
 			((A & B) | (C & (A | B)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[42] + C3 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[42] + C3 + Bits::rotateLeft32(D, 5) +
 			((E & A) | (B & (E | A)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[43] + C3 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[43] + C3 + Bits::rotateLeft32(C, 5) +
 			((D & E) | (A & (D | E)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[44] + C3 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[44] + C3 + Bits::rotateLeft32(B, 5) +
 			((C & D) | (E & (C | D)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[45] + C3 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[45] + C3 + Bits::rotateLeft32(A, 5) +
 			((B & C) | (D & (B | C)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[46] + C3 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[46] + C3 + Bits::rotateLeft32(E, 5) +
 			((A & B) | (C & (A | B)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[47] + C3 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[47] + C3 + Bits::rotateLeft32(D, 5) +
 			((E & A) | (B & (E | A)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[48] + C3 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[48] + C3 + Bits::rotateLeft32(C, 5) +
 			((D & E) | (A & (D | E)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[49] + C3 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[49] + C3 + Bits::rotateLeft32(B, 5) +
 			((C & D) | (E & (C | D)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[50] + C3 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[50] + C3 + Bits::rotateLeft32(A, 5) +
 			((B & C) | (D & (B | C)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[51] + C3 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[51] + C3 + Bits::rotateLeft32(E, 5) +
 			((A & B) | (C & (A | B)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[52] + C3 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[52] + C3 + Bits::rotateLeft32(D, 5) +
 			((E & A) | (B & (E | A)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[53] + C3 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[53] + C3 + Bits::rotateLeft32(C, 5) +
 			((D & E) | (A & (D | E)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[54] + C3 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[54] + C3 + Bits::rotateLeft32(B, 5) +
 			((C & D) | (E & (C | D)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[55] + C3 + Bits::RotateLeft32(A, 5) +
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[55] + C3 + Bits::rotateLeft32(A, 5) +
 			((B & C) | (D & (B | C)))) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[56] + C3 + Bits::RotateLeft32(E, 5) +
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[56] + C3 + Bits::rotateLeft32(E, 5) +
 			((A & B) | (C & (A | B)))) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[57] + C3 + Bits::RotateLeft32(D, 5) +
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[57] + C3 + Bits::rotateLeft32(D, 5) +
 			((E & A) | (B & (E | A)))) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[58] + C3 + Bits::RotateLeft32(C, 5) +
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[58] + C3 + Bits::rotateLeft32(C, 5) +
 			((D & E) | (A & (D | E)))) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[59] + C3 + Bits::RotateLeft32(B, 5) +
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[59] + C3 + Bits::rotateLeft32(B, 5) +
 			((C & D) | (E & (C | D)))) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[60] + C4 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[60] + C4 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[61] + C4 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[61] + C4 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[62] + C4 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[62] + C4 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[63] + C4 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[63] + C4 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[64] + C4 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[64] + C4 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[65] + C4 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[65] + C4 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[66] + C4 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[66] + C4 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[67] + C4 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[67] + C4 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[68] + C4 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[68] + C4 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[69] + C4 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[69] + C4 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[70] + C4 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[70] + C4 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[71] + C4 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[71] + C4 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[72] + C4 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[72] + C4 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[73] + C4 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[73] + C4 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[74] + C4 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[74] + C4 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
-		E = (data[75] + C4 + Bits::RotateLeft32(A, 5) + (B ^ C ^ D)) + E;
+		C = Bits::rotateLeft32(C, 30);
+		E = (data[75] + C4 + Bits::rotateLeft32(A, 5) + (B ^ C ^ D)) + E;
 
-		B = Bits::RotateLeft32(B, 30);
-		D = (data[76] + C4 + Bits::RotateLeft32(E, 5) + (A ^ B ^ C)) + D;
+		B = Bits::rotateLeft32(B, 30);
+		D = (data[76] + C4 + Bits::rotateLeft32(E, 5) + (A ^ B ^ C)) + D;
 
-		A = Bits::RotateLeft32(A, 30);
-		C = (data[77] + C4 + Bits::RotateLeft32(D, 5) + (E ^ A ^ B)) + C;
+		A = Bits::rotateLeft32(A, 30);
+		C = (data[77] + C4 + Bits::rotateLeft32(D, 5) + (E ^ A ^ B)) + C;
 
-		E = Bits::RotateLeft32(E, 30);
-		B = (data[78] + C4 + Bits::RotateLeft32(C, 5) + (D ^ E ^ A)) + B;
+		E = Bits::rotateLeft32(E, 30);
+		B = (data[78] + C4 + Bits::rotateLeft32(C, 5) + (D ^ E ^ A)) + B;
 
-		D = Bits::RotateLeft32(D, 30);
-		A = (data[79] + C4 + Bits::RotateLeft32(B, 5) + (C ^ D ^ E)) + A;
+		D = Bits::rotateLeft32(D, 30);
+		A = (data[79] + C4 + Bits::rotateLeft32(B, 5) + (C ^ D ^ E)) + A;
 
-		C = Bits::RotateLeft32(C, 30);
+		C = Bits::rotateLeft32(C, 30);
 
 		_state[0] = _state[0] + A;
 		_state[1] = _state[1] + B;

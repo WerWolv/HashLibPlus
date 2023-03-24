@@ -59,7 +59,7 @@ public:
 		CompressTimes(_fr);
 		Converters::ReadUInt64AsBytesLE(_v0 ^ _v1 ^ _v2 ^ _v3, buffer, 8);
 		
-		IHashResult result = make_shared<HashResult>(buffer);
+		IHashResult result = std::make_shared<HashResult>(buffer);
 		Initialize();
 		return result;
 	}
@@ -91,7 +91,7 @@ public:
 		
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SipHash128_2_4>(HashInstance);
+		return std::make_shared<SipHash128_2_4>(HashInstance);
 	}
 
 	virtual IHashWithKey CloneHashWithKey() const
@@ -111,6 +111,6 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SipHash128_2_4>(HashInstance);
+		return std::make_shared<SipHash128_2_4>(HashInstance);
 	}
 };

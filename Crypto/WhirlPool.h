@@ -45,7 +45,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<WhirlPool>(HashInstance);
+		return std::make_shared<WhirlPool>(HashInstance);
 	}
 
 	virtual void Initialize()

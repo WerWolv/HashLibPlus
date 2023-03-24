@@ -45,7 +45,7 @@ public:
 		BlockHash::Initialize();
 	} // end function Initialize
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("Haval_%u_%u", _rounds, GetHashSize() * 8);
 	}
@@ -116,13 +116,13 @@ private:
 		{
 			t = (_hash[7] & 0x000000FF) | (_hash[6] & 0xFF000000) |
 				(_hash[5] & 0x00FF0000) | (_hash[4] & 0x0000FF00);
-			_hash[0] = _hash[0] + Bits::RotateRight32(t, 8);
+			_hash[0] = _hash[0] + Bits::rotateRight32(t, 8);
 			t = (_hash[7] & 0x0000FF00) | (_hash[6] & 0x000000FF) |
 				(_hash[5] & 0xFF000000) | (_hash[4] & 0x00FF0000);
-			_hash[1] = _hash[1] + Bits::RotateRight32(t, 16);
+			_hash[1] = _hash[1] + Bits::rotateRight32(t, 16);
 			t = (_hash[7] & 0x00FF0000) | (_hash[6] & 0x0000FF00) |
 				(_hash[5] & 0x000000FF) | (_hash[4] & 0xFF000000);
-			_hash[2] = _hash[2] + Bits::RotateRight32(t, 24);
+			_hash[2] = _hash[2] + Bits::rotateRight32(t, 24);
 			t = (_hash[7] & 0xFF000000) | (_hash[6] & 0x00FF0000) |
 				(_hash[5] & 0x0000FF00) | (_hash[4] & 0x000000FF);
 			_hash[3] = _hash[3] + t;
@@ -132,10 +132,10 @@ private:
 		{
 			t = UInt32(_hash[7] & 0x3F) | UInt32(_hash[6] & (0x7F << 25))
 				| UInt32(_hash[5] & (0x3F << 19));
-			_hash[0] = _hash[0] + Bits::RotateRight32(t, 19);
+			_hash[0] = _hash[0] + Bits::rotateRight32(t, 19);
 			t = UInt32(_hash[7] & (0x3F << 6)) | UInt32(_hash[6] & 0x3F) |
 				UInt32(_hash[5] & (0x7F << 25));
-			_hash[1] = _hash[1] + Bits::RotateRight32(t, 25);
+			_hash[1] = _hash[1] + Bits::rotateRight32(t, 25);
 			t = (_hash[7] & (0x7F << 12)) | (_hash[6] & (0x3F << 6)) |
 				(_hash[5] & 0x3F);
 			_hash[2] = _hash[2] + t;
@@ -151,7 +151,7 @@ private:
 		else if (GetHashSize() == 24)
 		{
 			t = UInt32(_hash[7] & 0x1F) | UInt32(_hash[6] & (0x3F << 26));
-			_hash[0] = _hash[0] + Bits::RotateRight32(t, 26);
+			_hash[0] = _hash[0] + Bits::rotateRight32(t, 26);
 			t = (_hash[7] & (0x1F << 5)) | (_hash[6] & 0x1F);
 			_hash[1] = _hash[1] + t;
 			t = (_hash[7] & (0x3F << 10)) | (_hash[6] & (0x1F << 5));
@@ -201,7 +201,7 @@ protected:
 		const Int32 a_data_length, const Int32 a_index)
 	{
 		UInt32 a, b, c, d, e, f, g, h, t;
-		vector<UInt32> temp = vector<UInt32>(32);
+	 std::vector<UInt32> temp = std::vector<UInt32>(32);
 
 		Converters::le32_copy(a_data, a_index, &temp[0], 0, 128);
 
@@ -215,388 +215,388 @@ protected:
 		h = _hash[7];
 
 		t = c & (e ^ d) ^ g & a ^ f & b ^ e;
-		h = temp[0] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[0] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (d ^ c) ^ f & h ^ e & a ^ d;
-		g = temp[1] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[1] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (c ^ b) ^ e & g ^ d & h ^ c;
-		f = temp[2] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[2] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (b ^ a) ^ d & f ^ c & g ^ b;
-		e = temp[3] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[3] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (a ^ h) ^ c & e ^ b & f ^ a;
-		d = temp[4] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[4] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (h ^ g) ^ b & d ^ a & e ^ h;
-		c = temp[5] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[5] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (g ^ f) ^ a & c ^ h & d ^ g;
-		b = temp[6] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[6] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (f ^ e) ^ h & b ^ g & c ^ f;
-		a = temp[7] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[7] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = c & (e ^ d) ^ g & a ^ f & b ^ e;
-		h = temp[8] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[8] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (d ^ c) ^ f & h ^ e & a ^ d;
-		g = temp[9] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[9] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (c ^ b) ^ e & g ^ d & h ^ c;
-		f = temp[10] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[10] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (b ^ a) ^ d & f ^ c & g ^ b;
-		e = temp[11] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[11] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (a ^ h) ^ c & e ^ b & f ^ a;
-		d = temp[12] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[12] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (h ^ g) ^ b & d ^ a & e ^ h;
-		c = temp[13] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[13] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (g ^ f) ^ a & c ^ h & d ^ g;
-		b = temp[14] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[14] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (f ^ e) ^ h & b ^ g & c ^ f;
-		a = temp[15] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[15] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = c & (e ^ d) ^ g & a ^ f & b ^ e;
-		h = temp[16] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[16] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (d ^ c) ^ f & h ^ e & a ^ d;
-		g = temp[17] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[17] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (c ^ b) ^ e & g ^ d & h ^ c;
-		f = temp[18] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[18] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (b ^ a) ^ d & f ^ c & g ^ b;
-		e = temp[19] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[19] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (a ^ h) ^ c & e ^ b & f ^ a;
-		d = temp[20] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[20] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (h ^ g) ^ b & d ^ a & e ^ h;
-		c = temp[21] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[21] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (g ^ f) ^ a & c ^ h & d ^ g;
-		b = temp[22] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[22] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (f ^ e) ^ h & b ^ g & c ^ f;
-		a = temp[23] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[23] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = c & (e ^ d) ^ g & a ^ f & b ^ e;
-		h = temp[24] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[24] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (d ^ c) ^ f & h ^ e & a ^ d;
-		g = temp[25] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[25] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (c ^ b) ^ e & g ^ d & h ^ c;
-		f = temp[26] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[26] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (b ^ a) ^ d & f ^ c & g ^ b;
-		e = temp[27] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[27] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (a ^ h) ^ c & e ^ b & f ^ a;
-		d = temp[28] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[28] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (h ^ g) ^ b & d ^ a & e ^ h;
-		c = temp[29] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[29] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (g ^ f) ^ a & c ^ h & d ^ g;
-		b = temp[30] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[30] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (f ^ e) ^ h & b ^ g & c ^ f;
-		a = temp[31] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[31] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = f & (d & ~a ^ b & c ^ e ^ g) ^ b & (d ^ c)
 			^ a & c ^ g;
-		h = temp[5] + 0x452821E6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[5] + 0x452821E6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = e & (c & ~h ^ a & b ^ d ^ f) ^ a & (c ^ b)
 			^ h & b ^ f;
-		g = temp[14] + 0x38D01377 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[14] + 0x38D01377 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = d & (b & ~g ^ h & a ^ c ^ e) ^ h & (b ^ a)
 			^ g & a ^ e;
-		f = temp[26] + 0xBE5466CF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[26] + 0xBE5466CF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = c & (a & ~f ^ g & h ^ b ^ d) ^ g & (a ^ h)
 			^ f & h ^ d;
-		e = temp[18] + 0x34E90C6C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[18] + 0x34E90C6C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = b & (h & ~e ^ f & g ^ a ^ c) ^ f & (h ^ g)
 			^ e & g ^ c;
-		d = temp[11] + 0xC0AC29B7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[11] + 0xC0AC29B7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = a & (g & ~d ^ e & f ^ h ^ b) ^ e & (g ^ f)
 			^ d & f ^ b;
-		c = temp[28] + 0xC97C50DD + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[28] + 0xC97C50DD + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = h & (f & ~c ^ d & e ^ g ^ a) ^ d & (f ^ e)
 			^ c & e ^ a;
-		b = temp[7] + 0x3F84D5B5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[7] + 0x3F84D5B5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = g & (e & ~b ^ c & d ^ f ^ h) ^ c & (e ^ d)
 			^ b & d ^ h;
-		a = temp[16] + 0xB5470917 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[16] + 0xB5470917 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = f & (d & ~a ^ b & c ^ e ^ g) ^ b & (d ^ c)
 			^ a & c ^ g;
-		h = temp[0] + 0x9216D5D9 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[0] + 0x9216D5D9 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = e & (c & ~h ^ a & b ^ d ^ f) ^ a & (c ^ b)
 			^ h & b ^ f;
-		g = temp[23] + 0x8979FB1B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[23] + 0x8979FB1B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = d & (b & ~g ^ h & a ^ c ^ e) ^ h & (b ^ a)
 			^ g & a ^ e;
-		f = temp[20] + 0xD1310BA6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[20] + 0xD1310BA6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = c & (a & ~f ^ g & h ^ b ^ d) ^ g & (a ^ h)
 			^ f & h ^ d;
-		e = temp[22] + 0x98DFB5AC + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[22] + 0x98DFB5AC + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = b & (h & ~e ^ f & g ^ a ^ c) ^ f & (h ^ g)
 			^ e & g ^ c;
-		d = temp[1] + 0x2FFD72DB + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[1] + 0x2FFD72DB + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = a & (g & ~d ^ e & f ^ h ^ b) ^ e & (g ^ f)
 			^ d & f ^ b;
-		c = temp[10] + 0xD01ADFB7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[10] + 0xD01ADFB7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = h & (f & ~c ^ d & e ^ g ^ a) ^ d & (f ^ e)
 			^ c & e ^ a;
-		b = temp[4] + 0xB8E1AFED + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[4] + 0xB8E1AFED + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = g & (e & ~b ^ c & d ^ f ^ h) ^ c & (e ^ d)
 			^ b & d ^ h;
-		a = temp[8] + 0x6A267E96 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[8] + 0x6A267E96 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = f & (d & ~a ^ b & c ^ e ^ g) ^ b & (d ^ c)
 			^ a & c ^ g;
-		h = temp[30] + 0xBA7C9045 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[30] + 0xBA7C9045 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = e & (c & ~h ^ a & b ^ d ^ f) ^ a & (c ^ b)
 			^ h & b ^ f;
-		g = temp[3] + 0xF12C7F99 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[3] + 0xF12C7F99 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = d & (b & ~g ^ h & a ^ c ^ e) ^ h & (b ^ a)
 			^ g & a ^ e;
-		f = temp[21] + 0x24A19947 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0x24A19947 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = c & (a & ~f ^ g & h ^ b ^ d) ^ g & (a ^ h)
 			^ f & h ^ d;
-		e = temp[9] + 0xB3916CF7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[9] + 0xB3916CF7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = b & (h & ~e ^ f & g ^ a ^ c) ^ f & (h ^ g)
 			^ e & g ^ c;
-		d = temp[17] + 0x0801F2E2 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[17] + 0x0801F2E2 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = a & (g & ~d ^ e & f ^ h ^ b) ^ e & (g ^ f)
 			^ d & f ^ b;
-		c = temp[24] + 0x858EFC16 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[24] + 0x858EFC16 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = h & (f & ~c ^ d & e ^ g ^ a) ^ d & (f ^ e)
 			^ c & e ^ a;
-		b = temp[29] + 0x636920D8 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[29] + 0x636920D8 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = g & (e & ~b ^ c & d ^ f ^ h) ^ c & (e ^ d)
 			^ b & d ^ h;
-		a = temp[6] + 0x71574E69 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[6] + 0x71574E69 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = f & (d & ~a ^ b & c ^ e ^ g) ^ b & (d ^ c)
 			^ a & c ^ g;
-		h = temp[19] + 0xA458FEA3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0xA458FEA3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = e & (c & ~h ^ a & b ^ d ^ f) ^ a & (c ^ b)
 			^ h & b ^ f;
-		g = temp[12] + 0xF4933D7E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[12] + 0xF4933D7E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = d & (b & ~g ^ h & a ^ c ^ e) ^ h & (b ^ a)
 			^ g & a ^ e;
-		f = temp[15] + 0x0D95748F + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[15] + 0x0D95748F + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = c & (a & ~f ^ g & h ^ b ^ d) ^ g & (a ^ h)
 			^ f & h ^ d;
-		e = temp[13] + 0x728EB658 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[13] + 0x728EB658 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = b & (h & ~e ^ f & g ^ a ^ c) ^ f & (h ^ g)
 			^ e & g ^ c;
-		d = temp[2] + 0x718BCD58 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[2] + 0x718BCD58 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = a & (g & ~d ^ e & f ^ h ^ b) ^ e & (g ^ f)
 			^ d & f ^ b;
-		c = temp[25] + 0x82154AEE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[25] + 0x82154AEE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = h & (f & ~c ^ d & e ^ g ^ a) ^ d & (f ^ e)
 			^ c & e ^ a;
-		b = temp[31] + 0x7B54A41D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[31] + 0x7B54A41D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = g & (e & ~b ^ c & d ^ f ^ h) ^ c & (e ^ d)
 			^ b & d ^ h;
-		a = temp[27] + 0xC25A59B5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[27] + 0xC25A59B5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & e ^ g ^ a) ^ f & c ^ e & b ^ a;
-		h = temp[19] + 0x9C30D539 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0x9C30D539 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & d ^ f ^ h) ^ e & b ^ d & a ^ h;
-		g = temp[9] + 0x2AF26013 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[9] + 0x2AF26013 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & c ^ e ^ g) ^ d & a ^ c & h ^ g;
-		f = temp[4] + 0xC5D1B023 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[4] + 0xC5D1B023 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & b ^ d ^ f) ^ c & h ^ b & g ^ f;
-		e = temp[20] + 0x286085F0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[20] + 0x286085F0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & a ^ c ^ e) ^ b & g ^ a & f ^ e;
-		d = temp[28] + 0xCA417918 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[28] + 0xCA417918 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & h ^ b ^ d) ^ a & f ^ h & e ^ d;
-		c = temp[17] + 0xB8DB38EF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[17] + 0xB8DB38EF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & g ^ a ^ c) ^ h & e ^ g & d ^ c;
-		b = temp[8] + 0x8E79DCB0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[8] + 0x8E79DCB0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & f ^ h ^ b) ^ g & d ^ f & c ^ b;
-		a = temp[22] + 0x603A180E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[22] + 0x603A180E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & e ^ g ^ a) ^ f & c ^ e & b ^ a;
-		h = temp[29] + 0x6C9E0E8B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[29] + 0x6C9E0E8B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & d ^ f ^ h) ^ e & b ^ d & a ^ h;
-		g = temp[14] + 0xB01E8A3E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[14] + 0xB01E8A3E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & c ^ e ^ g) ^ d & a ^ c & h ^ g;
-		f = temp[25] + 0xD71577C1 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[25] + 0xD71577C1 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & b ^ d ^ f) ^ c & h ^ b & g ^ f;
-		e = temp[12] + 0xBD314B27 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[12] + 0xBD314B27 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & a ^ c ^ e) ^ b & g ^ a & f ^ e;
-		d = temp[24] + 0x78AF2FDA + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[24] + 0x78AF2FDA + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & h ^ b ^ d) ^ a & f ^ h & e ^ d;
-		c = temp[30] + 0x55605C60 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[30] + 0x55605C60 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & g ^ a ^ c) ^ h & e ^ g & d ^ c;
-		b = temp[16] + 0xE65525F3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[16] + 0xE65525F3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & f ^ h ^ b) ^ g & d ^ f & c ^ b;
-		a = temp[26] + 0xAA55AB94 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[26] + 0xAA55AB94 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & e ^ g ^ a) ^ f & c ^ e & b ^ a;
-		h = temp[31] + 0x57489862 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[31] + 0x57489862 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & d ^ f ^ h) ^ e & b ^ d & a ^ h;
-		g = temp[15] + 0x63E81440 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[15] + 0x63E81440 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & c ^ e ^ g) ^ d & a ^ c & h ^ g;
-		f = temp[7] + 0x55CA396A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[7] + 0x55CA396A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & b ^ d ^ f) ^ c & h ^ b & g ^ f;
-		e = temp[3] + 0x2AAB10B6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[3] + 0x2AAB10B6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & a ^ c ^ e) ^ b & g ^ a & f ^ e;
-		d = temp[1] + 0xB4CC5C34 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[1] + 0xB4CC5C34 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & h ^ b ^ d) ^ a & f ^ h & e ^ d;
-		c = temp[0] + 0x1141E8CE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[0] + 0x1141E8CE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & g ^ a ^ c) ^ h & e ^ g & d ^ c;
-		b = temp[18] + 0xA15486AF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[18] + 0xA15486AF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & f ^ h ^ b) ^ g & d ^ f & c ^ b;
-		a = temp[27] + 0x7C72E993 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[27] + 0x7C72E993 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & e ^ g ^ a) ^ f & c ^ e & b ^ a;
-		h = temp[13] + 0xB3EE1411 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[13] + 0xB3EE1411 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & d ^ f ^ h) ^ e & b ^ d & a ^ h;
-		g = temp[6] + 0x636FBC2A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[6] + 0x636FBC2A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & c ^ e ^ g) ^ d & a ^ c & h ^ g;
-		f = temp[21] + 0x2BA9C55D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0x2BA9C55D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & b ^ d ^ f) ^ c & h ^ b & g ^ f;
-		e = temp[10] + 0x741831F6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[10] + 0x741831F6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & a ^ c ^ e) ^ b & g ^ a & f ^ e;
-		d = temp[23] + 0xCE5C3E16 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[23] + 0xCE5C3E16 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & h ^ b ^ d) ^ a & f ^ h & e ^ d;
-		c = temp[11] + 0x9B87931E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[11] + 0x9B87931E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & g ^ a ^ c) ^ h & e ^ g & d ^ c;
-		b = temp[5] + 0xAFD6BA33 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[5] + 0xAFD6BA33 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & f ^ h ^ b) ^ g & d ^ f & c ^ b;
-		a = temp[2] + 0x6C24CF5C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[2] + 0x6C24CF5C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		_hash[0] = _hash[0] + a;
 		_hash[1] = _hash[1] + b;
@@ -625,7 +625,7 @@ protected:
 		const Int32 a_data_length, const Int32 a_index)
 	{
 		UInt32 a, b, c, d, e, f, g, h, t;
-		vector<UInt32> temp = vector<UInt32>(32);
+	 std::vector<UInt32> temp = std::vector<UInt32>(32);
 
 		Converters::le32_copy(a_data, a_index, &temp[0], 0, 128);
 
@@ -639,548 +639,548 @@ protected:
 		h = _hash[7];
 
 		t = d & (a ^ b) ^ f & g ^ e & c ^ a;
-		h = temp[0] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[0] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = c & (h ^ a) ^ e & f ^ d & b ^ h;
-		g = temp[1] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[1] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = b & (g ^ h) ^ d & e ^ c & a ^ g;
-		f = temp[2] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[2] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = a & (f ^ g) ^ c & d ^ b & h ^ f;
-		e = temp[3] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[3] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = h & (e ^ f) ^ b & c ^ a & g ^ e;
-		d = temp[4] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[4] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = g & (d ^ e) ^ a & b ^ h & f ^ d;
-		c = temp[5] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[5] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = f & (c ^ d) ^ h & a ^ g & e ^ c;
-		b = temp[6] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[6] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = e & (b ^ c) ^ g & h ^ f & d ^ b;
-		a = temp[7] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[7] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = d & (a ^ b) ^ f & g ^ e & c ^ a;
-		h = temp[8] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[8] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = c & (h ^ a) ^ e & f ^ d & b ^ h;
-		g = temp[9] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[9] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = b & (g ^ h) ^ d & e ^ c & a ^ g;
-		f = temp[10] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[10] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = a & (f ^ g) ^ c & d ^ b & h ^ f;
-		e = temp[11] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[11] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = h & (e ^ f) ^ b & c ^ a & g ^ e;
-		d = temp[12] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[12] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = g & (d ^ e) ^ a & b ^ h & f ^ d;
-		c = temp[13] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[13] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = f & (c ^ d) ^ h & a ^ g & e ^ c;
-		b = temp[14] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[14] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = e & (b ^ c) ^ g & h ^ f & d ^ b;
-		a = temp[15] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[15] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = d & (a ^ b) ^ f & g ^ e & c ^ a;
-		h = temp[16] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[16] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = c & (h ^ a) ^ e & f ^ d & b ^ h;
-		g = temp[17] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[17] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = b & (g ^ h) ^ d & e ^ c & a ^ g;
-		f = temp[18] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[18] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = a & (f ^ g) ^ c & d ^ b & h ^ f;
-		e = temp[19] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[19] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = h & (e ^ f) ^ b & c ^ a & g ^ e;
-		d = temp[20] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[20] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = g & (d ^ e) ^ a & b ^ h & f ^ d;
-		c = temp[21] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[21] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = f & (c ^ d) ^ h & a ^ g & e ^ c;
-		b = temp[22] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[22] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = e & (b ^ c) ^ g & h ^ f & d ^ b;
-		a = temp[23] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[23] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = d & (a ^ b) ^ f & g ^ e & c ^ a;
-		h = temp[24] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[24] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = c & (h ^ a) ^ e & f ^ d & b ^ h;
-		g = temp[25] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[25] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = b & (g ^ h) ^ d & e ^ c & a ^ g;
-		f = temp[26] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[26] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = a & (f ^ g) ^ c & d ^ b & h ^ f;
-		e = temp[27] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[27] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = h & (e ^ f) ^ b & c ^ a & g ^ e;
-		d = temp[28] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[28] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = g & (d ^ e) ^ a & b ^ h & f ^ d;
-		c = temp[29] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[29] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = f & (c ^ d) ^ h & a ^ g & e ^ c;
-		b = temp[30] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[30] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = e & (b ^ c) ^ g & h ^ f & d ^ b;
-		a = temp[31] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[31] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = b & (g & ~a ^ c & f ^ d ^ e) ^ c & (g ^ f)
 			^ a & f ^ e;
-		h = temp[5] + 0x452821E6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[5] + 0x452821E6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (f & ~h ^ b & e ^ c ^ d) ^ b & (f ^ e)
 			^ h & e ^ d;
-		g = temp[14] + 0x38D01377 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[14] + 0x38D01377 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (e & ~g ^ a & d ^ b ^ c) ^ a & (e ^ d)
 			^ g & d ^ c;
-		f = temp[26] + 0xBE5466CF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[26] + 0xBE5466CF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (d & ~f ^ h & c ^ a ^ b) ^ h & (d ^ c)
 			^ f & c ^ b;
-		e = temp[18] + 0x34E90C6C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[18] + 0x34E90C6C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (c & ~e ^ g & b ^ h ^ a) ^ g & (c ^ b)
 			^ e & b ^ a;
-		d = temp[11] + 0xC0AC29B7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[11] + 0xC0AC29B7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (b & ~d ^ f & a ^ g ^ h) ^ f & (b ^ a)
 			^ d & a ^ h;
-		c = temp[28] + 0xC97C50DD + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[28] + 0xC97C50DD + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (a & ~c ^ e & h ^ f ^ g) ^ e & (a ^ h)
 			^ c & h ^ g;
-		b = temp[7] + 0x3F84D5B5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[7] + 0x3F84D5B5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (h & ~b ^ d & g ^ e ^ f) ^ d & (h ^ g)
 			^ b & g ^ f;
-		a = temp[16] + 0xB5470917 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[16] + 0xB5470917 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (g & ~a ^ c & f ^ d ^ e) ^ c & (g ^ f)
 			^ a & f ^ e;
-		h = temp[0] + 0x9216D5D9 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[0] + 0x9216D5D9 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (f & ~h ^ b & e ^ c ^ d) ^ b & (f ^ e)
 			^ h & e ^ d;
-		g = temp[23] + 0x8979FB1B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[23] + 0x8979FB1B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (e & ~g ^ a & d ^ b ^ c) ^ a & (e ^ d)
 			^ g & d ^ c;
-		f = temp[20] + 0xD1310BA6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[20] + 0xD1310BA6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (d & ~f ^ h & c ^ a ^ b) ^ h & (d ^ c)
 			^ f & c ^ b;
-		e = temp[22] + 0x98DFB5AC + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[22] + 0x98DFB5AC + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (c & ~e ^ g & b ^ h ^ a) ^ g & (c ^ b)
 			^ e & b ^ a;
-		d = temp[1] + 0x2FFD72DB + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[1] + 0x2FFD72DB + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (b & ~d ^ f & a ^ g ^ h) ^ f & (b ^ a)
 			^ d & a ^ h;
-		c = temp[10] + 0xD01ADFB7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[10] + 0xD01ADFB7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (a & ~c ^ e & h ^ f ^ g) ^ e & (a ^ h)
 			^ c & h ^ g;
-		b = temp[4] + 0xB8E1AFED + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[4] + 0xB8E1AFED + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (h & ~b ^ d & g ^ e ^ f) ^ d & (h ^ g)
 			^ b & g ^ f;
-		a = temp[8] + 0x6A267E96 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[8] + 0x6A267E96 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (g & ~a ^ c & f ^ d ^ e) ^ c & (g ^ f)
 			^ a & f ^ e;
-		h = temp[30] + 0xBA7C9045 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[30] + 0xBA7C9045 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (f & ~h ^ b & e ^ c ^ d) ^ b & (f ^ e)
 			^ h & e ^ d;
-		g = temp[3] + 0xF12C7F99 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[3] + 0xF12C7F99 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (e & ~g ^ a & d ^ b ^ c) ^ a & (e ^ d)
 			^ g & d ^ c;
-		f = temp[21] + 0x24A19947 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0x24A19947 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (d & ~f ^ h & c ^ a ^ b) ^ h & (d ^ c)
 			^ f & c ^ b;
-		e = temp[9] + 0xB3916CF7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[9] + 0xB3916CF7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (c & ~e ^ g & b ^ h ^ a) ^ g & (c ^ b)
 			^ e & b ^ a;
-		d = temp[17] + 0x0801F2E2 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[17] + 0x0801F2E2 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (b & ~d ^ f & a ^ g ^ h) ^ f & (b ^ a)
 			^ d & a ^ h;
-		c = temp[24] + 0x858EFC16 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[24] + 0x858EFC16 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (a & ~c ^ e & h ^ f ^ g) ^ e & (a ^ h)
 			^ c & h ^ g;
-		b = temp[29] + 0x636920D8 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[29] + 0x636920D8 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (h & ~b ^ d & g ^ e ^ f) ^ d & (h ^ g)
 			^ b & g ^ f;
-		a = temp[6] + 0x71574E69 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[6] + 0x71574E69 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (g & ~a ^ c & f ^ d ^ e) ^ c & (g ^ f)
 			^ a & f ^ e;
-		h = temp[19] + 0xA458FEA3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0xA458FEA3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (f & ~h ^ b & e ^ c ^ d) ^ b & (f ^ e)
 			^ h & e ^ d;
-		g = temp[12] + 0xF4933D7E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[12] + 0xF4933D7E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (e & ~g ^ a & d ^ b ^ c) ^ a & (e ^ d)
 			^ g & d ^ c;
-		f = temp[15] + 0x0D95748F + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[15] + 0x0D95748F + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (d & ~f ^ h & c ^ a ^ b) ^ h & (d ^ c)
 			^ f & c ^ b;
-		e = temp[13] + 0x728EB658 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[13] + 0x728EB658 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (c & ~e ^ g & b ^ h ^ a) ^ g & (c ^ b)
 			^ e & b ^ a;
-		d = temp[2] + 0x718BCD58 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[2] + 0x718BCD58 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (b & ~d ^ f & a ^ g ^ h) ^ f & (b ^ a)
 			^ d & a ^ h;
-		c = temp[25] + 0x82154AEE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[25] + 0x82154AEE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (a & ~c ^ e & h ^ f ^ g) ^ e & (a ^ h)
 			^ c & h ^ g;
-		b = temp[31] + 0x7B54A41D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[31] + 0x7B54A41D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (h & ~b ^ d & g ^ e ^ f) ^ d & (h ^ g)
 			^ b & g ^ f;
-		a = temp[27] + 0xC25A59B5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[27] + 0xC25A59B5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = g & (c & a ^ b ^ f) ^ c & d ^ a & e ^ f;
-		h = temp[19] + 0x9C30D539 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0x9C30D539 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = f & (b & h ^ a ^ e) ^ b & c ^ h & d ^ e;
-		g = temp[9] + 0x2AF26013 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[9] + 0x2AF26013 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = e & (a & g ^ h ^ d) ^ a & b ^ g & c ^ d;
-		f = temp[4] + 0xC5D1B023 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[4] + 0xC5D1B023 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = d & (h & f ^ g ^ c) ^ h & a ^ f & b ^ c;
-		e = temp[20] + 0x286085F0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[20] + 0x286085F0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = c & (g & e ^ f ^ b) ^ g & h ^ e & a ^ b;
-		d = temp[28] + 0xCA417918 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[28] + 0xCA417918 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = b & (f & d ^ e ^ a) ^ f & g ^ d & h ^ a;
-		c = temp[17] + 0xB8DB38EF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[17] + 0xB8DB38EF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = a & (e & c ^ d ^ h) ^ e & f ^ c & g ^ h;
-		b = temp[8] + 0x8E79DCB0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[8] + 0x8E79DCB0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = h & (d & b ^ c ^ g) ^ d & e ^ b & f ^ g;
-		a = temp[22] + 0x603A180E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[22] + 0x603A180E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = g & (c & a ^ b ^ f) ^ c & d ^ a & e ^ f;
-		h = temp[29] + 0x6C9E0E8B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[29] + 0x6C9E0E8B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = f & (b & h ^ a ^ e) ^ b & c ^ h & d ^ e;
-		g = temp[14] + 0xB01E8A3E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[14] + 0xB01E8A3E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = e & (a & g ^ h ^ d) ^ a & b ^ g & c ^ d;
-		f = temp[25] + 0xD71577C1 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[25] + 0xD71577C1 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = d & (h & f ^ g ^ c) ^ h & a ^ f & b ^ c;
-		e = temp[12] + 0xBD314B27 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[12] + 0xBD314B27 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = c & (g & e ^ f ^ b) ^ g & h ^ e & a ^ b;
-		d = temp[24] + 0x78AF2FDA + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[24] + 0x78AF2FDA + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = b & (f & d ^ e ^ a) ^ f & g ^ d & h ^ a;
-		c = temp[30] + 0x55605C60 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[30] + 0x55605C60 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = a & (e & c ^ d ^ h) ^ e & f ^ c & g ^ h;
-		b = temp[16] + 0xE65525F3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[16] + 0xE65525F3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = h & (d & b ^ c ^ g) ^ d & e ^ b & f ^ g;
-		a = temp[26] + 0xAA55AB94 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[26] + 0xAA55AB94 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = g & (c & a ^ b ^ f) ^ c & d ^ a & e ^ f;
-		h = temp[31] + 0x57489862 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[31] + 0x57489862 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = f & (b & h ^ a ^ e) ^ b & c ^ h & d ^ e;
-		g = temp[15] + 0x63E81440 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[15] + 0x63E81440 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = e & (a & g ^ h ^ d) ^ a & b ^ g & c ^ d;
-		f = temp[7] + 0x55CA396A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[7] + 0x55CA396A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = d & (h & f ^ g ^ c) ^ h & a ^ f & b ^ c;
-		e = temp[3] + 0x2AAB10B6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[3] + 0x2AAB10B6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = c & (g & e ^ f ^ b) ^ g & h ^ e & a ^ b;
-		d = temp[1] + 0xB4CC5C34 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[1] + 0xB4CC5C34 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = b & (f & d ^ e ^ a) ^ f & g ^ d & h ^ a;
-		c = temp[0] + 0x1141E8CE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[0] + 0x1141E8CE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = a & (e & c ^ d ^ h) ^ e & f ^ c & g ^ h;
-		b = temp[18] + 0xA15486AF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[18] + 0xA15486AF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = h & (d & b ^ c ^ g) ^ d & e ^ b & f ^ g;
-		a = temp[27] + 0x7C72E993 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[27] + 0x7C72E993 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = g & (c & a ^ b ^ f) ^ c & d ^ a & e ^ f;
-		h = temp[13] + 0xB3EE1411 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[13] + 0xB3EE1411 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = f & (b & h ^ a ^ e) ^ b & c ^ h & d ^ e;
-		g = temp[6] + 0x636FBC2A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[6] + 0x636FBC2A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = e & (a & g ^ h ^ d) ^ a & b ^ g & c ^ d;
-		f = temp[21] + 0x2BA9C55D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0x2BA9C55D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = d & (h & f ^ g ^ c) ^ h & a ^ f & b ^ c;
-		e = temp[10] + 0x741831F6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[10] + 0x741831F6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = c & (g & e ^ f ^ b) ^ g & h ^ e & a ^ b;
-		d = temp[23] + 0xCE5C3E16 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[23] + 0xCE5C3E16 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = b & (f & d ^ e ^ a) ^ f & g ^ d & h ^ a;
-		c = temp[11] + 0x9B87931E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[11] + 0x9B87931E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = a & (e & c ^ d ^ h) ^ e & f ^ c & g ^ h;
-		b = temp[5] + 0xAFD6BA33 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[5] + 0xAFD6BA33 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = h & (d & b ^ c ^ g) ^ d & e ^ b & f ^ g;
-		a = temp[2] + 0x6C24CF5C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[2] + 0x6C24CF5C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = a & (e & ~c ^ f & ~g ^ b ^ g ^ d) ^ f &
 			(b & c ^ e ^ g) ^ c & g ^ d;
-		h = temp[24] + 0x7A325381 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[24] + 0x7A325381 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = h & (d & ~b ^ e & ~f ^ a ^ f ^ c) ^ e &
 			(a & b ^ d ^ f) ^ b & f ^ c;
-		g = temp[4] + 0x28958677 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[4] + 0x28958677 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = g & (c & ~a ^ d & ~e ^ h ^ e ^ b) ^ d &
 			(h & a ^ c ^ e) ^ a & e ^ b;
-		f = temp[0] + 0x3B8F4898 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[0] + 0x3B8F4898 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = f & (b & ~h ^ c & ~d ^ g ^ d ^ a) ^ c &
 			(g & h ^ b ^ d) ^ h & d ^ a;
-		e = temp[14] + 0x6B4BB9AF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[14] + 0x6B4BB9AF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = e & (a & ~g ^ b & ~c ^ f ^ c ^ h) ^ b &
 			(f & g ^ a ^ c) ^ g & c ^ h;
-		d = temp[2] + 0xC4BFE81B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[2] + 0xC4BFE81B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = d & (h & ~f ^ a & ~b ^ e ^ b ^ g) ^ a &
 			(e & f ^ h ^ b) ^ f & b ^ g;
-		c = temp[7] + 0x66282193 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[7] + 0x66282193 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = c & (g & ~e ^ h & ~a ^ d ^ a ^ f) ^ h &
 			(d & e ^ g ^ a) ^ e & a ^ f;
-		b = temp[28] + 0x61D809CC + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[28] + 0x61D809CC + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = b & (f & ~d ^ g & ~h ^ c ^ h ^ e) ^ g &
 			(c & d ^ f ^ h) ^ d & h ^ e;
-		a = temp[23] + 0xFB21A991 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[23] + 0xFB21A991 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = a & (e & ~c ^ f & ~g ^ b ^ g ^ d) ^ f &
 			(b & c ^ e ^ g) ^ c & g ^ d;
-		h = temp[26] + 0x487CAC60 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[26] + 0x487CAC60 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = h & (d & ~b ^ e & ~f ^ a ^ f ^ c) ^ e &
 			(a & b ^ d ^ f) ^ b & f ^ c;
-		g = temp[6] + 0x5DEC8032 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[6] + 0x5DEC8032 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = g & (c & ~a ^ d & ~e ^ h ^ e ^ b) ^ d &
 			(h & a ^ c ^ e) ^ a & e ^ b;
-		f = temp[30] + 0xEF845D5D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[30] + 0xEF845D5D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = f & (b & ~h ^ c & ~d ^ g ^ d ^ a) ^ c &
 			(g & h ^ b ^ d) ^ h & d ^ a;
-		e = temp[20] + 0xE98575B1 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[20] + 0xE98575B1 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = e & (a & ~g ^ b & ~c ^ f ^ c ^ h) ^ b &
 			(f & g ^ a ^ c) ^ g & c ^ h;
-		d = temp[18] + 0xDC262302 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[18] + 0xDC262302 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = d & (h & ~f ^ a & ~b ^ e ^ b ^ g) ^ a &
 			(e & f ^ h ^ b) ^ f & b ^ g;
-		c = temp[25] + 0xEB651B88 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[25] + 0xEB651B88 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = c & (g & ~e ^ h & ~a ^ d ^ a ^ f) ^ h &
 			(d & e ^ g ^ a) ^ e & a ^ f;
-		b = temp[19] + 0x23893E81 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[19] + 0x23893E81 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = b & (f & ~d ^ g & ~h ^ c ^ h ^ e) ^ g &
 			(c & d ^ f ^ h) ^ d & h ^ e;
-		a = temp[3] + 0xD396ACC5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[3] + 0xD396ACC5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = a & (e & ~c ^ f & ~g ^ b ^ g ^ d) ^ f &
 			(b & c ^ e ^ g) ^ c & g ^ d;
-		h = temp[22] + 0x0F6D6FF3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[22] + 0x0F6D6FF3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = h & (d & ~b ^ e & ~f ^ a ^ f ^ c) ^ e &
 			(a & b ^ d ^ f) ^ b & f ^ c;
-		g = temp[11] + 0x83F44239 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[11] + 0x83F44239 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = g & (c & ~a ^ d & ~e ^ h ^ e ^ b) ^ d &
 			(h & a ^ c ^ e) ^ a & e ^ b;
-		f = temp[31] + 0x2E0B4482 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[31] + 0x2E0B4482 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = f & (b & ~h ^ c & ~d ^ g ^ d ^ a) ^ c &
 			(g & h ^ b ^ d) ^ h & d ^ a;
-		e = temp[21] + 0xA4842004 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[21] + 0xA4842004 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = e & (a & ~g ^ b & ~c ^ f ^ c ^ h) ^ b &
 			(f & g ^ a ^ c) ^ g & c ^ h;
-		d = temp[8] + 0x69C8F04A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[8] + 0x69C8F04A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = d & (h & ~f ^ a & ~b ^ e ^ b ^ g) ^ a &
 			(e & f ^ h ^ b) ^ f & b ^ g;
-		c = temp[27] + 0x9E1F9B5E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[27] + 0x9E1F9B5E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = c & (g & ~e ^ h & ~a ^ d ^ a ^ f) ^ h &
 			(d & e ^ g ^ a) ^ e & a ^ f;
-		b = temp[12] + 0x21C66842 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[12] + 0x21C66842 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = b & (f & ~d ^ g & ~h ^ c ^ h ^ e) ^ g &
 			(c & d ^ f ^ h) ^ d & h ^ e;
-		a = temp[9] + 0xF6E96C9A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[9] + 0xF6E96C9A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = a & (e & ~c ^ f & ~g ^ b ^ g ^ d) ^ f &
 			(b & c ^ e ^ g) ^ c & g ^ d;
-		h = temp[1] + 0x670C9C61 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[1] + 0x670C9C61 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = h & (d & ~b ^ e & ~f ^ a ^ f ^ c) ^ e &
 			(a & b ^ d ^ f) ^ b & f ^ c;
-		g = temp[29] + 0xABD388F0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[29] + 0xABD388F0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = g & (c & ~a ^ d & ~e ^ h ^ e ^ b) ^ d &
 			(h & a ^ c ^ e) ^ a & e ^ b;
-		f = temp[5] + 0x6A51A0D2 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[5] + 0x6A51A0D2 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = f & (b & ~h ^ c & ~d ^ g ^ d ^ a) ^ c &
 			(g & h ^ b ^ d) ^ h & d ^ a;
-		e = temp[15] + 0xD8542F68 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[15] + 0xD8542F68 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = e & (a & ~g ^ b & ~c ^ f ^ c ^ h) ^ b &
 			(f & g ^ a ^ c) ^ g & c ^ h;
-		d = temp[17] + 0x960FA728 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[17] + 0x960FA728 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = d & (h & ~f ^ a & ~b ^ e ^ b ^ g) ^ a &
 			(e & f ^ h ^ b) ^ f & b ^ g;
-		c = temp[10] + 0xAB5133A3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[10] + 0xAB5133A3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = c & (g & ~e ^ h & ~a ^ d ^ a ^ f) ^ h &
 			(d & e ^ g ^ a) ^ e & a ^ f;
-		b = temp[16] + 0x6EEF0B6C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[16] + 0x6EEF0B6C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = b & (f & ~d ^ g & ~h ^ c ^ h ^ e) ^ g &
 			(c & d ^ f ^ h) ^ d & h ^ e;
-		a = temp[13] + 0x137A3BE4 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[13] + 0x137A3BE4 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		_hash[0] = _hash[0] + a;
 		_hash[1] = _hash[1] + b;
@@ -1209,7 +1209,7 @@ protected:
 		const Int32 a_data_length, const Int32 a_index)
 	{
 		UInt32 a, b, c, d, e, f, g, h, t;
-		vector<UInt32> temp = vector<UInt32>(32);
+	 std::vector<UInt32> temp = std::vector<UInt32>(32);
 
 		Converters::le32_copy(a_data, a_index, &temp[0], 0, 128);
 
@@ -1223,675 +1223,675 @@ protected:
 		h = _hash[7];
 
 		t = c & (g ^ b) ^ f & e ^ a & d ^ g;
-		h = temp[0] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[0] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 		t = b & (f ^ a) ^ e & d ^ h & c ^ f;
-		g = temp[1] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[1] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (e ^ h) ^ d & c ^ g & b ^ e;
-		f = temp[2] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[2] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (d ^ g) ^ c & b ^ f & a ^ d;
-		e = temp[3] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[3] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (c ^ f) ^ b & a ^ e & h ^ c;
-		d = temp[4] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[4] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (b ^ e) ^ a & h ^ d & g ^ b;
-		c = temp[5] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[5] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (a ^ d) ^ h & g ^ c & f ^ a;
-		b = temp[6] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[6] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (h ^ c) ^ g & f ^ b & e ^ h;
-		a = temp[7] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[7] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = c & (g ^ b) ^ f & e ^ a & d ^ g;
-		h = temp[8] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[8] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (f ^ a) ^ e & d ^ h & c ^ f;
-		g = temp[9] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[9] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (e ^ h) ^ d & c ^ g & b ^ e;
-		f = temp[10] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[10] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (d ^ g) ^ c & b ^ f & a ^ d;
-		e = temp[11] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[11] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (c ^ f) ^ b & a ^ e & h ^ c;
-		d = temp[12] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[12] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (b ^ e) ^ a & h ^ d & g ^ b;
-		c = temp[13] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[13] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (a ^ d) ^ h & g ^ c & f ^ a;
-		b = temp[14] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[14] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (h ^ c) ^ g & f ^ b & e ^ h;
-		a = temp[15] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[15] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = c & (g ^ b) ^ f & e ^ a & d ^ g;
-		h = temp[16] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[16] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (f ^ a) ^ e & d ^ h & c ^ f;
-		g = temp[17] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[17] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (e ^ h) ^ d & c ^ g & b ^ e;
-		f = temp[18] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[18] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (d ^ g) ^ c & b ^ f & a ^ d;
-		e = temp[19] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[19] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (c ^ f) ^ b & a ^ e & h ^ c;
-		d = temp[20] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[20] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (b ^ e) ^ a & h ^ d & g ^ b;
-		c = temp[21] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[21] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (a ^ d) ^ h & g ^ c & f ^ a;
-		b = temp[22] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[22] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (h ^ c) ^ g & f ^ b & e ^ h;
-		a = temp[23] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[23] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = c & (g ^ b) ^ f & e ^ a & d ^ g;
-		h = temp[24] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(h, 11);
+		h = temp[24] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(h, 11);
 
 		t = b & (f ^ a) ^ e & d ^ h & c ^ f;
-		g = temp[25] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(g, 11);
+		g = temp[25] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(g, 11);
 
 		t = a & (e ^ h) ^ d & c ^ g & b ^ e;
-		f = temp[26] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(f, 11);
+		f = temp[26] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(f, 11);
 
 		t = h & (d ^ g) ^ c & b ^ f & a ^ d;
-		e = temp[27] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(e, 11);
+		e = temp[27] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(e, 11);
 
 		t = g & (c ^ f) ^ b & a ^ e & h ^ c;
-		d = temp[28] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(d, 11);
+		d = temp[28] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(d, 11);
 
 		t = f & (b ^ e) ^ a & h ^ d & g ^ b;
-		c = temp[29] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(c, 11);
+		c = temp[29] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(c, 11);
 
 		t = e & (a ^ d) ^ h & g ^ c & f ^ a;
-		b = temp[30] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(b, 11);
+		b = temp[30] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(b, 11);
 
 		t = d & (h ^ c) ^ g & f ^ b & e ^ h;
-		a = temp[31] + Bits::RotateRight32(t, 7) + Bits::RotateRight32(a, 11);
+		a = temp[31] + Bits::rotateRight32(t, 7) + Bits::rotateRight32(a, 11);
 
 		t = d & (e & ~a ^ b & c ^ g ^ f) ^ b & (e ^ c)
 			^ a & c ^ f;
-		h = temp[5] + 0x452821E6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[5] + 0x452821E6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (d & ~h ^ a & b ^ f ^ e) ^ a & (d ^ b)
 			^ h & b ^ e;
-		g = temp[14] + 0x38D01377 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[14] + 0x38D01377 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (c & ~g ^ h & a ^ e ^ d) ^ h & (c ^ a)
 			^ g & a ^ d;
-		f = temp[26] + 0xBE5466CF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[26] + 0xBE5466CF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (b & ~f ^ g & h ^ d ^ c) ^ g & (b ^ h)
 			^ f & h ^ c;
-		e = temp[18] + 0x34E90C6C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[18] + 0x34E90C6C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (a & ~e ^ f & g ^ c ^ b) ^ f & (a ^ g)
 			^ e & g ^ b;
-		d = temp[11] + 0xC0AC29B7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[11] + 0xC0AC29B7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (h & ~d ^ e & f ^ b ^ a) ^ e & (h ^ f)
 			^ d & f ^ a;
-		c = temp[28] + 0xC97C50DD + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[28] + 0xC97C50DD + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (g & ~c ^ d & e ^ a ^ h) ^ d & (g ^ e)
 			^ c & e ^ h;
-		b = temp[7] + 0x3F84D5B5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[7] + 0x3F84D5B5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (f & ~b ^ c & d ^ h ^ g) ^ c & (f ^ d)
 			^ b & d ^ g;
-		a = temp[16] + 0xB5470917 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[16] + 0xB5470917 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (e & ~a ^ b & c ^ g ^ f) ^ b & (e ^ c)
 			^ a & c ^ f;
-		h = temp[0] + 0x9216D5D9 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[0] + 0x9216D5D9 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (d & ~h ^ a & b ^ f ^ e) ^ a & (d ^ b)
 			^ h & b ^ e;
-		g = temp[23] + 0x8979FB1B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[23] + 0x8979FB1B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (c & ~g ^ h & a ^ e ^ d) ^ h & (c ^ a)
 			^ g & a ^ d;
-		f = temp[20] + 0xD1310BA6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[20] + 0xD1310BA6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (b & ~f ^ g & h ^ d ^ c) ^ g & (b ^ h)
 			^ f & h ^ c;
-		e = temp[22] + 0x98DFB5AC + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[22] + 0x98DFB5AC + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (a & ~e ^ f & g ^ c ^ b) ^ f & (a ^ g)
 			^ e & g ^ b;
-		d = temp[1] + 0x2FFD72DB + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[1] + 0x2FFD72DB + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (h & ~d ^ e & f ^ b ^ a) ^ e & (h ^ f)
 			^ d & f ^ a;
-		c = temp[10] + 0xD01ADFB7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[10] + 0xD01ADFB7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (g & ~c ^ d & e ^ a ^ h) ^ d & (g ^ e)
 			^ c & e ^ h;
-		b = temp[4] + 0xB8E1AFED + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[4] + 0xB8E1AFED + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (f & ~b ^ c & d ^ h ^ g) ^ c & (f ^ d)
 			^ b & d ^ g;
-		a = temp[8] + 0x6A267E96 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[8] + 0x6A267E96 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (e & ~a ^ b & c ^ g ^ f) ^ b & (e ^ c)
 			^ a & c ^ f;
-		h = temp[30] + 0xBA7C9045 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[30] + 0xBA7C9045 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (d & ~h ^ a & b ^ f ^ e) ^ a & (d ^ b)
 			^ h & b ^ e;
-		g = temp[3] + 0xF12C7F99 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[3] + 0xF12C7F99 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (c & ~g ^ h & a ^ e ^ d) ^ h & (c ^ a)
 			^ g & a ^ d;
-		f = temp[21] + 0x24A19947 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0x24A19947 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (b & ~f ^ g & h ^ d ^ c) ^ g & (b ^ h)
 			^ f & h ^ c;
-		e = temp[9] + 0xB3916CF7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[9] + 0xB3916CF7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (a & ~e ^ f & g ^ c ^ b) ^ f & (a ^ g)
 			^ e & g ^ b;
-		d = temp[17] + 0x0801F2E2 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[17] + 0x0801F2E2 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (h & ~d ^ e & f ^ b ^ a) ^ e & (h ^ f)
 			^ d & f ^ a;
-		c = temp[24] + 0x858EFC16 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[24] + 0x858EFC16 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (g & ~c ^ d & e ^ a ^ h) ^ d & (g ^ e)
 			^ c & e ^ h;
-		b = temp[29] + 0x636920D8 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[29] + 0x636920D8 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (f & ~b ^ c & d ^ h ^ g) ^ c & (f ^ d)
 			^ b & d ^ g;
-		a = temp[6] + 0x71574E69 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[6] + 0x71574E69 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (e & ~a ^ b & c ^ g ^ f) ^ b & (e ^ c)
 			^ a & c ^ f;
-		h = temp[19] + 0xA458FEA3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0xA458FEA3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (d & ~h ^ a & b ^ f ^ e) ^ a & (d ^ b)
 			^ h & b ^ e;
-		g = temp[12] + 0xF4933D7E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[12] + 0xF4933D7E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (c & ~g ^ h & a ^ e ^ d) ^ h & (c ^ a)
 			^ g & a ^ d;
-		f = temp[15] + 0x0D95748F + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[15] + 0x0D95748F + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (b & ~f ^ g & h ^ d ^ c) ^ g & (b ^ h)
 			^ f & h ^ c;
-		e = temp[13] + 0x728EB658 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[13] + 0x728EB658 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (a & ~e ^ f & g ^ c ^ b) ^ f & (a ^ g)
 			^ e & g ^ b;
-		d = temp[2] + 0x718BCD58 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[2] + 0x718BCD58 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (h & ~d ^ e & f ^ b ^ a) ^ e & (h ^ f)
 			^ d & f ^ a;
-		c = temp[25] + 0x82154AEE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[25] + 0x82154AEE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (g & ~c ^ d & e ^ a ^ h) ^ d & (g ^ e)
 			^ c & e ^ h;
-		b = temp[31] + 0x7B54A41D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[31] + 0x7B54A41D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (f & ~b ^ c & d ^ h ^ g) ^ c & (f ^ d)
 			^ b & d ^ g;
-		a = temp[27] + 0xC25A59B5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[27] + 0xC25A59B5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = e & (b & d ^ c ^ f) ^ b & a ^ d & g ^ f;
-		h = temp[19] + 0x9C30D539 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0x9C30D539 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = d & (a & c ^ b ^ e) ^ a & h ^ c & f ^ e;
-		g = temp[9] + 0x2AF26013 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[9] + 0x2AF26013 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = c & (h & b ^ a ^ d) ^ h & g ^ b & e ^ d;
-		f = temp[4] + 0xC5D1B023 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[4] + 0xC5D1B023 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = b & (g & a ^ h ^ c) ^ g & f ^ a & d ^ c;
-		e = temp[20] + 0x286085F0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[20] + 0x286085F0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = a & (f & h ^ g ^ b) ^ f & e ^ h & c ^ b;
-		d = temp[28] + 0xCA417918 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[28] + 0xCA417918 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = h & (e & g ^ f ^ a) ^ e & d ^ g & b ^ a;
-		c = temp[17] + 0xB8DB38EF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[17] + 0xB8DB38EF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = g & (d & f ^ e ^ h) ^ d & c ^ f & a ^ h;
-		b = temp[8] + 0x8E79DCB0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[8] + 0x8E79DCB0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = f & (c & e ^ d ^ g) ^ c & b ^ e & h ^ g;
-		a = temp[22] + 0x603A180E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[22] + 0x603A180E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = e & (b & d ^ c ^ f) ^ b & a ^ d & g ^ f;
-		h = temp[29] + 0x6C9E0E8B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[29] + 0x6C9E0E8B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = d & (a & c ^ b ^ e) ^ a & h ^ c & f ^ e;
-		g = temp[14] + 0xB01E8A3E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[14] + 0xB01E8A3E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = c & (h & b ^ a ^ d) ^ h & g ^ b & e ^ d;
-		f = temp[25] + 0xD71577C1 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[25] + 0xD71577C1 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = b & (g & a ^ h ^ c) ^ g & f ^ a & d ^ c;
-		e = temp[12] + 0xBD314B27 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[12] + 0xBD314B27 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = a & (f & h ^ g ^ b) ^ f & e ^ h & c ^ b;
-		d = temp[24] + 0x78AF2FDA + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[24] + 0x78AF2FDA + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = h & (e & g ^ f ^ a) ^ e & d ^ g & b ^ a;
-		c = temp[30] + 0x55605C60 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[30] + 0x55605C60 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = g & (d & f ^ e ^ h) ^ d & c ^ f & a ^ h;
-		b = temp[16] + 0xE65525F3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[16] + 0xE65525F3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = f & (c & e ^ d ^ g) ^ c & b ^ e & h ^ g;
-		a = temp[26] + 0xAA55AB94 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[26] + 0xAA55AB94 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = e & (b & d ^ c ^ f) ^ b & a ^ d & g ^ f;
-		h = temp[31] + 0x57489862 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[31] + 0x57489862 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = d & (a & c ^ b ^ e) ^ a & h ^ c & f ^ e;
-		g = temp[15] + 0x63E81440 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[15] + 0x63E81440 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = c & (h & b ^ a ^ d) ^ h & g ^ b & e ^ d;
-		f = temp[7] + 0x55CA396A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[7] + 0x55CA396A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = b & (g & a ^ h ^ c) ^ g & f ^ a & d ^ c;
-		e = temp[3] + 0x2AAB10B6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[3] + 0x2AAB10B6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = a & (f & h ^ g ^ b) ^ f & e ^ h & c ^ b;
-		d = temp[1] + 0xB4CC5C34 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[1] + 0xB4CC5C34 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = h & (e & g ^ f ^ a) ^ e & d ^ g & b ^ a;
-		c = temp[0] + 0x1141E8CE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[0] + 0x1141E8CE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = g & (d & f ^ e ^ h) ^ d & c ^ f & a ^ h;
-		b = temp[18] + 0xA15486AF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[18] + 0xA15486AF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = f & (c & e ^ d ^ g) ^ c & b ^ e & h ^ g;
-		a = temp[27] + 0x7C72E993 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[27] + 0x7C72E993 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = e & (b & d ^ c ^ f) ^ b & a ^ d & g ^ f;
-		h = temp[13] + 0xB3EE1411 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[13] + 0xB3EE1411 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = d & (a & c ^ b ^ e) ^ a & h ^ c & f ^ e;
-		g = temp[6] + 0x636FBC2A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[6] + 0x636FBC2A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = c & (h & b ^ a ^ d) ^ h & g ^ b & e ^ d;
-		f = temp[21] + 0x2BA9C55D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0x2BA9C55D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = b & (g & a ^ h ^ c) ^ g & f ^ a & d ^ c;
-		e = temp[10] + 0x741831F6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[10] + 0x741831F6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = a & (f & h ^ g ^ b) ^ f & e ^ h & c ^ b;
-		d = temp[23] + 0xCE5C3E16 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[23] + 0xCE5C3E16 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = h & (e & g ^ f ^ a) ^ e & d ^ g & b ^ a;
-		c = temp[11] + 0x9B87931E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[11] + 0x9B87931E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = g & (d & f ^ e ^ h) ^ d & c ^ f & a ^ h;
-		b = temp[5] + 0xAFD6BA33 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[5] + 0xAFD6BA33 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = f & (c & e ^ d ^ g) ^ c & b ^ e & h ^ g;
-		a = temp[2] + 0x6C24CF5C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[2] + 0x6C24CF5C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & ~a ^ c & ~b ^ e ^ b ^ g) ^ c &
 			(e & a ^ f ^ b) ^ a & b ^ g;
-		h = temp[24] + 0x7A325381 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[24] + 0x7A325381 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & ~h ^ b & ~a ^ d ^ a ^ f) ^ b &
 			(d & h ^ e ^ a) ^ h & a ^ f;
-		g = temp[4] + 0x28958677 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[4] + 0x28958677 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & ~g ^ a & ~h ^ c ^ h ^ e) ^ a &
 			(c & g ^ d ^ h) ^ g & h ^ e;
-		f = temp[0] + 0x3B8F4898 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[0] + 0x3B8F4898 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & ~f ^ h & ~g ^ b ^ g ^ d) ^ h &
 			(b & f ^ c ^ g) ^ f & g ^ d;
-		e = temp[14] + 0x6B4BB9AF + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[14] + 0x6B4BB9AF + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & ~e ^ g & ~f ^ a ^ f ^ c) ^ g &
 			(a & e ^ b ^ f) ^ e & f ^ c;
-		d = temp[2] + 0xC4BFE81B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[2] + 0xC4BFE81B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & ~d ^ f & ~e ^ h ^ e ^ b) ^ f &
 			(h & d ^ a ^ e) ^ d & e ^ b;
-		c = temp[7] + 0x66282193 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[7] + 0x66282193 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & ~c ^ e & ~d ^ g ^ d ^ a) ^ e &
 			(g & c ^ h ^ d) ^ c & d ^ a;
-		b = temp[28] + 0x61D809CC + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[28] + 0x61D809CC + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & ~b ^ d & ~c ^ f ^ c ^ h) ^ d &
 			(f & b ^ g ^ c) ^ b & c ^ h;
-		a = temp[23] + 0xFB21A991 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[23] + 0xFB21A991 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & ~a ^ c & ~b ^ e ^ b ^ g) ^ c &
 			(e & a ^ f ^ b) ^ a & b ^ g;
-		h = temp[26] + 0x487CAC60 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[26] + 0x487CAC60 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & ~h ^ b & ~a ^ d ^ a ^ f) ^ b &
 			(d & h ^ e ^ a) ^ h & a ^ f;
-		g = temp[6] + 0x5DEC8032 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[6] + 0x5DEC8032 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & ~g ^ a & ~h ^ c ^ h ^ e) ^ a &
 			(c & g ^ d ^ h) ^ g & h ^ e;
-		f = temp[30] + 0xEF845D5D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[30] + 0xEF845D5D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & ~f ^ h & ~g ^ b ^ g ^ d) ^ h &
 			(b & f ^ c ^ g) ^ f & g ^ d;
-		e = temp[20] + 0xE98575B1 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[20] + 0xE98575B1 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & ~e ^ g & ~f ^ a ^ f ^ c) ^ g &
 			(a & e ^ b ^ f) ^ e & f ^ c;
-		d = temp[18] + 0xDC262302 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[18] + 0xDC262302 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & ~d ^ f & ~e ^ h ^ e ^ b) ^ f &
 			(h & d ^ a ^ e) ^ d & e ^ b;
-		c = temp[25] + 0xEB651B88 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[25] + 0xEB651B88 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & ~c ^ e & ~d ^ g ^ d ^ a) ^ e &
 			(g & c ^ h ^ d) ^ c & d ^ a;
-		b = temp[19] + 0x23893E81 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[19] + 0x23893E81 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & ~b ^ d & ~c ^ f ^ c ^ h) ^ d &
 			(f & b ^ g ^ c) ^ b & c ^ h;
-		a = temp[3] + 0xD396ACC5 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[3] + 0xD396ACC5 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & ~a ^ c & ~b ^ e ^ b ^ g) ^ c &
 			(e & a ^ f ^ b) ^ a & b ^ g;
-		h = temp[22] + 0x0F6D6FF3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[22] + 0x0F6D6FF3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & ~h ^ b & ~a ^ d ^ a ^ f) ^ b &
 			(d & h ^ e ^ a) ^ h & a ^ f;
-		g = temp[11] + 0x83F44239 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[11] + 0x83F44239 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & ~g ^ a & ~h ^ c ^ h ^ e) ^ a &
 			(c & g ^ d ^ h) ^ g & h ^ e;
-		f = temp[31] + 0x2E0B4482 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[31] + 0x2E0B4482 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & ~f ^ h & ~g ^ b ^ g ^ d) ^ h &
 			(b & f ^ c ^ g) ^ f & g ^ d;
-		e = temp[21] + 0xA4842004 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[21] + 0xA4842004 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & ~e ^ g & ~f ^ a ^ f ^ c) ^ g &
 			(a & e ^ b ^ f) ^ e & f ^ c;
-		d = temp[8] + 0x69C8F04A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[8] + 0x69C8F04A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & ~d ^ f & ~e ^ h ^ e ^ b) ^ f &
 			(h & d ^ a ^ e) ^ d & e ^ b;
-		c = temp[27] + 0x9E1F9B5E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[27] + 0x9E1F9B5E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & ~c ^ e & ~d ^ g ^ d ^ a) ^ e &
 			(g & c ^ h ^ d) ^ c & d ^ a;
-		b = temp[12] + 0x21C66842 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[12] + 0x21C66842 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & ~b ^ d & ~c ^ f ^ c ^ h) ^ d &
 			(f & b ^ g ^ c) ^ b & c ^ h;
-		a = temp[9] + 0xF6E96C9A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[9] + 0xF6E96C9A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = d & (f & ~a ^ c & ~b ^ e ^ b ^ g) ^ c &
 			(e & a ^ f ^ b) ^ a & b ^ g;
-		h = temp[1] + 0x670C9C61 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[1] + 0x670C9C61 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = c & (e & ~h ^ b & ~a ^ d ^ a ^ f) ^ b &
 			(d & h ^ e ^ a) ^ h & a ^ f;
-		g = temp[29] + 0xABD388F0 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[29] + 0xABD388F0 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = b & (d & ~g ^ a & ~h ^ c ^ h ^ e) ^ a &
 			(c & g ^ d ^ h) ^ g & h ^ e;
-		f = temp[5] + 0x6A51A0D2 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[5] + 0x6A51A0D2 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = a & (c & ~f ^ h & ~g ^ b ^ g ^ d) ^ h &
 			(b & f ^ c ^ g) ^ f & g ^ d;
-		e = temp[15] + 0xD8542F68 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[15] + 0xD8542F68 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = h & (b & ~e ^ g & ~f ^ a ^ f ^ c) ^ g &
 			(a & e ^ b ^ f) ^ e & f ^ c;
-		d = temp[17] + 0x960FA728 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[17] + 0x960FA728 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = g & (a & ~d ^ f & ~e ^ h ^ e ^ b) ^ f &
 			(h & d ^ a ^ e) ^ d & e ^ b;
-		c = temp[10] + 0xAB5133A3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[10] + 0xAB5133A3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = f & (h & ~c ^ e & ~d ^ g ^ d ^ a) ^ e &
 			(g & c ^ h ^ d) ^ c & d ^ a;
-		b = temp[16] + 0x6EEF0B6C + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[16] + 0x6EEF0B6C + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = e & (g & ~b ^ d & ~c ^ f ^ c ^ h) ^ d &
 			(f & b ^ g ^ c) ^ b & c ^ h;
-		a = temp[13] + 0x137A3BE4 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[13] + 0x137A3BE4 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (d & e & g ^ ~f) ^ d & a ^ e & f ^ g & c;
-		h = temp[27] + 0xBA3BF050 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[27] + 0xBA3BF050 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (c & d & f ^ ~e) ^ c & h ^ d & e ^ f & b;
-		g = temp[3] + 0x7EFB2A98 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[3] + 0x7EFB2A98 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (b & c & e ^ ~d) ^ b & g ^ c & d ^ e & a;
-		f = temp[21] + 0xA1F1651D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[21] + 0xA1F1651D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (a & b & d ^ ~c) ^ a & f ^ b & c ^ d & h;
-		e = temp[26] + 0x39AF0176 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[26] + 0x39AF0176 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (h & a & c ^ ~b) ^ h & e ^ a & b ^ c & g;
-		d = temp[17] + 0x66CA593E + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[17] + 0x66CA593E + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (g & h & b ^ ~a) ^ g & d ^ h & a ^ b & f;
-		c = temp[11] + 0x82430E88 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[11] + 0x82430E88 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (f & g & a ^ ~h) ^ f & c ^ g & h ^ a & e;
-		b = temp[20] + 0x8CEE8619 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[20] + 0x8CEE8619 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (e & f & h ^ ~g) ^ e & b ^ f & g ^ h & d;
-		a = temp[29] + 0x456F9FB4 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[29] + 0x456F9FB4 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (d & e & g ^ ~f) ^ d & a ^ e & f ^ g & c;
-		h = temp[19] + 0x7D84A5C3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[19] + 0x7D84A5C3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (c & d & f ^ ~e) ^ c & h ^ d & e ^ f & b;
-		g = temp[0] + 0x3B8B5EBE + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[0] + 0x3B8B5EBE + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (b & c & e ^ ~d) ^ b & g ^ c & d ^ e & a;
-		f = temp[12] + 0xE06F75D8 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[12] + 0xE06F75D8 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (a & b & d ^ ~c) ^ a & f ^ b & c ^ d & h;
-		e = temp[7] + 0x85C12073 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[7] + 0x85C12073 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (h & a & c ^ ~b) ^ h & e ^ a & b ^ c & g;
-		d = temp[13] + 0x401A449F + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[13] + 0x401A449F + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (g & h & b ^ ~a) ^ g & d ^ h & a ^ b & f;
-		c = temp[8] + 0x56C16AA6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[8] + 0x56C16AA6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (f & g & a ^ ~h) ^ f & c ^ g & h ^ a & e;
-		b = temp[31] + 0x4ED3AA62 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[31] + 0x4ED3AA62 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (e & f & h ^ ~g) ^ e & b ^ f & g ^ h & d;
-		a = temp[10] + 0x363F7706 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[10] + 0x363F7706 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (d & e & g ^ ~f) ^ d & a ^ e & f ^ g & c;
-		h = temp[5] + 0x1BFEDF72 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[5] + 0x1BFEDF72 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (c & d & f ^ ~e) ^ c & h ^ d & e ^ f & b;
-		g = temp[9] + 0x429B023D + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[9] + 0x429B023D + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (b & c & e ^ ~d) ^ b & g ^ c & d ^ e & a;
-		f = temp[14] + 0x37D0D724 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[14] + 0x37D0D724 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (a & b & d ^ ~c) ^ a & f ^ b & c ^ d & h;
-		e = temp[30] + 0xD00A1248 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[30] + 0xD00A1248 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (h & a & c ^ ~b) ^ h & e ^ a & b ^ c & g;
-		d = temp[18] + 0xDB0FEAD3 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[18] + 0xDB0FEAD3 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (g & h & b ^ ~a) ^ g & d ^ h & a ^ b & f;
-		c = temp[6] + 0x49F1C09B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[6] + 0x49F1C09B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (f & g & a ^ ~h) ^ f & c ^ g & h ^ a & e;
-		b = temp[28] + 0x075372C9 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[28] + 0x075372C9 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (e & f & h ^ ~g) ^ e & b ^ f & g ^ h & d;
-		a = temp[24] + 0x80991B7B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[24] + 0x80991B7B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		t = b & (d & e & g ^ ~f) ^ d & a ^ e & f ^ g & c;
-		h = temp[2] + 0x25D479D8 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(h, 11);
+		h = temp[2] + 0x25D479D8 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(h, 11);
 
 		t = a & (c & d & f ^ ~e) ^ c & h ^ d & e ^ f & b;
-		g = temp[23] + 0xF6E8DEF7 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(g, 11);
+		g = temp[23] + 0xF6E8DEF7 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(g, 11);
 
 		t = h & (b & c & e ^ ~d) ^ b & g ^ c & d ^ e & a;
-		f = temp[16] + 0xE3FE501A + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(f, 11);
+		f = temp[16] + 0xE3FE501A + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(f, 11);
 
 		t = g & (a & b & d ^ ~c) ^ a & f ^ b & c ^ d & h;
-		e = temp[22] + 0xB6794C3B + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(e, 11);
+		e = temp[22] + 0xB6794C3B + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(e, 11);
 
 		t = f & (h & a & c ^ ~b) ^ h & e ^ a & b ^ c & g;
-		d = temp[4] + 0x976CE0BD + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(d, 11);
+		d = temp[4] + 0x976CE0BD + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(d, 11);
 
 		t = e & (g & h & b ^ ~a) ^ g & d ^ h & a ^ b & f;
-		c = temp[1] + 0x04C006BA + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(c, 11);
+		c = temp[1] + 0x04C006BA + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(c, 11);
 
 		t = d & (f & g & a ^ ~h) ^ f & c ^ g & h ^ a & e;
-		b = temp[25] + 0xC1A94FB6 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(b, 11);
+		b = temp[25] + 0xC1A94FB6 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(b, 11);
 
 		t = c & (e & f & h ^ ~g) ^ e & b ^ f & g ^ h & d;
-		a = temp[15] + 0x409F60C4 + Bits::RotateRight32(t, 7) +
-			Bits::RotateRight32(a, 11);
+		a = temp[15] + 0x409F60C4 + Bits::rotateRight32(t, 7) +
+			Bits::rotateRight32(a, 11);
 
 		_hash[0] = _hash[0] + a;
 		_hash[1] = _hash[1] + b;
@@ -1926,7 +1926,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_3_128>(HashInstance);
+		return std::make_shared<Haval_3_128>(HashInstance);
 	}
 
 }; // end class Haval_3_128
@@ -1950,7 +1950,7 @@ public:
 		
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_4_128>(HashInstance);
+		return std::make_shared<Haval_4_128>(HashInstance);
 	}
 
 }; // end class Haval_4_128
@@ -1974,7 +1974,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_5_128>(HashInstance);
+		return std::make_shared<Haval_5_128>(HashInstance);
 	}
 
 }; // end class Haval_5_128
@@ -1998,7 +1998,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_3_160>(HashInstance);
+		return std::make_shared<Haval_3_160>(HashInstance);
 	}
 
 }; // end class Haval_3_160
@@ -2022,7 +2022,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_4_160>(HashInstance);
+		return std::make_shared<Haval_4_160>(HashInstance);
 	}
 
 }; // end class Haval_4_160
@@ -2046,7 +2046,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_5_160>(HashInstance);
+		return std::make_shared<Haval_5_160>(HashInstance);
 	}
 
 }; // end class Haval_5_160
@@ -2070,7 +2070,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_3_192>(HashInstance);
+		return std::make_shared<Haval_3_192>(HashInstance);
 	}
 
 }; // end class Haval_3_192
@@ -2094,7 +2094,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_4_192>(HashInstance);
+		return std::make_shared<Haval_4_192>(HashInstance);
 	}
 
 }; // end class Haval_4_192
@@ -2118,7 +2118,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_5_192>(HashInstance);
+		return std::make_shared<Haval_5_192>(HashInstance);
 	}
 
 }; // end class Haval_5_192
@@ -2142,7 +2142,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_3_224>(HashInstance);
+		return std::make_shared<Haval_3_224>(HashInstance);
 	}
 
 }; // end class Haval_3_224
@@ -2166,7 +2166,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_4_224>(HashInstance);
+		return std::make_shared<Haval_4_224>(HashInstance);
 	}
 
 }; // end class Haval_4_224
@@ -2190,7 +2190,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_5_224>(HashInstance);
+		return std::make_shared<Haval_5_224>(HashInstance);
 	}
 
 }; // end class Haval_5_224
@@ -2214,7 +2214,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_3_256>(HashInstance);
+		return std::make_shared<Haval_3_256>(HashInstance);
 	}
 
 }; // end class Haval_3_256
@@ -2238,7 +2238,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_4_256>(HashInstance);
+		return std::make_shared<Haval_4_256>(HashInstance);
 	}
 
 }; // end class Haval_4_256
@@ -2262,7 +2262,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Haval_5_256>(HashInstance);
+		return std::make_shared<Haval_5_256>(HashInstance);
 	}
 
 }; // end class Haval_5_256

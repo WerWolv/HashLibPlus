@@ -106,7 +106,7 @@ public:
 		tempRes.resize(64);
 		memmove(&tempRes[0], &_tmp[0], 64 * sizeof(byte));
 
-		IHashResult result = make_shared<HashResult>(tempRes);
+		IHashResult result = std::make_shared<HashResult>(tempRes);
 
 		Initialize();
 
@@ -1630,7 +1630,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<GOST3411_2012_256>(HashInstance);
+		return std::make_shared<GOST3411_2012_256>(HashInstance);
 	}
 
 	virtual IHashResult TransformFinal()
@@ -1642,7 +1642,7 @@ public:
 
 		memmove(&tempRes[0], &output[32], 32 * sizeof(byte));
 
-		IHashResult result = make_shared<HashResult>(tempRes);
+		IHashResult result = std::make_shared<HashResult>(tempRes);
 
 		return result;
 	}
@@ -1683,7 +1683,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<GOST3411_2012_512>(HashInstance);
+		return std::make_shared<GOST3411_2012_512>(HashInstance);
 	}
 
 private:

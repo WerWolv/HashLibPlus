@@ -27,7 +27,7 @@
 
 class IIBlake2BConfig;
 
-typedef shared_ptr<IIBlake2BConfig> IBlake2BConfig;
+typedef std::shared_ptr<IIBlake2BConfig> IBlake2BConfig;
 
 class IIBlake2BConfig
 {

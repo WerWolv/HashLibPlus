@@ -8,11 +8,11 @@ namespace Hash128Tests
 {
 	TEST_CASE("MurmurHash3_x64_128Tests")
 	{
-		string HashOfEmptyData = "00000000000000000000000000000000";
-		string HashOfDefaultData = "705BD3C954B94BE056F06B68662E6364";
-		string HashOfOnetoNine = "3C84645EDB66CCA499F8FAC73A1EA105";
-		string HashOfABCDE = "2036D091F496BBB8C5C7EEA04BCFEC8C";
-		string HashOfDefaultDataWithFourByteKey = "ADFD14988FB1F8582A1B67C1BBACC218";
+		std::string HashOfEmptyData = "00000000000000000000000000000000";
+		std::string HashOfDefaultData = "705BD3C954B94BE056F06B68662E6364";
+		std::string HashOfOnetoNine = "3C84645EDB66CCA499F8FAC73A1EA105";
+		std::string HashOfABCDE = "2036D091F496BBB8C5C7EEA04BCFEC8C";
+		std::string HashOfDefaultDataWithFourByteKey = "ADFD14988FB1F8582A1B67C1BBACC218";
 		
 		IHashWithKey HashInstance = HashFactory::Hash128::CreateMurmurHash3_x64_128();
 				
@@ -21,40 +21,40 @@ namespace Hash128Tests
 			IHashWithKey hashWithKey = HashInstance->CloneHashWithKey();
 			hashWithKey->SetKey(MaxUInt32Bytes);
 
-			string ActualString = hashWithKey->ComputeBytes(DefaultDataBytes)->ToString();
-			string ExpectedString = HashOfDefaultDataWithFourByteKey;
+			std::string ActualString = hashWithKey->ComputeBytes(DefaultDataBytes)->ToString();
+			std::string ExpectedString = HashOfDefaultDataWithFourByteKey;
 
 			REQUIRE(ExpectedString == ActualString);
 		}
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -62,10 +62,10 @@ namespace Hash128Tests
 		SECTION("TestEmptyStream")
 		{
 			// Read empty file to stream
-			ifstream stream("EmptyFile.txt");
+			std::ifstream stream("EmptyFile.txt");
 
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeStream(stream)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeStream(stream)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -79,8 +79,8 @@ namespace Hash128Tests
 			HashInstance->TransformString(DefaultData.substr(9, 3));
 			HashInstance->TransformString(DefaultData.substr(12));
 
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->TransformFinal()->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -105,8 +105,8 @@ namespace Hash128Tests
 
 				HashInstance->TransformBytes(ChunkedDataBytes, i, Count);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeBytes(temp)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -115,7 +115,7 @@ namespace Hash128Tests
 		SECTION("TestAnotherChunkedDataIncrementalHash")
 		{
 			size_t x, size, i;
-			string temp;
+			std::string temp;
 			IHash HashInstanceCopy = nullptr;
 
 			HashInstanceCopy = HashInstance->Clone();
@@ -135,8 +135,8 @@ namespace Hash128Tests
 				temp = ChunkedData.substr((i - size), ChunkedData.size() - ((i - size)));
 				HashInstance->TransformString(temp);
 
-				string ActualString = HashInstance->TransformFinal()->ToString();
-				string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
+				std::string ActualString = HashInstance->TransformFinal()->ToString();
+				std::string String = HashInstanceCopy->ComputeString(ChunkedData)->ToString();
 
 				REQUIRE(String == ActualString);
 			}
@@ -155,10 +155,10 @@ namespace Hash128Tests
 			Copy = Original->Clone();
 
 			Original->TransformBytes(ChunkTwo);
-			string String = Original->TransformFinal()->ToString();
+			std::string String = Original->TransformFinal()->ToString();
 
 			Copy->TransformBytes(ChunkTwo);
-			string ActualString = Copy->TransformFinal()->ToString();
+			std::string ActualString = Copy->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}

@@ -41,7 +41,7 @@ public:
 		FNV1a_32 HashInstance = FNV1a_32();
 		HashInstance._hash = _hash;
 
-		IHash _hash = make_shared<FNV1a_32>(HashInstance);
+		IHash _hash = std::make_shared<FNV1a_32>(HashInstance);
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -54,7 +54,7 @@ public:
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

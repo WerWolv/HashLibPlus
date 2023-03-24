@@ -45,7 +45,7 @@ public:
 
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<XXHash32>(Copy());
+		IHashWithKey _hash = std::make_shared<XXHash32>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -53,7 +53,7 @@ public:
 
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<XXHash32>(Copy());
+		IHash _hash = std::make_shared<XXHash32>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -99,10 +99,10 @@ public:
 
 			memmove(ptrTemp, ptrBuffer, 16 - _memsize);
 
-			_v1 = PRIME32_1 * Bits::RotateLeft32(_v1 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 0), 13);
-			_v2 = PRIME32_1 * Bits::RotateLeft32(_v2 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 4), 13);
-			_v3 = PRIME32_1 * Bits::RotateLeft32(_v3 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 8), 13);
-			_v4 = PRIME32_1 * Bits::RotateLeft32(_v4 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 12), 13);
+			_v1 = PRIME32_1 * Bits::rotateLeft32(_v1 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 0), 13);
+			_v2 = PRIME32_1 * Bits::rotateLeft32(_v2 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 4), 13);
+			_v3 = PRIME32_1 * Bits::rotateLeft32(_v3 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 8), 13);
+			_v4 = PRIME32_1 * Bits::rotateLeft32(_v4 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrMemory, 12), 13);
 
 			ptrBuffer = ptrBuffer + (16 - _memsize);
 			_memsize = 0;
@@ -119,10 +119,10 @@ public:
 			
 			do 
 			{
-				v1 = PRIME32_1 * Bits::RotateLeft32(v1 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 0), 13);
-				v2 = PRIME32_1 * Bits::RotateLeft32(v2 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 4), 13);
-				v3 = PRIME32_1 * Bits::RotateLeft32(v3 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 8), 13);
-				v4 = PRIME32_1 * Bits::RotateLeft32(v4 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 12), 13);
+				v1 = PRIME32_1 * Bits::rotateLeft32(v1 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 0), 13);
+				v2 = PRIME32_1 * Bits::rotateLeft32(v2 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 4), 13);
+				v3 = PRIME32_1 * Bits::rotateLeft32(v3 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 8), 13);
+				v4 = PRIME32_1 * Bits::rotateLeft32(v4 + PRIME32_2 * Converters::ReadBytesAsUInt32LE(ptrBuffer, 12), 13);
 				ptrBuffer += 16;
 			}
 			while (ptrBuffer <= ptrLimit);
@@ -146,8 +146,8 @@ public:
 		byte *ptrEnd, *ptrBuffer;
 		
 		if (_total_len >= UInt64(16))
-			_hash = Bits::RotateLeft32(_v1, 1) + Bits::RotateLeft32(_v2, 7) + 
-			Bits::RotateLeft32(_v3, 12) + Bits::RotateLeft32(_v4, 18);
+			_hash = Bits::rotateLeft32(_v1, 1) + Bits::rotateLeft32(_v2, 7) +
+			Bits::rotateLeft32(_v3, 12) + Bits::rotateLeft32(_v4, 18);
 		else
 			_hash = _key + PRIME32_5;
 		
@@ -159,14 +159,14 @@ public:
 		while ((ptrBuffer + 4) <= ptrEnd)
 		{
 			_hash = _hash + Converters::ReadBytesAsUInt32LE(ptrBuffer, 0) * PRIME32_3;
-			_hash = Bits::RotateLeft32(_hash, 17) * PRIME32_4;
+			_hash = Bits::rotateLeft32(_hash, 17) * PRIME32_4;
 			ptrBuffer += 4;
 		} // end while
 
 		while (ptrBuffer < ptrEnd)
 		{
 			_hash = _hash + (*ptrBuffer) * PRIME32_5;
-			_hash = Bits::RotateLeft32(_hash, 11) * PRIME32_1;
+			_hash = Bits::rotateLeft32(_hash, 11) * PRIME32_1;
 			ptrBuffer++;
 		} // end while
 
@@ -176,7 +176,7 @@ public:
 		_hash = _hash * PRIME32_3;
 		_hash = _hash ^ (_hash >> 16);
 
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 			
 		Initialize();
 		

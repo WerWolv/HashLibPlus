@@ -27,11 +27,11 @@
 
 class IICRC;
 
-typedef shared_ptr<IICRC> ICRC;
+typedef std::shared_ptr<IICRC> ICRC;
 
 class IICRC : public virtual IIHash
 {
-	friend ostream& operator<<(ostream& output, const ICRC& _hash)
+	friend std::ostream& operator<<(std::ostream& output, const ICRC& _hash)
 	{
 		output << _hash->GetName();
 		return output;

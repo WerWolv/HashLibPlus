@@ -48,14 +48,14 @@ public:
 	
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<Murmur2_64>(Copy());
+		IHash _hash = std::make_shared<Murmur2_64>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<Murmur2_64>(Copy());
+		IHashWithKey _hash = std::make_shared<Murmur2_64>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
@@ -95,7 +95,7 @@ protected:
 		UInt64 k, h;
 				
 		if (a_data.empty())
-			return make_shared<HashResult>(UInt64(0));
+			return std::make_shared<HashResult>(UInt64(0));
 
 		Length = (Int32)a_data.size();
 
@@ -210,7 +210,7 @@ protected:
 		h = h * _m;
 		h = h ^ (h >> R);
 
-		return make_shared<HashResult>(h);
+		return std::make_shared<HashResult>(h);
 	} // end function ComputeAggregatedBytes
 
 private:

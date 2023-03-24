@@ -39,8 +39,8 @@ public:
 	/// <exception cref="ArgumentHashLibException">invalid start index or end index of internal buffer.</exception>
 	virtual HashLibByteArray GetBytes(const Int32 bc) = 0;
 
-	virtual string GetName() const = 0;
+	virtual std::string GetName() const = 0;
 
 }; // end class IIKDF
 
-typedef shared_ptr<IIKDF> IKDF;
+typedef std::shared_ptr<IIKDF> IKDF;

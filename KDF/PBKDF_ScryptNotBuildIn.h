@@ -100,7 +100,7 @@ public:
 		ArrayUtils::zeroFill(_saltBytes);
 	} // end function Clear
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return "PBKDF_ScryptNotBuildIn";
 	}
@@ -114,7 +114,7 @@ public:
 		hash._blockSize = _blockSize;
 		hash._parallelism = _parallelism;
 
-		return make_shared<PBKDF_ScryptNotBuildInAdapter>(hash);
+		return std::make_shared<PBKDF_ScryptNotBuildInAdapter>(hash);
 	} // end function Clone
 
 	/// <summary>
@@ -158,7 +158,7 @@ private:
 	static HashLibByteArray SingleIterationPBKDF2(const HashLibByteArray& a_PasswordBytes,
 		const HashLibByteArray& a_SaltBytes, const Int32 a_OutputLength)
 	{
-		PBKDF2_HMACNotBuildInAdapter pbkdf = PBKDF2_HMACNotBuildInAdapter(make_shared<SHA2_256>(), a_PasswordBytes,
+		PBKDF2_HMACNotBuildInAdapter pbkdf = PBKDF2_HMACNotBuildInAdapter(std::make_shared<SHA2_256>(), a_PasswordBytes,
 			a_SaltBytes, 1);
 		HashLibByteArray result = pbkdf.GetBytes(a_OutputLength);
 		return result;
@@ -176,9 +176,9 @@ private:
 	/// <returns>
 	/// rotated AValue
 	/// </returns>
-	static UInt32 RotateLeft32(const UInt32 a_Value, const Int32 a_Distance)
+	static UInt32 rotateLeft32(const UInt32 a_Value, const Int32 a_Distance)
 	{
-		return Bits::RotateLeft32(a_Value, a_Distance);
+		return Bits::rotateLeft32(a_Value, a_Distance);
 	} //
 
 	/// <summary>
@@ -219,39 +219,39 @@ private:
 		i = a_Rounds;
 		while (i > 0)
 		{
-			x04 = x04 ^ (RotateLeft32((x00 + x12), 7));
-			x08 = x08 ^ (RotateLeft32((x04 + x00), 9));
-			x12 = x12 ^ (RotateLeft32((x08 + x04), 13));
-			x00 = x00 ^ (RotateLeft32((x12 + x08), 18));
-			x09 = x09 ^ (RotateLeft32((x05 + x01), 7));
-			x13 = x13 ^ (RotateLeft32((x09 + x05), 9));
-			x01 = x01 ^ (RotateLeft32((x13 + x09), 13));
-			x05 = x05 ^ (RotateLeft32((x01 + x13), 18));
-			x14 = x14 ^ (RotateLeft32((x10 + x06), 7));
-			x02 = x02 ^ (RotateLeft32((x14 + x10), 9));
-			x06 = x06 ^ (RotateLeft32((x02 + x14), 13));
-			x10 = x10 ^ (RotateLeft32((x06 + x02), 18));
-			x03 = x03 ^ (RotateLeft32((x15 + x11), 7));
-			x07 = x07 ^ (RotateLeft32((x03 + x15), 9));
-			x11 = x11 ^ (RotateLeft32((x07 + x03), 13));
-			x15 = x15 ^ (RotateLeft32((x11 + x07), 18));
+			x04 = x04 ^ (rotateLeft32((x00 + x12), 7));
+			x08 = x08 ^ (rotateLeft32((x04 + x00), 9));
+			x12 = x12 ^ (rotateLeft32((x08 + x04), 13));
+			x00 = x00 ^ (rotateLeft32((x12 + x08), 18));
+			x09 = x09 ^ (rotateLeft32((x05 + x01), 7));
+			x13 = x13 ^ (rotateLeft32((x09 + x05), 9));
+			x01 = x01 ^ (rotateLeft32((x13 + x09), 13));
+			x05 = x05 ^ (rotateLeft32((x01 + x13), 18));
+			x14 = x14 ^ (rotateLeft32((x10 + x06), 7));
+			x02 = x02 ^ (rotateLeft32((x14 + x10), 9));
+			x06 = x06 ^ (rotateLeft32((x02 + x14), 13));
+			x10 = x10 ^ (rotateLeft32((x06 + x02), 18));
+			x03 = x03 ^ (rotateLeft32((x15 + x11), 7));
+			x07 = x07 ^ (rotateLeft32((x03 + x15), 9));
+			x11 = x11 ^ (rotateLeft32((x07 + x03), 13));
+			x15 = x15 ^ (rotateLeft32((x11 + x07), 18));
 
-			x01 = x01 ^ (RotateLeft32((x00 + x03), 7));
-			x02 = x02 ^ (RotateLeft32((x01 + x00), 9));
-			x03 = x03 ^ (RotateLeft32((x02 + x01), 13));
-			x00 = x00 ^ (RotateLeft32((x03 + x02), 18));
-			x06 = x06 ^ (RotateLeft32((x05 + x04), 7));
-			x07 = x07 ^ (RotateLeft32((x06 + x05), 9));
-			x04 = x04 ^ (RotateLeft32((x07 + x06), 13));
-			x05 = x05 ^ (RotateLeft32((x04 + x07), 18));
-			x11 = x11 ^ (RotateLeft32((x10 + x09), 7));
-			x08 = x08 ^ (RotateLeft32((x11 + x10), 9));
-			x09 = x09 ^ (RotateLeft32((x08 + x11), 13));
-			x10 = x10 ^ (RotateLeft32((x09 + x08), 18));
-			x12 = x12 ^ (RotateLeft32((x15 + x14), 7));
-			x13 = x13 ^ (RotateLeft32((x12 + x15), 9));
-			x14 = x14 ^ (RotateLeft32((x13 + x12), 13));
-			x15 = x15 ^ (RotateLeft32((x14 + x13), 18));
+			x01 = x01 ^ (rotateLeft32((x00 + x03), 7));
+			x02 = x02 ^ (rotateLeft32((x01 + x00), 9));
+			x03 = x03 ^ (rotateLeft32((x02 + x01), 13));
+			x00 = x00 ^ (rotateLeft32((x03 + x02), 18));
+			x06 = x06 ^ (rotateLeft32((x05 + x04), 7));
+			x07 = x07 ^ (rotateLeft32((x06 + x05), 9));
+			x04 = x04 ^ (rotateLeft32((x07 + x06), 13));
+			x05 = x05 ^ (rotateLeft32((x04 + x07), 18));
+			x11 = x11 ^ (rotateLeft32((x10 + x09), 7));
+			x08 = x08 ^ (rotateLeft32((x11 + x10), 9));
+			x09 = x09 ^ (rotateLeft32((x08 + x11), 13));
+			x10 = x10 ^ (rotateLeft32((x09 + x08), 18));
+			x12 = x12 ^ (rotateLeft32((x15 + x14), 7));
+			x13 = x13 ^ (rotateLeft32((x12 + x15), 9));
+			x14 = x14 ^ (rotateLeft32((x13 + x12), 13));
+			x15 = x15 ^ (rotateLeft32((x14 + x13), 18));
 
 			i -= 2;
 		} //
@@ -334,7 +334,7 @@ private:
 			memmove(&block[blockOffset], &x[0], blockCount * sizeof(UInt32));
 			
 		} //
-		catch (exception&){}
+		catch (std::exception&){}
 
 		HashLibMatrixUInt32Array temp = HashLibMatrixUInt32Array({ x, blockX1, blockX2, blockY });
 		ClearArray(v);
@@ -400,7 +400,7 @@ private:
 
 			result = SingleIterationPBKDF2(a_PasswordBytes, LBytes, a_OutputLength);
 		}
-		catch (exception&) {}
+		catch (std::exception&) {}
 		
 		ClearArray(Lb);
 		ClearArray(LBytes);		

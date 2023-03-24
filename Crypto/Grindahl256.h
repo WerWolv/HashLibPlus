@@ -47,7 +47,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Grindahl256>(HashInstance);
+		return std::make_shared<Grindahl256>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -175,7 +175,7 @@ private:
 			] ^ table_3[byte(_state[2])];
 
 
-		::swap(temp, _state);
+        std::swap(temp, _state);
 
 	} // end function InjectMsg
 

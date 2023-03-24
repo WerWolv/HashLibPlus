@@ -28,8 +28,6 @@
 #include "../Base/Hash.h"
 #include "../Interfaces/IHashInfo.h"
 
-using namespace std;
-
 class NullDigest : public Hash, public virtual IITransformBlock
 {
 public:
@@ -38,7 +36,7 @@ public:
 	{
 		_name = __func__;
 
-		_out = stringstream();
+		_out = std::stringstream();
 	} // end constructor
 
 	NullDigest(const NullDigest& value)
@@ -71,13 +69,13 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<NullDigest>(HashInstance);
+		return std::make_shared<NullDigest>(HashInstance);
 	}
 
 	virtual void Initialize()
 	{
 		_out.flush();
-		_out.str(string()); // Reset stream
+		_out.str(std::string()); // Reset stream
 	} // end function Initialize
 
 	virtual IHashResult TransformFinal()
@@ -92,14 +90,14 @@ public:
 		{
 			if (!res.empty()) _out.read((char*)&res[0], size);
 		} 
-		catch(exception&)
+		catch(std::exception&)
 		{
 			// empty
 		} 
 		
 		Initialize();
 				
-		return make_shared<HashResult>(res);
+		return std::make_shared<HashResult>(res);
 	} // end function TransformFinal
 
 	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length)
@@ -109,26 +107,26 @@ public:
 			const HashLibByteArray::const_iterator start = a_data.begin() + a_index;
 			const HashLibByteArray::const_iterator end = start + a_length;
 
-			_out << string(start, end);
+			_out << std::string(start, end);
 		}
 	} // end function TransformBytes
 
 private:
-	static streampos GetStreamSize(stringstream& a_stream)
+	static std::streampos GetStreamSize(std::stringstream& a_stream)
 	{
-		streampos pos = a_stream.tellg();
+        std::streampos pos = a_stream.tellg();
 
-		streampos fsize = pos;
-		a_stream.seekg(pos, ios::end);
+        std::streampos fsize = pos;
+		a_stream.seekg(pos, std::ios::end);
 		fsize = a_stream.tellg() - fsize;
 
-		a_stream.seekg(pos, ios::beg); // return cur to original pos
+		a_stream.seekg(pos, std::ios::beg); // return cur to original pos
 
 		return fsize;
 	} // end function GetStreamSize
 
 private:
-	stringstream _out;
+    std::stringstream _out;
 
 	static const char* HashSizeNotImplemented;
 	static const char* BlockSizeNotImplemented;

@@ -43,7 +43,7 @@ public:
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult res = make_shared<HashResult>(_currentCRC);
+		IHashResult res = std::make_shared<HashResult>(_currentCRC);
 
 		Initialize();
 
@@ -143,7 +143,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<CRC32_PKZIP_Fast>(HashInstance);
+		return std::make_shared<CRC32_PKZIP_Fast>(HashInstance);
 	} // end function Clone
 
 	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length)
@@ -182,7 +182,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<CRC32_CASTAGNOLI_Fast>(HashInstance);
+		return std::make_shared<CRC32_CASTAGNOLI_Fast>(HashInstance);
 	} // end function Clone
 
 	virtual void TransformBytes(const HashLibByteArray &a_data, const Int32 a_index, const Int32 a_length)

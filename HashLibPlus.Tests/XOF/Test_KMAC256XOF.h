@@ -6,7 +6,7 @@
 
 // Function is contained in Test_KMAC128XOF.h file
 //
-//void DoComputeKMACXOF(IXOF xofInstance, const HashLibByteArray& data, const string& ExpectedString)
+//void DoComputeKMACXOF(IXOF xofInstance, const HashLibByteArray& data, const std::string& ExpectedString)
 //{
 //	HashLibByteArray result(xofInstance->GetXOFSizeInBits() >> 3);
 //
@@ -14,7 +14,7 @@
 //	xofInstance->TransformBytes(data);
 //	xofInstance->DoOutput(result, 0, (UInt64)result.size());
 //
-//	string ActualString = Converters::ConvertBytesToHexString(result);
+//	std::string ActualString = Converters::ConvertBytesToHexString(result);
 //
 //	REQUIRE(ExpectedString == ActualString);
 //} //
@@ -25,13 +25,13 @@ namespace XOFTests
 	{
 		const Int32 OutputSizeInBits = 64 * 8;
 
-		string ExpectedString, ActualString;
+		std::string ExpectedString, ActualString;
 
-		string HashOfEmptyData = "2C9683C318165466C0D3F9467CE77F0CEA513F643AE3BD5B0969165AAFAE3F71";
-		string HashOfDefaultData = "81EA035780ABD58788089419CC37BDF39204146FA2650FE1C8D1DB0B5F2E690B";
-		string HashOfOnetoNine = "1C76E3A5D8814B5161FA6C99B9352C21BB68D29E09CDFFCE3CB67D589BD05CDF";
-		string HashOfABCDE = "46109A951A39A1DF43D4916A9CC1C48EB606DE4AEA3DFF3735733E9ABD39BE63";
-		string XofOfEmptyData =
+		std::string HashOfEmptyData = "2C9683C318165466C0D3F9467CE77F0CEA513F643AE3BD5B0969165AAFAE3F71";
+		std::string HashOfDefaultData = "81EA035780ABD58788089419CC37BDF39204146FA2650FE1C8D1DB0B5F2E690B";
+		std::string HashOfOnetoNine = "1C76E3A5D8814B5161FA6C99B9352C21BB68D29E09CDFFCE3CB67D589BD05CDF";
+		std::string HashOfABCDE = "46109A951A39A1DF43D4916A9CC1C48EB606DE4AEA3DFF3735733E9ABD39BE63";
+		std::string XofOfEmptyData =
 			"2C9683C318165466C0D3F9467CE77F0CEA513F643AE3BD5B0969165AAFAE3F7170D3D7AEEF324B53BCC4C63A1F13A30AA7BE47BC271016D0C8B4CC77D9561399DCD4A136E84AD557D"
 			"ADEF140AB12A1BA1B8B664B3A228FC5B781E4F62F1F3239B793938CCA4D95A292E53BCF115665BB974D434382E2DE6D9955176500BFE639B86B8BC661832A8A7DF51E5ADE20A1CEAAEE51F5AE474E153D69DA"
 			"BD345ECB53FDE0DAF8C1398C1F673F5D0D9037DA264B3CA728C094DAF2C8FD5A4A3E501931425DB34F7E716EF6C978FD752505FCD177E20EF045CC624CCEB8408A00EFD3EC7D7E9196DBBD6806F47F854EEC3484"
@@ -52,32 +52,32 @@ namespace XOFTests
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}

@@ -46,7 +46,7 @@ public:
 		HashInstance._initialValue = _initialValue;
 		HashInstance._buffer = _buffer;
 
-		IHash _hash = make_shared<Jenkins3>(HashInstance);
+		IHash _hash = std::make_shared<Jenkins3>(HashInstance);
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -64,7 +64,7 @@ protected:
 		b = a;
 		c = b;
 
-		if (length == 0) return make_shared<HashResult>(c);
+		if (length == 0) return std::make_shared<HashResult>(c);
 
 		currentIndex = 0;
 		while (length > 12)
@@ -103,22 +103,22 @@ protected:
 			c = c + UInt32(i1 | i2 | i3 | i4);
 
 			a = a - c;
-			a = a ^ Bits::RotateLeft32(c, 4);
+			a = a ^ Bits::rotateLeft32(c, 4);
 			c = c + b;
 			b = b - a;
-			b = b ^ Bits::RotateLeft32(a, 6);
+			b = b ^ Bits::rotateLeft32(a, 6);
 			a = a + c;
 			c = c - b;
-			c = c ^ Bits::RotateLeft32(b, 8);
+			c = c ^ Bits::rotateLeft32(b, 8);
 			b = b + a;
 			a = a - c;
-			a = a ^ Bits::RotateLeft32(c, 16);
+			a = a ^ Bits::rotateLeft32(c, 16);
 			c = c + b;
 			b = b - a;
-			b = b ^ Bits::RotateLeft32(a, 19);
+			b = b ^ Bits::rotateLeft32(a, 19);
 			a = a + c;
 			c = c - b;
-			c = c ^ Bits::RotateLeft32(b, 4);
+			c = c ^ Bits::rotateLeft32(b, 4);
 			b = b + a;
 
 			length -= 12;
@@ -367,21 +367,21 @@ protected:
 		} // end switch
 
 		c = c ^ b;
-		c = c - Bits::RotateLeft32(b, 14);
+		c = c - Bits::rotateLeft32(b, 14);
 		a = a ^ c;
-		a = a - Bits::RotateLeft32(c, 11);
+		a = a - Bits::rotateLeft32(c, 11);
 		b = b ^ a;
-		b = b - Bits::RotateLeft32(a, 25);
+		b = b - Bits::rotateLeft32(a, 25);
 		c = c ^ b;
-		c = c - Bits::RotateLeft32(b, 16);
+		c = c - Bits::rotateLeft32(b, 16);
 		a = a ^ c;
-		a = a - Bits::RotateLeft32(c, 4);
+		a = a - Bits::rotateLeft32(c, 4);
 		b = b ^ a;
-		b = b - Bits::RotateLeft32(a, 14);
+		b = b - Bits::rotateLeft32(a, 14);
 		c = c ^ b;
-		c = c - Bits::RotateLeft32(b, 24);
+		c = c - Bits::rotateLeft32(b, 24);
 
-		return make_shared<HashResult>(c);
+		return std::make_shared<HashResult>(c);
 	} // end function ComputeAggregatedBytes
 
 }; // end class Jenkins3

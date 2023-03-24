@@ -41,7 +41,7 @@ public:
 		SuperFast HashInstance = SuperFast();
 		HashInstance._buffer = _buffer;
 
-		IHash _hash = make_shared<SuperFast>(HashInstance);
+		IHash _hash = std::make_shared<SuperFast>(HashInstance);
 		_hash->SetBufferSize(GetBufferSize());
 
 		return _hash;
@@ -56,7 +56,7 @@ protected:
 		Length = (Int32)a_data.size();
 
 		if (Length == 0)
-			return make_shared<HashResult>(Int32(0));
+			return std::make_shared<HashResult>(Int32(0));
 		
 		_hash = UInt32(Length);
 		currentIndex = 0;
@@ -115,7 +115,7 @@ protected:
 		_hash = _hash ^ (_hash << 25);
 		_hash = _hash + (_hash >> 6);
 
-		return make_shared<HashResult>(_hash);
+		return std::make_shared<HashResult>(_hash);
 	} // end function ComputeAggregatedBytes
 
 }; // end class SuperFast

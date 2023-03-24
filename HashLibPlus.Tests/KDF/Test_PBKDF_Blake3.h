@@ -11,13 +11,13 @@ namespace KDFTests
 {
 	TEST_CASE("PBKDF_Blake3TestVectors")
 	{
-		string ActualString, ExpectedString;
+		std::string ActualString, ExpectedString;
 		Int32 ByteCount = 32;
 
 		IKDFNotBuildIn KdfInstance =
 			HashFactory::KDF::CreatePBKDF_Blake3(EmptyBytes, EmptyBytes);
 
-		string ctxString = "BLAKE3 2019-12-27 16:29:52 test vectors context";
+		std::string ctxString = "BLAKE3 2019-12-27 16:29:52 test vectors context";
 		HashLibByteArray ctx = Converters::ConvertStringToBytes(ctxString);
 		HashLibByteArray fullInput = HashLibByteArray(1 << 15);
 

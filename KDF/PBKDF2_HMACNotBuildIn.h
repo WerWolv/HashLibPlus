@@ -122,7 +122,7 @@ public:
 		ArrayUtils::zeroFill(_salt);
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("PBKDF2_HMACNotBuildIn(%s)", _hmac->GetName().c_str());
 	}
@@ -130,7 +130,7 @@ public:
 	virtual IKDFNotBuildIn Clone() const
 	{
 		PBKDF2_HMACNotBuildInAdapter hmac = PBKDF2_HMACNotBuildInAdapter();
-		hmac._hmac = ::move(_hmac);
+		hmac._hmac = std::move(_hmac);
 		hmac._password = _password;
 		hmac._salt = _salt;
 		hmac._buffer = _buffer;
@@ -140,7 +140,7 @@ public:
 		hmac._startIndex = _startIndex;
 		hmac._endIndex = _endIndex;
 
-		return make_shared<PBKDF2_HMACNotBuildInAdapter>(hmac);
+		return std::make_shared<PBKDF2_HMACNotBuildInAdapter>(hmac);
 	}
 
 private:

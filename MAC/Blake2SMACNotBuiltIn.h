@@ -41,7 +41,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Blake2SMACNotBuildInAdapter>(HashInstance);
+		return std::make_shared<Blake2SMACNotBuildInAdapter>(HashInstance);
 	}
 
 	virtual IMACNotBuildIn CloneMAC() const
@@ -50,7 +50,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Blake2SMACNotBuildInAdapter>(HashInstance);
+		return std::make_shared<Blake2SMACNotBuildInAdapter>(HashInstance);
 	} // end function CloneMAC
 
 	virtual void Clear()
@@ -92,7 +92,7 @@ public:
 		config->SetSalt(a_Salt);
 		config->SetPersonalization(a_Personalisation);
 
-		return make_shared<Blake2SMACNotBuildInAdapter>(Blake2S(config, nullptr), config->GetKey());
+		return std::make_shared<Blake2SMACNotBuildInAdapter>(Blake2S(config, nullptr), config->GetKey());
 	}
 
 	Blake2SMACNotBuildInAdapter(const Blake2S a_Hash, const HashLibByteArray& a_Blake2SKey)

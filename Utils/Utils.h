@@ -29,18 +29,16 @@
 
 #include "HashLibTypes.h"
 
-using namespace std;
-
 class Utils
 {
 public:
 	template<typename ... Args>
-	static string string_format(const string &format, Args ... args)
+	static std::string string_format(const std::string &format, Args ... args)
 	{
 		size_t size = (size_t)snprintf(nullptr, 0, format.c_str(), args ...) + 1; // Extra space for '\0'
-		unique_ptr<char[]> buf(new char[size]);
+        std::unique_ptr<char[]> buf(new char[size]);
 		snprintf(buf.get(), size, format.c_str(), args ...);
-		return string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
+		return std::string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
 	} // end function string_format
 
 	static HashLibByteArray concat(const HashLibByteArray& x, const HashLibByteArray& y)

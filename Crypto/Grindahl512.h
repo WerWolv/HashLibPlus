@@ -47,7 +47,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Grindahl512>(HashInstance);
+		return std::make_shared<Grindahl512>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -110,7 +110,7 @@ private:
 	{
 		for (UInt32 j = 0; j < 256; j++)
 		{
-			result[j] = Bits::RotateRight64(master_table[j], i * 8);
+			result[j] = Bits::rotateRight64(master_table[j], i * 8);
 		} // end for
 	} // end function CalcTable
 
@@ -206,7 +206,7 @@ private:
 			] ^ table_6[byte(_state[5] >> 8)] ^ table_7[byte(_state[4])];
 
 
-		::swap(temp, _state);
+        std::swap(temp, _state);
 
 	} // end function InjectMsg
 

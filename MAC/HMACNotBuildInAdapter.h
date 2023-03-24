@@ -34,7 +34,7 @@ private:
 	HMACNotBuildInAdapter(const IHash a_hash)
 		: Hash(a_hash->GetHashSize(), a_hash->GetBlockSize())
 	{
-		_hash = ::move(a_hash);
+		_hash = std::move(a_hash);
 	}
 
 	HMACNotBuildInAdapter Copy() const
@@ -70,10 +70,10 @@ public:
 	static IHMACNotBuildIn CreateHMAC(const IHash a_hash, const HashLibByteArray& hmacKey)
 	{
 		if (!a_hash) throw ArgumentNullHashLibException("hash");
-		return make_shared<HMACNotBuildInAdapter>(a_hash, hmacKey);
+		return std::make_shared<HMACNotBuildInAdapter>(a_hash, hmacKey);
 	} //
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("HMACNotBuildIn(%s)", _hash->GetName().c_str());
 	}
@@ -94,17 +94,17 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<HMACNotBuildInAdapter>(Copy());
+		return std::make_shared<HMACNotBuildInAdapter>(Copy());
 	}
 
 	virtual IHMACNotBuildIn CloneHMAC() const
 	{
-		return make_shared<HMACNotBuildInAdapter>(Copy());
+		return std::make_shared<HMACNotBuildInAdapter>(Copy());
 	}
 
 	virtual IMACNotBuildIn CloneMAC() const
 	{
-		return make_shared<HMACNotBuildInAdapter>(Copy());
+		return std::make_shared<HMACNotBuildInAdapter>(Copy());
 	}
 
 	virtual void Clear()

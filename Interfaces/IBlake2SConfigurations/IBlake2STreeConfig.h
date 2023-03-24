@@ -27,7 +27,7 @@
 
 class IIBlake2STreeConfig;
 
-typedef shared_ptr<IIBlake2STreeConfig> IBlake2STreeConfig;
+typedef std::shared_ptr<IIBlake2STreeConfig> IBlake2STreeConfig;
 
 class IIBlake2STreeConfig
 {

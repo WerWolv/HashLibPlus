@@ -43,7 +43,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Bernstein>(HashInstance);
+		return std::make_shared<Bernstein>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -53,7 +53,7 @@ public:
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

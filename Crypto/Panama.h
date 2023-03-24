@@ -62,7 +62,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Panama>(HashInstance);
+		return std::make_shared<Panama>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -224,22 +224,22 @@ private:
 		_gamma[16] = _state[16] ^ (_state[0] | ~_state[1]);
 
 		_pi[0] = _gamma[0];
-		_pi[1] = Bits::RotateLeft32(_gamma[7], 1);
-		_pi[2] = Bits::RotateLeft32(_gamma[14], 3);
-		_pi[3] = Bits::RotateLeft32(_gamma[4], 6);
-		_pi[4] = Bits::RotateLeft32(_gamma[11], 10);
-		_pi[5] = Bits::RotateLeft32(_gamma[1], 15);
-		_pi[6] = Bits::RotateLeft32(_gamma[8], 21);
-		_pi[7] = Bits::RotateLeft32(_gamma[15], 28);
-		_pi[8] = Bits::RotateLeft32(_gamma[5], 4);
-		_pi[9] = Bits::RotateLeft32(_gamma[12], 13);
-		_pi[10] = Bits::RotateLeft32(_gamma[2], 23);
-		_pi[11] = Bits::RotateLeft32(_gamma[9], 2);
-		_pi[12] = Bits::RotateLeft32(_gamma[16], 14);
-		_pi[13] = Bits::RotateLeft32(_gamma[6], 27);
-		_pi[14] = Bits::RotateLeft32(_gamma[13], 9);
-		_pi[15] = Bits::RotateLeft32(_gamma[3], 24);
-		_pi[16] = Bits::RotateLeft32(_gamma[10], 8);
+		_pi[1] = Bits::rotateLeft32(_gamma[7], 1);
+		_pi[2] = Bits::rotateLeft32(_gamma[14], 3);
+		_pi[3] = Bits::rotateLeft32(_gamma[4], 6);
+		_pi[4] = Bits::rotateLeft32(_gamma[11], 10);
+		_pi[5] = Bits::rotateLeft32(_gamma[1], 15);
+		_pi[6] = Bits::rotateLeft32(_gamma[8], 21);
+		_pi[7] = Bits::rotateLeft32(_gamma[15], 28);
+		_pi[8] = Bits::rotateLeft32(_gamma[5], 4);
+		_pi[9] = Bits::rotateLeft32(_gamma[12], 13);
+		_pi[10] = Bits::rotateLeft32(_gamma[2], 23);
+		_pi[11] = Bits::rotateLeft32(_gamma[9], 2);
+		_pi[12] = Bits::rotateLeft32(_gamma[16], 14);
+		_pi[13] = Bits::rotateLeft32(_gamma[6], 27);
+		_pi[14] = Bits::rotateLeft32(_gamma[13], 9);
+		_pi[15] = Bits::rotateLeft32(_gamma[3], 24);
+		_pi[16] = Bits::rotateLeft32(_gamma[10], 8);
 
 		a_theta[0] = _pi[0] ^ _pi[1] ^ _pi[4];
 		a_theta[1] = _pi[1] ^ _pi[2] ^ _pi[5];

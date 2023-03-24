@@ -52,7 +52,7 @@ public:
 
 		HashLibByteArray temp = HashLibByteArray(start, end);
 
-		string data(start, end);
+        std::string data(start, end);
 		_buffer += data;
 	} // end function TransformBytes
 
@@ -82,7 +82,7 @@ private:
 	{
 		UInt32 sum = 0, index = 0;
 
-		string result = _buffer;
+        std::string result = _buffer;
 		if (result.size() > 0)
 			return HashLibByteArray(result.begin(), result.end());
 
@@ -90,6 +90,6 @@ private:
 	} // end function Aggregate
 
 protected:
-	string _buffer; // string stream
+    std::string _buffer; // string stream
 
 }; // end class MultipleTransformNonBlock

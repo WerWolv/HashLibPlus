@@ -1,4 +1,5 @@
 #define CATCH_CONFIG_RUNNER
+#define WIN32_LEAN_AND_MEAN
 #include "Catch2-2.13.6/single_include/catch2/catch.hpp"
 
 // Checksum hashes
@@ -167,9 +168,9 @@ int main( int argc, char* argv[] )
   using namespace Catch::clara;
   auto cli 
     = session.cli() // Get Catch's composite command line parser
-    | Opt( height, "height" ) // bind variable to a new option, with a hint string
+    | Opt( height, "height" ) // bind variable to a new option, with a hint std::string
         ["-g"]["--height"]    // the option names it will respond to
-        ("how high?");        // description string for the help output
+        ("how high?");        // description std::string for the help output
         
   // Now pass the new composite back to Catch so it uses that
   session.cli( cli ); 

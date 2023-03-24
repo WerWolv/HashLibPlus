@@ -67,7 +67,7 @@ public:
 	
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Blake2SP>(HashInstance);
+		return std::make_shared<Blake2SP>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -117,7 +117,7 @@ public:
 			ptrDataContainer.Counter = dataLength;
 			DoParallelComputation(ptrDataContainer);
 		}
-		catch (exception&) {}
+		catch (std::exception&) {}
 
 		ptrData += (dataLength - (dataLength % UInt64(ParallelismDegree *
 			BlockSizeInBytes)));
@@ -165,7 +165,7 @@ public:
 		return result;
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("Blake2SP_%u", GetHashSize() * 8);
 	}
@@ -189,10 +189,10 @@ private:
 
 	Blake2S Blake2SPCreateLeaf(const UInt64 a_Offset) const
 	{
-		IBlake2SConfig blake2SConfig = make_shared<Blake2SConfig>(GetHashSize());
+		IBlake2SConfig blake2SConfig = std::make_shared<Blake2SConfig>(GetHashSize());
 		blake2SConfig->SetKey(_key);
 
-		IBlake2STreeConfig blake2STreeConfig = make_shared<Blake2STreeConfig>();
+		IBlake2STreeConfig blake2STreeConfig = std::make_shared<Blake2STreeConfig>();
 		blake2STreeConfig->SetFanOut(ParallelismDegree);
 		blake2STreeConfig->SetMaxDepth(2);
 		blake2STreeConfig->SetNodeDepth(0);
@@ -208,10 +208,10 @@ private:
 
 	Blake2S Blake2SPCreateRoot() const
 	{
-		IBlake2SConfig blake2SConfig = make_shared<Blake2SConfig>(GetHashSize());
+		IBlake2SConfig blake2SConfig = std::make_shared<Blake2SConfig>(GetHashSize());
 		blake2SConfig->SetKey(_key);
 
-		IBlake2STreeConfig blake2STreeConfig = make_shared<Blake2STreeConfig>();
+		IBlake2STreeConfig blake2STreeConfig = std::make_shared<Blake2STreeConfig>();
 		blake2STreeConfig->SetFanOut(ParallelismDegree);
 		blake2STreeConfig->SetMaxDepth(2);
 		blake2STreeConfig->SetNodeDepth(1);

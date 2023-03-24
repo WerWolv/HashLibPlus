@@ -43,14 +43,14 @@ public:
 
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<MurmurHash3_x64_128>(Copy());
+		IHash _hash = std::make_shared<MurmurHash3_x64_128>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<MurmurHash3_x64_128>(Copy());
+		IHashWithKey _hash = std::make_shared<MurmurHash3_x64_128>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
@@ -73,7 +73,7 @@ public:
 
 		Converters::be64_copy(&tempBufUInt64[0], 0, &tempBufByte[0], 0, (Int32)tempBufByte.size());
 
-		IHashResult result = make_shared<HashResult>(tempBufByte);
+		IHashResult result = std::make_shared<HashResult>(tempBufByte);
 
 		Initialize();
 
@@ -123,20 +123,20 @@ public:
 			lIdx += 8;
 
 			k1 = k1 * C1;
-			k1 = Bits::RotateLeft64(k1, 31);
+			k1 = Bits::rotateLeft64(k1, 31);
 			k1 = k1 * C2;
 			_h1 = _h1 ^ k1;
 
-			_h1 = Bits::RotateLeft64(_h1, 27);
+			_h1 = Bits::rotateLeft64(_h1, 27);
 			_h1 = _h1 + _h2;
 			_h1 = _h1 * 5 + C3;
 
 			k2 = k2 * C2;
-			k2 = Bits::RotateLeft64(k2, 33);
+			k2 = Bits::rotateLeft64(k2, 33);
 			k2 = k2 * C1;
 			_h2 = _h2 ^ k2;
 
-			_h2 = Bits::RotateLeft64(_h2, 31);
+			_h2 = Bits::rotateLeft64(_h2, 31);
 			_h2 = _h2 + _h1;
 			_h2 = _h2 * 5 + C4;
 
@@ -206,20 +206,20 @@ private:
 			k2 = Converters::ReadBytesAsUInt64LE(ptr_Fm_buf, 8);
 
 			k1 = k1 * C1;
-			k1 = Bits::RotateLeft64(k1, 31);
+			k1 = Bits::rotateLeft64(k1, 31);
 			k1 = k1 * C2;
 			_h1 = _h1 ^ k1;
 
-			_h1 = Bits::RotateLeft64(_h1, 27);
+			_h1 = Bits::rotateLeft64(_h1, 27);
 			_h1 = _h1 + _h2;
 			_h1 = _h1 * 5 + C3;
 
 			k2 = k2 * C2;
-			k2 = Bits::RotateLeft64(k2, 33);
+			k2 = Bits::rotateLeft64(k2, 33);
 			k2 = k2 * C1;
 			_h2 = _h2 ^ k2;
 
-			_h2 = Bits::RotateLeft64(_h2, 31);
+			_h2 = Bits::rotateLeft64(_h2, 31);
 			_h2 = _h2 + _h1;
 			_h2 = _h2 * 5 + C4;
 
@@ -251,7 +251,7 @@ private:
 				k2 = k2 ^ (UInt64(_buf[9]) << 8);
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -264,7 +264,7 @@ private:
 				k2 = k2 ^ (UInt64(_buf[9]) << 8);
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -276,7 +276,7 @@ private:
 				k2 = k2 ^ (UInt64(_buf[9]) << 8);
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -287,7 +287,7 @@ private:
 				k2 = k2 ^ (UInt64(_buf[9]) << 8);
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -297,7 +297,7 @@ private:
 				k2 = k2 ^ (UInt64(_buf[9]) << 8);
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -306,7 +306,7 @@ private:
 				k2 = k2 ^ (UInt64(_buf[9]) << 8);
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -314,7 +314,7 @@ private:
 			case 9:
 				k2 = k2 ^ (UInt64(_buf[8]) << 0);
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft64(k2, 33);
+				k2 = Bits::rotateLeft64(k2, 33);
 				k2 = k2 * C1;
 				_h2 = _h2 ^ k2;
 				break;
@@ -335,7 +335,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -349,7 +349,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -362,7 +362,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -374,7 +374,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -385,7 +385,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -395,7 +395,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -404,7 +404,7 @@ private:
 				k1 = k1 ^ (UInt64(_buf[1]) << 8);
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -412,7 +412,7 @@ private:
 			case 1:
 				k1 = k1 ^ (UInt64(_buf[0]) << 0);
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft64(k1, 31);
+				k1 = Bits::rotateLeft64(k1, 31);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;

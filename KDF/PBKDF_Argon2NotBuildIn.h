@@ -163,11 +163,11 @@ private:
 				Converters::ReadUInt64AsBytesLE(V[idx], result, idx * 8);
 
 			return result;
-		} 
+		}
 
-		string ToString() const 
+        std::string ToString() const
 		{
-			string result = "";
+            std::string result = "";
 			for (Int32 idx = 0; idx < SIZE; idx++)
 				result += Converters::ConvertBytesToHexString(
 					Converters::ReadUInt64AsBytesLE(V[idx]));
@@ -268,21 +268,21 @@ private:
 		inline static void F(Block& block, const Int32 a, const Int32 b, const Int32 c, const Int32 d)
 		{
 			BlaMka(block, a, b);
-			RotateRight64(block, d, a, 32);
+			rotateRight64(block, d, a, 32);
 
 			BlaMka(block, c, d);
-			RotateRight64(block, b, c, 24);
+			rotateRight64(block, b, c, 24);
 
 			BlaMka(block, a, b);
-			RotateRight64(block, d, a, 16);
+			rotateRight64(block, d, a, 16);
 
 			BlaMka(block, c, d);
-			RotateRight64(block, b, c, 63);
+			rotateRight64(block, b, c, 63);
 		} //
 
-		inline static void RotateRight64(Block& block, const Int32 a, const Int32 b, const Int32 c)
+		inline static void rotateRight64(Block& block, const Int32 a, const Int32 b, const Int32 c)
 		{
-			block.V[a] = Bits::RotateRight64(block.V[a] ^ block.V[b], c);
+			block.V[a] = Bits::rotateRight64(block.V[a] ^ block.V[b], c);
 		} //
 
 		inline static void BlaMka(Block& block, const Int32 x, const Int32 y)
@@ -297,7 +297,7 @@ private:
 
 	//
 	HashLibByteArray _digest, _password;
-	vector<Block> _memory;
+ std::vector<Block> _memory;
 	IArgon2Parameters _parameters;
 	Int32 _segmentLength, _laneLength;
 
@@ -361,7 +361,7 @@ public:
 		return result;
 	} //
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return "PBKDF_Argon2NotBuildIn";
 	} //
@@ -376,13 +376,13 @@ public:
 		result._segmentLength = _segmentLength;
 		result._laneLength = _laneLength;
 
-		return make_shared<PBKDF_Argon2NotBuildInAdapter>(result);
+		return std::make_shared<PBKDF_Argon2NotBuildInAdapter>(result);
 	} //
 
 private:
-	static vector<Block> DeepCopyBlockArray(const vector<Block>& blocks)
+	static std::vector<Block> DeepCopyBlockArray(const std::vector<Block>& blocks)
 	{
-		vector<Block> result = vector<Block>(blocks.size());
+	 std::vector<Block> result = std::vector<Block>(blocks.size());
 
 		for (size_t idx = 0; idx < result.size(); idx++)
 		{
@@ -398,7 +398,7 @@ private:
 		// Minimum memoryBlocks = 8L blocks, where L is the number of lanes */
 		Int32 memoryBlocks = parameters->GetMemory();
 
-		memoryBlocks = max(memoryBlocks, 2 * ARGON2_SYNC_POINTS * parameters->GetLanes());
+		memoryBlocks = std::max(memoryBlocks, 2 * ARGON2_SYNC_POINTS * parameters->GetLanes());
 
 		_segmentLength = memoryBlocks / (_parameters->GetLanes() * ARGON2_SYNC_POINTS);
 		_laneLength = _segmentLength * ARGON2_SYNC_POINTS;
@@ -411,7 +411,7 @@ private:
 
 	void InitializeMemory(const Int32 memoryBlocks)
 	{
-		_memory = vector<Block>(memoryBlocks);
+		_memory = std::vector<Block>(memoryBlocks);
 		for (size_t idx = 0; idx < _memory.size(); idx++)
 			_memory[idx] = Block::DefaultBlock();
 	}

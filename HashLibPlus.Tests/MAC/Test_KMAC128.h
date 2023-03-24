@@ -4,13 +4,13 @@
 
 #include "../Base/TestConstants.h"
 
-void DoComputeKMAC(IHash hashInstance, const HashLibByteArray& data, const string& ExpectedString)
+void DoComputeKMAC(IHash hashInstance, const HashLibByteArray& data, const std::string& ExpectedString)
 {
 	hashInstance->Initialize();
 	hashInstance->TransformBytes(data);
 	HashLibByteArray result = hashInstance->TransformFinal()->GetBytes();
 
-	string ActualString = Converters::ConvertBytesToHexString(result);
+	std::string ActualString = Converters::ConvertBytesToHexString(result);
 
 	REQUIRE(ExpectedString == ActualString);
 }
@@ -21,12 +21,12 @@ namespace MACTests
 	{
 		const Int32 OutputSizeInBits = 32 * 8;
 
-		string ExpectedString, ActualString;
+		std::string ExpectedString, ActualString;
 
-		string HashOfEmptyData = "E6AFF27FEF95903EB939BC3745730D34";
-		string HashOfDefaultData = "C40AE1DBC4E8411712D445D663E4073A";
-		string HashOfOnetoNine = "EB3FE9620F82E24E33EAF4543A2B66EA";
-		string HashOfABCDE = "C74861532E0154C2B71DC428079BABC3";
+		std::string HashOfEmptyData = "E6AFF27FEF95903EB939BC3745730D34";
+		std::string HashOfDefaultData = "C40AE1DBC4E8411712D445D663E4073A";
+		std::string HashOfOnetoNine = "EB3FE9620F82E24E33EAF4543A2B66EA";
+		std::string HashOfABCDE = "C74861532E0154C2B71DC428079BABC3";
 
 		IHash HashInstance = HashFactory::KMAC::CreateKMAC128(EmptyBytes, EmptyBytes, 128);
 		IMACNotBuildIn MacInstance = HashFactory::KMAC::CreateKMAC128(EmptyBytes, EmptyBytes, 128);
@@ -45,32 +45,32 @@ namespace MACTests
 
 		SECTION("TestEmptyString")
 		{
-			string String = HashOfEmptyData;
-			string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
+			std::string String = HashOfEmptyData;
+			std::string ActualString = HashInstance->ComputeString(EmptyData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestDefaultData")
 		{
-			string String = HashOfDefaultData;
-			string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
+			std::string String = HashOfDefaultData;
+			std::string ActualString = HashInstance->ComputeString(DefaultData)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestOnetoNine")
 		{
-			string String = HashOfOnetoNine;
-			string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
+			std::string String = HashOfOnetoNine;
+			std::string ActualString = HashInstance->ComputeString(OneToNine)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
 
 		SECTION("TestBytesABCDE")
 		{
-			string String = HashOfABCDE;
-			string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
+			std::string String = HashOfABCDE;
+			std::string ActualString = HashInstance->ComputeBytes(BytesABCDE)->ToString();
 
 			REQUIRE(String == ActualString);
 		}
@@ -95,10 +95,10 @@ namespace MACTests
 			Copy = Original->CloneMAC();
 
 			Original->TransformBytes(ChunkTwo);
-			string String = Original->TransformFinal()->ToString();
+			std::string String = Original->TransformFinal()->ToString();
 
 			Copy->TransformBytes(ChunkTwo);
-			string ActualString = Copy->TransformFinal()->ToString();
+			std::string ActualString = Copy->TransformFinal()->ToString();
 
 			REQUIRE(String == ActualString);
 		}

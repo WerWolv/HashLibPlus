@@ -43,7 +43,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<SHA2_512>(HashInstance);
+		return std::make_shared<SHA2_512>(HashInstance);
 	}
 
 	virtual void Initialize()

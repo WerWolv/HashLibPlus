@@ -147,9 +147,9 @@ public:
 		memset(&_data[0], 0, _data.size() * sizeof(byte));
 	} // end function Initialize
 
-	string ToString() const
+    std::string ToString() const
 	{
-		stringstream ss;
+        std::stringstream ss;
 		ss << "HashBuffer, Length: " << GetLength();
 		ss << ", Pos: " << GetPos() << ", IsEmpty: " << GetIsEmpty();
 

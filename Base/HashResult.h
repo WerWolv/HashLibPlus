@@ -96,7 +96,7 @@ public:
 	{
 		if (&right != this)
 		{
-			_hash = ::move(right._hash);
+			_hash = std::move(right._hash);
 		} // end if
 
 		return *this;
@@ -129,7 +129,7 @@ public:
 
 		while (I < Top)
 		{
-			LResult = Bits::RotateLeft32(LResult, 5);
+			LResult = Bits::rotateLeft32(LResult, 5);
 			LResult = LResult ^ UInt32(TempHolder[I]);
 			I += 1;
 		} // end while
@@ -204,7 +204,7 @@ public:
 		return diff == 0;
 	} // end function SlowEquals
 
-	virtual inline string ToString(const bool a_group = false) const
+	virtual inline std::string ToString(const bool a_group = false) const
 	{
 		return Converters::ConvertBytesToHexString(_hash, a_group);
 	} // end function ToString

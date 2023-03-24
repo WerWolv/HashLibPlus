@@ -41,7 +41,7 @@ private:
 	static const char* CloneNotYetImplemented;
 	static const char* DeleteNotYetImplemented;
 protected:
-	string _name;
+	std::string _name;
 
 public:
 	Hash() 
@@ -63,7 +63,7 @@ public:
 		_hash_size = hash2._hash_size;
 	}
 
-	virtual string GetName() const  
+	virtual std::string GetName() const
 	{
 		return _name;
 	} //
@@ -110,7 +110,7 @@ public:
 		throw NotImplementedHashLibException(Utils::string_format(CloneNotYetImplemented, GetName().c_str()));
 	}
 
-	virtual IHashResult ComputeString(const string& a_data) 
+	virtual IHashResult ComputeString(const std::string& a_data)
 	{
 		return ComputeBytes(Converters::ConvertStringToBytes(a_data));
 	} // end function ComputeString
@@ -161,14 +161,14 @@ public:
 
 	} // end function TransformUntyped
 
-	virtual IHashResult ComputeStream(ifstream& a_stream, const Int64 a_length = -1) 
+	virtual IHashResult ComputeStream(std::ifstream& a_stream, const Int64 a_length = -1)
 	{
 		Initialize();
 		TransformStream(a_stream, a_length);
 		return TransformFinal();
 	} // end function ComputeStream
 
-	virtual IHashResult ComputeFile(const string& a_file_name,
+	virtual IHashResult ComputeFile(const std::string& a_file_name,
 		const Int64 a_from = 0, const Int64 a_length = -1) 
 	{
 		Initialize();
@@ -183,7 +183,7 @@ public:
 		return TransformFinal();
 	} // end function ComputeBytes
 
-	virtual void TransformString(const string& a_data) 
+	virtual void TransformString(const std::string& a_data)
 	{
 		TransformBytes(Converters::ConvertStringToBytes(a_data));
 	} // end function TransformString
@@ -201,7 +201,7 @@ public:
 
 	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length) = 0;
 
-	virtual void TransformStream(ifstream& a_stream, const Int64 a_length = -1) 
+	virtual void TransformStream(std::ifstream& a_stream, const Int64 a_length = -1)
 	{
 		Int32 readed = 0, LBufferSize;
 		UInt64 size, new_size;
@@ -283,16 +283,16 @@ public:
 		}
 	} // end function TransformStream
 
-	virtual void TransformFile(const string& a_file_name,
+	virtual void TransformFile(const std::string& a_file_name,
 		const Int64 a_from, const Int64 a_length) 
 	{
-		ifstream ReadFile;
-		ReadFile.open(a_file_name.c_str(), ios::in | ios::binary);
+        std::ifstream ReadFile;
+		ReadFile.open(a_file_name.c_str(), std::ios::in | std::ios::binary);
 
 		if (!ReadFile.is_open())
 			throw ArgumentHashLibException(FileNotExist);
 
-		ReadFile.seekg(a_from, ios::beg);
+		ReadFile.seekg(a_from, std::ios::beg);
 
 		TransformStream(ReadFile, a_length);
 
@@ -300,15 +300,15 @@ public:
 	} // end function TransformFile
 
 private:
-	static streampos GetStreamSize(ifstream& a_stream)
+	static std::streampos GetStreamSize(std::ifstream& a_stream)
 	{
-		streampos pos = a_stream.tellg();
+        std::streampos pos = a_stream.tellg();
 
-		streampos fsize = pos;
-		a_stream.seekg(pos, ios::end);
+        std::streampos fsize = pos;
+		a_stream.seekg(pos, std::ios::end);
 		fsize = a_stream.tellg() - fsize;
 
-		a_stream.seekg(pos, ios::beg); // return cur to original pos
+		a_stream.seekg(pos, std::ios::beg); // return cur to original pos
 
 		return fsize;
 	} // end function GetStreamSize

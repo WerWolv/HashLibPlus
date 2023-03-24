@@ -44,7 +44,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<DEK>(HashInstance);
+		return std::make_shared<DEK>(HashInstance);
 	}
 
 protected:
@@ -53,9 +53,9 @@ protected:
 		UInt32 _hash = UInt32(a_data.size());
 
 		for (UInt32 i = 0; i < a_data.size(); i++)
-			_hash = Bits::RotateLeft32(_hash, 5) ^ a_data[i];
+			_hash = Bits::rotateLeft32(_hash, 5) ^ a_data[i];
 
-		return make_shared<HashResult>(_hash);
+		return std::make_shared<HashResult>(_hash);
 	} // end function ComputeAggregatedBytes
 
 }; // end class DEK

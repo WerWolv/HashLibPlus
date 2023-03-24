@@ -45,7 +45,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<HAS160>(HashInstance);
+		return std::make_shared<HAS160>(HashInstance);
 	}
 
 	virtual void Initialize()

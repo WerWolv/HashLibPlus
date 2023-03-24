@@ -6,11 +6,11 @@
 
 void HashTestOthers(Argon2ParametersBuilder& a_Argon2ParametersBuilder,
 	const Argon2Version& a_Version, const Int32 a_Iterations, const Int32 a_Memory,
-	const Int32 a_Parallelism, const string& a_Password, const string& a_Salt, 
-	const string& a_ExpectedString, const Int32 a_OutputLength)
+	const Int32 a_Parallelism, const std::string& a_Password, const std::string& a_Salt,
+	const std::string& a_ExpectedString, const Int32 a_OutputLength)
 {
 	IPBKDF_Argon2NotBuildIn generator;
-	string actual_string;
+	std::string actual_string;
 	HashLibByteArray salt, password;
 	IArgon2Parameters argon2Parameter;
 
@@ -41,12 +41,12 @@ void HashTestOthers(Argon2ParametersBuilder& a_Argon2ParametersBuilder,
 
 void HashTestFromInternetDraft(Argon2ParametersBuilder& a_Argon2ParametersBuilder,
 	const Argon2Version& a_Version, const Int32 a_Iterations, const Int32 a_MemoryAsKB, 
-	const Int32 a_Parallelism, const string& a_Additional, const string& a_Secret, 
-	const string& a_Salt, const string& a_Password, const string& a_ExpectedString,
+	const Int32 a_Parallelism, const std::string& a_Additional, const std::string& a_Secret,
+	const std::string& a_Salt, const std::string& a_Password, const std::string& a_ExpectedString,
 	const Int32 a_OutputLength)
 {
 	IPBKDF_Argon2NotBuildIn generator;
-	string actual_string;
+	std::string actual_string;
 	HashLibByteArray additional, secret, salt, password;
 	IArgon2Parameters argon2Parameter;
 
@@ -83,7 +83,7 @@ namespace KDFTests
 {
 	TEST_CASE("PBKDF_Argon2TestVectors")
 	{
-		string ActualString, ExpectedString;
+		std::string ActualString, ExpectedString;
 
 		const Int32 ByteCount = 32, DEFAULT_OUTPUTLEN = 32;
 
@@ -113,7 +113,7 @@ namespace KDFTests
 
 		SECTION("TestVectorsFromInternetDraftAnotherMethod")
 		{
-			string LAdditional, LSecret, LSalt, LPassword;
+			std::string LAdditional, LSecret, LSalt, LPassword;
 			Argon2ParametersBuilder argon2ParametersBuilder;
 			Argon2Version Argon2Version;
 			Int32 DEFAULT_OUTPUTLEN = 32;

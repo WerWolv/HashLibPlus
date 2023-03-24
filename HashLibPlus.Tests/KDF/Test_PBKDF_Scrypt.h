@@ -4,7 +4,7 @@
 
 #include "../Base/TestConstants.h"
 
-string DoTestVector(const string& a_Password, const string& a_Salt, const Int32 a_Cost, const Int32 a_BlockSize,
+std::string DoTestVector(const std::string& a_Password, const std::string& a_Salt, const Int32 a_Cost, const Int32 a_BlockSize,
 	const Int32 a_Parallelism, const Int32 a_OutputSize)
 {
 	HashLibByteArray PasswordBytes, SaltBytes, OutputBytes;
@@ -20,7 +20,7 @@ string DoTestVector(const string& a_Password, const string& a_Salt, const Int32 
 	return Converters::ConvertBytesToHexString(OutputBytes, false);
 } //
 
-void DoCheckOk(const string& a_Msg, const HashLibByteArray& a_Password, const HashLibByteArray& a_Salt, const Int32 a_Cost,
+void DoCheckOk(const std::string& a_Msg, const HashLibByteArray& a_Password, const HashLibByteArray& a_Salt, const Int32 a_Cost,
 	const Int32 a_BlockSize, const Int32 a_Parallelism, const Int32 a_OutputSize)
 {
 	try
@@ -34,14 +34,14 @@ void DoCheckOk(const string& a_Msg, const HashLibByteArray& a_Password, const Ha
 	{
 		REQUIRE(false);
 	} //
-	catch (exception&)
+	catch (std::exception&)
 	{
 		REQUIRE(false);
 	} //	
 
 } //
 
-void DoCheckIllegal(const string& a_Msg, const HashLibByteArray& a_Password, const HashLibByteArray& a_Salt,
+void DoCheckIllegal(const std::string& a_Msg, const HashLibByteArray& a_Password, const HashLibByteArray& a_Salt,
 	const Int32 a_Cost, const Int32 a_BlockSize, const Int32 a_Parallelism, const Int32 a_OutputSize)
 {
 	try
@@ -55,7 +55,7 @@ void DoCheckIllegal(const string& a_Msg, const HashLibByteArray& a_Password, con
 	{
 		// pass so we do nothing
 	}
-	catch (exception&)
+	catch (std::exception&)
 	{
 		// pass so we do nothing
 	} //
@@ -70,7 +70,7 @@ namespace KDFTests
 	/// </summary>
 	TEST_CASE("PBKDF_ScryptTest")
 	{
-		string ActualString, ExpectedString;
+		std::string ActualString, ExpectedString;
 		Int32 ByteCount = 32;
 		IKDFNotBuildIn KdfInstance =
 			HashFactory::KDF::CreatePBKDF_Scrypt(EmptyBytes, EmptyBytes, 16, 1, 1);

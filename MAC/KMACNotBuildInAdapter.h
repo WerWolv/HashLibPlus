@@ -26,8 +26,6 @@
 #include "../Crypto/SHA3.h"
 #include "../Utils/ArrayUtils.h"
 
-#pragma region KMAC Family
-
 class KMACNotBuildInAdapter : public Hash, public virtual IIKMACNotBuildIn, 
 	public virtual IICryptoNotBuildIn
 {
@@ -72,7 +70,7 @@ public:
 
 		Initialize();
 
-		return make_shared<HashResult>(temp);
+		return std::make_shared<HashResult>(temp);
 	} // end function TransformFinal
 
 	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length)
@@ -100,7 +98,7 @@ public:
 		_key = value;
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		if (dynamic_cast<const IXOF*>(this) != nullptr)
 			return Utils::string_format("%s_%s_%u", _name.c_str(), "XOFSizeInBytes",
@@ -132,7 +130,7 @@ class KMAC128 : public KMACNotBuildInAdapter
 public:
 	KMAC128(const HashLibByteArray& a_KMACKey, const HashLibByteArray& a_Customization,
 		const UInt64 a_OutputLengthInBits)
-		: KMAC128(make_shared<CShake_128>(KMAC_Bytes, a_Customization), a_KMACKey, a_OutputLengthInBits)
+		: KMAC128(std::make_shared<CShake_128>(KMAC_Bytes, a_Customization), a_KMACKey, a_OutputLengthInBits)
 	{} // end constructor
 
 	KMAC128(IHash a_hash, const HashLibByteArray& a_KMACKey, const UInt64 a_OutputLengthInBits)
@@ -142,7 +140,7 @@ public:
 
 		_key = a_KMACKey;
 
-		_hash = ::move(a_hash);
+		_hash = std::move(a_hash);
 		dynamic_cast<IIXOF*>(&(*_hash))->SetXOFSizeInBits(a_OutputLengthInBits);
 	} // end constructor
 
@@ -153,7 +151,7 @@ public:
 		HashInstance._finalized = _finalized;
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<KMAC128>(HashInstance);
+		return std::make_shared<KMAC128>(HashInstance);
 	} // end function Clone
 
 	virtual IMACNotBuildIn CloneMAC() const
@@ -163,13 +161,13 @@ public:
 		HashInstance._finalized = _finalized;
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<KMAC128>(HashInstance);
+		return std::make_shared<KMAC128>(HashInstance);
 	} // end function CloneMAC
 
 	static IKMACNotBuildIn CreateKMAC128(const HashLibByteArray& a_KMACKey, const HashLibByteArray& a_Customization,
 		const UInt64 a_OutputLengthInBits)
 	{
-		return make_shared<KMAC128>(a_KMACKey, a_Customization, a_OutputLengthInBits);
+		return std::make_shared<KMAC128>(a_KMACKey, a_Customization, a_OutputLengthInBits);
 	} // end function CreateKMAC128
 
 }; // end class KMAC128
@@ -184,7 +182,7 @@ protected:
 
 public:
 	KMAC128XOF(const HashLibByteArray& a_KMACKey, const HashLibByteArray& a_Customization)
-		: KMAC128XOF(make_shared<CShake_128>(KMAC_Bytes, a_Customization), a_KMACKey)
+		: KMAC128XOF(std::make_shared<CShake_128>(KMAC_Bytes, a_Customization), a_KMACKey)
 	{} // end constructor
 	
 	KMAC128XOF(IHash a_hash, const HashLibByteArray& a_KMACKey)
@@ -194,7 +192,7 @@ public:
 
 		_key = a_KMACKey;
 		
-		_hash = ::move(a_hash);
+		_hash = std::move(a_hash);
 	} // end constructor
 
 	KMAC128XOF Copy() const
@@ -211,17 +209,17 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<KMAC128XOF>(Copy());
+		return std::make_shared<KMAC128XOF>(Copy());
 	}
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<KMAC128XOF>(Copy());
+		return std::make_shared<KMAC128XOF>(Copy());
 	}
 
 	virtual IMACNotBuildIn CloneMAC() const
 	{
-		return make_shared<KMAC128XOF>(Copy());
+		return std::make_shared<KMAC128XOF>(Copy());
 	} // end function CloneMAC
 
 	void inline SetXOFSizeInBitsInternal(const UInt64 a_XofSizeInBits)
@@ -250,7 +248,7 @@ public:
 		KMAC128XOF LXof = KMAC128XOF(a_KMACKey, a_Customization);
 		LXof.SetXOFSizeInBits(a_XofSizeInBits);
 
-		return make_shared<KMAC128XOF>(LXof);
+		return std::make_shared<KMAC128XOF>(LXof);
 	} // end function CreateKMAC128XOF
 
 }; // end class KMAC128XOF
@@ -267,13 +265,13 @@ public:
 		_key = a_KMACKey;
 		_customization = a_Customization;
 
-		_hash = ::move(a_hash);
+		_hash = std::move(a_hash);
 		dynamic_cast<IIXOF*>(&(*_hash))->SetXOFSizeInBits(a_OutputLengthInBits);
 	} // end constructor
 
 	KMAC256(const HashLibByteArray& a_KMACKey, const HashLibByteArray& a_Customization,
 		const UInt64 a_OutputLengthInBits)
-		: KMAC256(make_shared<CShake_256>(KMAC_Bytes, a_Customization),
+		: KMAC256(std::make_shared<CShake_256>(KMAC_Bytes, a_Customization),
 			a_KMACKey, a_Customization, a_OutputLengthInBits)
 	{ } // end constructor
 
@@ -285,7 +283,7 @@ public:
 		HashInstance._finalized = _finalized;
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<KMAC256>(HashInstance);
+		return std::make_shared<KMAC256>(HashInstance);
 	} // end function Clone
 
 	virtual IMACNotBuildIn CloneMAC() const
@@ -296,13 +294,13 @@ public:
 		HashInstance._finalized = _finalized;
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<KMAC256>(HashInstance);
+		return std::make_shared<KMAC256>(HashInstance);
 	} // end function CloneMAC
 
 	static IKMACNotBuildIn CreateKMAC256(const HashLibByteArray& a_KMACKey, const HashLibByteArray& a_Customization,
 		const UInt64 a_OutputLengthInBits)
 	{
-		return make_shared<KMAC256>(a_KMACKey, a_Customization, a_OutputLengthInBits);
+		return std::make_shared<KMAC256>(a_KMACKey, a_Customization, a_OutputLengthInBits);
 	} // end function CreateKMAC256
 
 }; // end class KMAC256
@@ -317,7 +315,7 @@ protected:
 
 public:
 	KMAC256XOF(const HashLibByteArray& a_KMACKey, const HashLibByteArray& a_Customization)
-		: KMAC256XOF(make_shared<CShake_256>(KMAC_Bytes, a_Customization),
+		: KMAC256XOF(std::make_shared<CShake_256>(KMAC_Bytes, a_Customization),
 			a_KMACKey, a_Customization)
 	{ } // end constructor
 
@@ -330,7 +328,7 @@ public:
 
 		_customization = a_Customization;
 
-		_hash = ::move(a_hash);
+		_hash = std::move(a_hash);
 	} // end constructor
 
 	KMAC256XOF Copy() const
@@ -347,17 +345,17 @@ public:
 
 	virtual IHash Clone() const
 	{
-		return make_shared<KMAC256XOF>(Copy());
+		return std::make_shared<KMAC256XOF>(Copy());
 	}
 
 	virtual IXOF CloneXOF() const
 	{
-		return make_shared<KMAC256XOF>(Copy());
+		return std::make_shared<KMAC256XOF>(Copy());
 	}
 	
 	virtual IMACNotBuildIn CloneMAC() const
 	{
-		return make_shared<KMAC256XOF>(Copy());
+		return std::make_shared<KMAC256XOF>(Copy());
 	} // end function CloneMAC
 
 	void SetXOFSizeInBitsInternal(const UInt64 a_XofSizeInBits)
@@ -386,9 +384,7 @@ public:
 		KMAC256XOF LXof(a_KMACKey, a_Customization);
 		LXof.SetXOFSizeInBits(a_XofSizeInBits);
 
-		return make_shared<KMAC256XOF>(LXof);
+		return std::make_shared<KMAC256XOF>(LXof);
 	} // end function CreateKMAC256XOF
 
 }; // end class KMAC256XOF
-
-#pragma endregion

@@ -28,11 +28,11 @@
 
 class IIHashResult;
 
-typedef shared_ptr<IIHashResult> IHashResult;
+typedef std::shared_ptr<IIHashResult> IHashResult;
 
 class IIHashResult
 {
-	friend ostream& operator<<(ostream& output, const IHashResult& result)
+	friend std::ostream& operator<<(std::ostream& output, const IHashResult& result)
 	{
 		output << result->ToString();
 		return output;
@@ -45,7 +45,7 @@ public:
 	virtual UInt32 GetUInt32() const = 0;
 	virtual Int32 GetInt32() const = 0;
 	virtual UInt64 GetUInt64() const = 0;
-	virtual string ToString(const bool a_group = false) const = 0;
+	virtual std::string ToString(const bool a_group = false) const = 0;
 	virtual Int32 GetHashCode() const = 0;
 	virtual bool CompareTo(const IHashResult& a_hashResult) const = 0;
 

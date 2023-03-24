@@ -43,14 +43,14 @@ public:
 
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<MurmurHash3_x86_128>(Copy());
+		IHash _hash = std::make_shared<MurmurHash3_x86_128>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 	
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<MurmurHash3_x86_128>(Copy());
+		IHashWithKey _hash = std::make_shared<MurmurHash3_x86_128>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
@@ -75,7 +75,7 @@ public:
 
 		Converters::be32_copy(&tempBufUInt32[0], 0, &tempBufByte[0], 0, (Int32)tempBufByte.size());
 
-		IHashResult result = make_shared<HashResult>(tempBufByte);
+		IHashResult result = std::make_shared<HashResult>(tempBufByte);
 
 		Initialize();
 
@@ -128,41 +128,41 @@ public:
 			lIdx += 4;
 
 			k1 = k1 * C1;
-			k1 = Bits::RotateLeft32(k1, 15);
+			k1 = Bits::rotateLeft32(k1, 15);
 			k1 = k1 * C2;
 			_h1 = _h1 ^ k1;
 
-			_h1 = Bits::RotateLeft32(_h1, 19);
+			_h1 = Bits::rotateLeft32(_h1, 19);
 
 			_h1 = _h1 + _h2;
 			_h1 = _h1 * 5 + C7;
 
 			k2 = k2 * C2;
-			k2 = Bits::RotateLeft32(k2, 16);
+			k2 = Bits::rotateLeft32(k2, 16);
 			k2 = k2 * C3;
 			_h2 = _h2 ^ k2;
 
-			_h2 = Bits::RotateLeft32(_h2, 17);
+			_h2 = Bits::rotateLeft32(_h2, 17);
 
 			_h2 = _h2 + _h3;
 			_h2 = _h2 * 5 + C8;
 
 			k3 = k3 * C3;
-			k3 = Bits::RotateLeft32(k3, 17);
+			k3 = Bits::rotateLeft32(k3, 17);
 			k3 = k3 * C4;
 			_h3 = _h3 ^ k3;
 
-			_h3 = Bits::RotateLeft32(_h3, 15);
+			_h3 = Bits::rotateLeft32(_h3, 15);
 
 			_h3 = _h3 + _h4;
 			_h3 = _h3 * 5 + C9;
 
 			k4 = k4 * C4;
-			k4 = Bits::RotateLeft32(k4, 18);
+			k4 = Bits::rotateLeft32(k4, 18);
 			k4 = k4 * C1;
 			_h4 = _h4 ^ k4;
 
-			_h4 = Bits::RotateLeft32(_h4, 13);
+			_h4 = Bits::rotateLeft32(_h4, 13);
 
 			_h4 = _h4 + _h1;
 			_h4 = _h4 * 5 + C10;
@@ -237,41 +237,41 @@ private:
 			k4 = Converters::ReadBytesAsUInt32LE(ptr_Fm_buf, 12);
 
 			k1 = k1 * C1;
-			k1 = Bits::RotateLeft32(k1, 15);
+			k1 = Bits::rotateLeft32(k1, 15);
 			k1 = k1 * C2;
 			_h1 = _h1 ^ k1;
 
-			_h1 = Bits::RotateLeft32(_h1, 19);
+			_h1 = Bits::rotateLeft32(_h1, 19);
 
 			_h1 = _h1 + _h2;
 			_h1 = _h1 * 5 + C7;
 
 			k2 = k2 * C2;
-			k2 = Bits::RotateLeft32(k2, 16);
+			k2 = Bits::rotateLeft32(k2, 16);
 			k2 = k2 * C3;
 			_h2 = _h2 ^ k2;
 
-			_h2 = Bits::RotateLeft32(_h2, 17);
+			_h2 = Bits::rotateLeft32(_h2, 17);
 
 			_h2 = _h2 + _h3;
 			_h2 = _h2 * 5 + C8;
 
 			k3 = k3 * C3;
-			k3 = Bits::RotateLeft32(k3, 17);
+			k3 = Bits::rotateLeft32(k3, 17);
 			k3 = k3 * C4;
 			_h3 = _h3 ^ k3;
 
-			_h3 = Bits::RotateLeft32(_h3, 15);
+			_h3 = Bits::rotateLeft32(_h3, 15);
 
 			_h3 = _h3 + _h4;
 			_h3 = _h3 * 5 + C9;
 
 			k4 = k4 * C4;
-			k4 = Bits::RotateLeft32(k4, 18);
+			k4 = Bits::rotateLeft32(k4, 18);
 			k4 = k4 * C1;
 			_h4 = _h4 ^ k4;
 
-			_h4 = Bits::RotateLeft32(_h4, 13);
+			_h4 = Bits::rotateLeft32(_h4, 13);
 
 			_h4 = _h4 + _h1;
 			_h4 = _h4 * 5 + C10;
@@ -303,7 +303,7 @@ private:
 				k4 = k4 ^ (_buf[12] << 0);
 
 				k4 = k4 * C4;
-				k4 = Bits::RotateLeft32(k4, 18);
+				k4 = Bits::rotateLeft32(k4, 18);
 				k4 = k4 * C1;
 				_h4 = _h4 ^ k4;
 				break;
@@ -312,7 +312,7 @@ private:
 				k4 = k4 ^ (_buf[13] << 8);
 				k4 = k4 ^ (_buf[12] << 0);
 				k4 = k4 * C4;
-				k4 = Bits::RotateLeft32(k4, 18);
+				k4 = Bits::rotateLeft32(k4, 18);
 				k4 = k4 * C1;
 				_h4 = _h4 ^ k4;
 				break;
@@ -320,7 +320,7 @@ private:
 			case 13:
 				k4 = k4 ^ (_buf[12] << 0);
 				k4 = k4 * C4;
-				k4 = Bits::RotateLeft32(k4, 18);
+				k4 = Bits::rotateLeft32(k4, 18);
 				k4 = k4 * C1;
 				_h4 = _h4 ^ k4;
 				break;
@@ -338,7 +338,7 @@ private:
 				k3 = k3 ^ (_buf[8] << 0);
 
 				k3 = k3 * C3;
-				k3 = Bits::RotateLeft32(k3, 17);
+				k3 = Bits::rotateLeft32(k3, 17);
 				k3 = k3 * C4;
 				_h3 = _h3 ^ k3;
 				break;
@@ -349,7 +349,7 @@ private:
 				k3 = k3 ^ (_buf[8] << 0);
 
 				k3 = k3 * C3;
-				k3 = Bits::RotateLeft32(k3, 17);
+				k3 = Bits::rotateLeft32(k3, 17);
 				k3 = k3 * C4;
 				_h3 = _h3 ^ k3;
 				break;
@@ -359,7 +359,7 @@ private:
 				k3 = k3 ^ (_buf[8] << 0);
 
 				k3 = k3 * C3;
-				k3 = Bits::RotateLeft32(k3, 17);
+				k3 = Bits::rotateLeft32(k3, 17);
 				k3 = k3 * C4;
 				_h3 = _h3 ^ k3;
 				break;
@@ -368,7 +368,7 @@ private:
 				k3 = k3 ^ (_buf[8] << 0);
 
 				k3 = k3 * C3;
-				k3 = Bits::RotateLeft32(k3, 17);
+				k3 = Bits::rotateLeft32(k3, 17);
 				k3 = k3 * C4;
 				_h3 = _h3 ^ k3;
 			} // end switch
@@ -385,7 +385,7 @@ private:
 				k2 = k2 ^ (_buf[4] << 0);
 
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft32(k2, 16);
+				k2 = Bits::rotateLeft32(k2, 16);
 				k2 = k2 * C3;
 				_h2 = _h2 ^ k2;
 				break;
@@ -396,7 +396,7 @@ private:
 				k2 = k2 ^ (_buf[4] << 0);
 
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft32(k2, 16);
+				k2 = Bits::rotateLeft32(k2, 16);
 				k2 = k2 * C3;
 				_h2 = _h2 ^ k2;
 				break;
@@ -406,7 +406,7 @@ private:
 				k2 = k2 ^ (_buf[4] << 0);
 
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft32(k2, 16);
+				k2 = Bits::rotateLeft32(k2, 16);
 				k2 = k2 * C3;
 				_h2 = _h2 ^ k2;
 				break;
@@ -415,7 +415,7 @@ private:
 				k2 = k2 ^ (_buf[4] << 0);
 
 				k2 = k2 * C2;
-				k2 = Bits::RotateLeft32(k2, 16);
+				k2 = Bits::rotateLeft32(k2, 16);
 				k2 = k2 * C3;
 				_h2 = _h2 ^ k2;
 				break;
@@ -433,7 +433,7 @@ private:
 				k1 = k1 ^ (_buf[0] << 0);
 
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft32(k1, 15);
+				k1 = Bits::rotateLeft32(k1, 15);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -444,7 +444,7 @@ private:
 				k1 = k1 ^ (_buf[0] << 0);
 
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft32(k1, 15);
+				k1 = Bits::rotateLeft32(k1, 15);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -454,7 +454,7 @@ private:
 				k1 = k1 ^ (_buf[0] << 0);
 
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft32(k1, 15);
+				k1 = Bits::rotateLeft32(k1, 15);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 				break;
@@ -463,7 +463,7 @@ private:
 				k1 = k1 ^ (_buf[0] << 0);
 
 				k1 = k1 * C1;
-				k1 = Bits::RotateLeft32(k1, 15);
+				k1 = Bits::rotateLeft32(k1, 15);
 				k1 = k1 * C2;
 				_h1 = _h1 ^ k1;
 			} // end switch

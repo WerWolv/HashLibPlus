@@ -95,7 +95,7 @@ public:
 	virtual IArgon2Parameters Clone() const
 	{
 		Argon2Parameters result = Argon2Parameters(GetType(), _salt, _secret, _additional, GetIterations(), GetMemory(), GetLanes(), GetVersion());
-		return make_shared<Argon2Parameters>(result);
+		return std::make_shared<Argon2Parameters>(result);
 	} //
 }; //
 
@@ -158,7 +158,7 @@ public:
 	{
 		Argon2Parameters result = Argon2Parameters(_type, _salt, _secret, _additional,
 			_iterations, _memory, _lanes, _version);
-		return make_shared<Argon2Parameters>(result);
+		return std::make_shared<Argon2Parameters>(result);
 	} //
 
 	virtual void Clear()

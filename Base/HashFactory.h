@@ -46,22 +46,22 @@ namespace HashFactory
 	// ====================== Checksum ====================== 
 	namespace Checksum
 	{
-		IHash CreateCRC(const Int32 a_Width, const Int64 a_Polynomial, const Int64 a_InitialValue,
-			const bool a_ReflectIn, const bool a_ReflectOut, const Int64 a_OutputXor, const Int64 a_CheckValue,
+		IHash CreateCRC(Int32 a_Width, Int64 a_Polynomial, Int64 a_InitialValue,
+			bool a_ReflectIn, bool a_ReflectOut, Int64 a_OutputXor, Int64 a_CheckValue,
 			const HashLibStringArray& a_Names);
 
 		ICRC CreateCRC(const CRCStandard& a_Value);
 
-		IHash CreateCRC16(const Int64 a_Polynomial, const Int64 a_InitialValue,
-			const bool a_ReflectIn, const bool a_ReflectOut, const Int64 a_OutputXor, const Int64 a_CheckValue,
+		IHash CreateCRC16(Int64 a_Polynomial, Int64 a_InitialValue,
+			bool a_ReflectIn, bool a_ReflectOut, Int64 a_OutputXor, Int64 a_CheckValue,
 			const HashLibStringArray& a_Names);
 
-		IHash CreateCRC32(const Int64 a_Polynomial, const Int64 a_InitialValue,
-			const bool a_ReflectIn, const bool a_ReflectOut, const Int64 a_OutputXor, const Int64 a_CheckValue,
+		IHash CreateCRC32(Int64 a_Polynomial, Int64 a_InitialValue,
+			bool a_ReflectIn, bool a_ReflectOut, Int64 a_OutputXor, Int64 a_CheckValue,
 			const HashLibStringArray& a_Names);
 
-		IHash CreateCRC64(const Int64 a_Polynomial, const Int64 a_InitialValue,
-			const bool a_ReflectIn, const bool a_ReflectOut, const Int64 a_OutputXor, const Int64 a_CheckValue,
+		IHash CreateCRC64(Int64 a_Polynomial, Int64 a_InitialValue,
+			bool a_ReflectIn, bool a_ReflectOut, Int64 a_OutputXor, Int64 a_CheckValue,
 			const HashLibStringArray& a_Names);
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace HashFactory
 		/// <param name="a_hash_size">16, 20 or 24 bytes. </param>
 		/// <param name="a_rounds">no of rounds (standard rounds are 3, 4 and 5)</param>
 		/// <returns></returns>
-		IHash CreateTiger(const Int32 a_hash_size, const HashRounds& a_rounds);
+		IHash CreateTiger(Int32 a_hash_size, const HashRounds& a_rounds);
 
 		IHash CreateTiger_3_128();
 
@@ -126,7 +126,7 @@ namespace HashFactory
 		/// <param name="a_hash_size">16, 20 or 24 bytes. </param>
 		/// <param name="a_rounds">no of rounds (standard rounds are 3, 4 and 5)</param>
 		/// <returns></returns>
-		IHash CreateTiger2(const Int32 a_hash_size, const HashRounds& a_rounds);
+		IHash CreateTiger2(Int32 a_hash_size, const HashRounds& a_rounds);
 
 		IHash CreateTiger2_3_128();
 
@@ -191,7 +191,7 @@ namespace HashFactory
 		/// <param name="a_security_level">any Integer value greater than 0. Standard is 8. </param>
 		/// <param name="a_hash_size">128bit, 256bit</param>
 		/// <returns></returns>
-		IHash CreateSnefru(const Int32 a_security_level, const HashSize& a_hash_size);
+		IHash CreateSnefru(Int32 a_security_level, const HashSize& a_hash_size);
 
 		IHash CreateSnefru_8_128();
 
@@ -296,9 +296,9 @@ namespace HashFactory
 
 		IHash CreateBlake2S_256();
 
-		IHash CreateBlake2BP(const Int32 a_HashSize, const HashLibByteArray& a_Key);
+		IHash CreateBlake2BP(Int32 a_HashSize, const HashLibByteArray& a_Key);
 
-		IHash CreateBlake2SP(const Int32 a_HashSize, const HashLibByteArray& a_Key);
+		IHash CreateBlake2SP(Int32 a_HashSize, const HashLibByteArray& a_Key);
 
 		IHash CreateBlake3_256(const HashLibByteArray& key);
 
@@ -327,7 +327,7 @@ namespace HashFactory
 
 		IHash CreateFNV1a_32();
 
-		IHash CreateJenkins3(const Int32 initialValue = 0);
+		IHash CreateJenkins3(Int32 initialValue = 0);
 
 		IHash CreateJS();
 
@@ -391,29 +391,29 @@ namespace HashFactory
 		/// <param name="password">The password to derive the key for.</param>
 		/// <param name="salt">The salt to use to derive the key.</param>
 		/// <param name="iterations">The number of iterations used to derive the key.</param>
-		IPBKDF2_HMACNotBuildIn CreatePBKDF2_HMAC(const IHash _hash, const HashLibByteArray& password,
-			const HashLibByteArray& salt, const UInt32 iterations);
+		IPBKDF2_HMACNotBuildIn CreatePBKDF2_HMAC(IHash _hash, const HashLibByteArray& password,
+			const HashLibByteArray& salt, UInt32 iterations);
 
 		IPBKDF_ScryptNotBuildIn CreatePBKDF_Scrypt(const HashLibByteArray& password, const HashLibByteArray& salt,
-			const Int32 cost, const Int32 blockSize, const Int32 parallelism);
+			Int32 cost, Int32 blockSize, Int32 parallelism);
 
 		IPBKDF_Blake3NotBuildIn CreatePBKDF_Blake3(const HashLibByteArray& srcKey, const HashLibByteArray& ctx);
 
 		IPBKDF_Argon2NotBuildIn CreatePBKDF_Argon2(const HashLibByteArray& password, 
-			const IArgon2Parameters parameters);	
+			IArgon2Parameters parameters);
 	}
 
 	// ====================== HMAC ======================
 	namespace HMAC
 	{
-		IHMACNotBuildIn CreateHMAC(const IHash _hash, const HashLibByteArray& hmacKey = {});
+		IHMACNotBuildIn CreateHMAC(IHash _hash, const HashLibByteArray& hmacKey = {});
 	} // end namespace HMAC
 
 	// ====================== KMAC ======================
 	namespace KMAC
 	{
 		IKMACNotBuildIn CreateKMAC128(const HashLibByteArray& kmacKey, const HashLibByteArray& customization,
-			const UInt64 outputLengthInBits);;
+			const UInt64 outputLengthInBits);
 
 		IKMACNotBuildIn CreateKMAC256(const HashLibByteArray& kmacKey, const HashLibByteArray& customization,
 			const UInt64 outputLengthInBits);
@@ -423,37 +423,37 @@ namespace HashFactory
 	namespace Blake2BMAC
 	{
 		IBlake2BMACNotBuildIn CreateBlake2BMAC(const HashLibByteArray& key, const HashLibByteArray& salt,
-			const HashLibByteArray& personalization, const Int32 outputLengthInBits);
+			const HashLibByteArray& personalization, Int32 outputLengthInBits);
 	} // end namespace Blake2BMAC
 
 	// ====================== Blake2SMAC ======================
 	namespace Blake2SMAC
 	{
 		IBlake2SMACNotBuildIn CreateBlake2SMAC(const HashLibByteArray& key, const HashLibByteArray& salt,
-			const HashLibByteArray& personalization, const Int32 outputLengthInBits);
+			const HashLibByteArray& personalization, Int32 outputLengthInBits);
 	} // end namespace Blake2SMAC
 	
 	// ====================== XOF ======================
 	namespace XOF
 	{
-		IXOF CreateBlake2XB(const IBlake2XBConfig config, const UInt64 xofSizeInBits);
-		IXOF CreateBlake2XB(const HashLibByteArray& key, const UInt64 xofSizeInBits);
+		IXOF CreateBlake2XB(IBlake2XBConfig config, UInt64 xofSizeInBits);
+		IXOF CreateBlake2XB(const HashLibByteArray& key, UInt64 xofSizeInBits);
 
-		IXOF CreateBlake2XS(const IBlake2XSConfig config, const UInt64 xofSizeInBits);
-		IXOF CreateBlake2XS(const HashLibByteArray& key, const UInt64 xofSizeInBits);
+		IXOF CreateBlake2XS(IBlake2XSConfig config, UInt64 xofSizeInBits);
+		IXOF CreateBlake2XS(const HashLibByteArray& key, UInt64 xofSizeInBits);
 
-		IXOF CreateBlake3XOF(const HashLibByteArray& key, const UInt64 xofSizeInBits);
+		IXOF CreateBlake3XOF(const HashLibByteArray& key, UInt64 xofSizeInBits);
 
-		IXOF CreateCShake_128(const HashLibByteArray& n, const HashLibByteArray& s, const UInt64 xofSizeInBits);
-		IXOF CreateCShake_256(const HashLibByteArray& n, const HashLibByteArray& s, const UInt64 xofSizeInBits);
+		IXOF CreateCShake_128(const HashLibByteArray& n, const HashLibByteArray& s, UInt64 xofSizeInBits);
+		IXOF CreateCShake_256(const HashLibByteArray& n, const HashLibByteArray& s, UInt64 xofSizeInBits);
 
 		IXOF CreateKMAC128XOF(const HashLibByteArray& kmacKey, const HashLibByteArray& customization,
-			const UInt64 xofSizeInBits);
+			UInt64 xofSizeInBits);
 		IXOF CreateKMAC256XOF(const HashLibByteArray& kmacKey, const HashLibByteArray& customization,
-			const UInt64 xofSizeInBits);
+			UInt64 xofSizeInBits);
 
-		IXOF CreateShake_128(const UInt64 xofSizeInBits);
-		IXOF CreateShake_256(const UInt64 xofSizeInBits);
+		IXOF CreateShake_128(UInt64 xofSizeInBits);
+		IXOF CreateShake_256(UInt64 xofSizeInBits);
 	}
 
 	// ====================== NullDigest ======================

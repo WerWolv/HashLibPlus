@@ -33,20 +33,18 @@
 
 #include "Base/HashFactory.h"
 
-using namespace std;
-
-string Calculate(IHash hash, Int32 size = 65536)
+std::string Calculate(IHash hash, Int32 size = 65536)
 {
 	const UInt32 THREE_SECONDS_IN_MILLISECONDS = 3000;
 
-	string newName = hash->GetName();
+    std::string newName = hash->GetName();
 
 	HashLibByteArray data(size);
 	
 	//
-	random_device rd;
-	mt19937 mt(rd());
-	uniform_real_distribution<double> dist(1.0, size);
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(1.0, size);
 
 	//
 	for (Int32 i = 0; i < size; i++)
@@ -62,20 +60,20 @@ string Calculate(IHash hash, Int32 size = 65536)
 		while (totalMilliSeconds < THREE_SECONDS_IN_MILLISECONDS)
 		{
 			// Start timer
-			auto t1 = chrono::high_resolution_clock::now();
+			auto t1 = std::chrono::high_resolution_clock::now();
 
 			hash->ComputeBytes(data);
 			total = total + data.size();
 
-			auto t2 = chrono::high_resolution_clock::now();
+			auto t2 = std::chrono::high_resolution_clock::now();
 
 			// Get the elapsed time as a TimeSpan value.
-			chrono::duration<double, milli> time_lapse(t2 - t1);
+            std::chrono::duration<double, std::milli> time_lapse(t2 - t1);
 
 			totalMilliSeconds = totalMilliSeconds + time_lapse.count();
 		}
 
-		maxRate = max(total / (totalMilliSeconds / 1000) / 1024 / 1024, maxRate);
+		maxRate = std::max(total / (totalMilliSeconds / 1000) / 1024 / 1024, maxRate);
 	}
 	
 	char output[100]; // = "%s Throughput: %.2lf MB/s with Blocks of %d KB";
@@ -136,22 +134,22 @@ int main()
 {
 	HashLibStringArray stringList;
 
-	cout << "Please be patient, this might take some time" << endl << endl;
+    std::cout << "Please be patient, this might take some time" << std::endl << std::endl;
 
 	try
 	{
 		DoBenchmark(stringList);
 
 		for (auto i = 0; i < stringList.size(); i++)
-			cout << stringList[i] << endl;
+            std::cout << stringList[i] << std::endl;
 
-		cout << endl << "Performance Benchmark Finished" << endl << endl;
+        std::cout << std::endl << "Performance Benchmark Finished" << std::endl << std::endl;
 
 		system("PAUSE");
 	}
-	catch (exception& e)
+	catch (std::exception& e)
 	{
-		cout << endl << "An error occurred: " << e.what() << endl << endl;
+        std::cout << std::endl << "An error occurred: " << e.what() << std::endl << std::endl;
 	}
 	
 	return 0;

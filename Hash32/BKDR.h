@@ -43,7 +43,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<BKDR>(HashInstance);
+		return std::make_shared<BKDR>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -53,7 +53,7 @@ public:
 
 	virtual IHashResult TransformFinal()
 	{
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 

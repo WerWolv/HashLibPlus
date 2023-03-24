@@ -4,16 +4,18 @@
 
 #include "../Base/TestConstants.h"
 
+#include <sstream>
+
 namespace ChecksumHashTests
 {
-	string IntToHex(const UInt64 value)
+	std::string IntToHex(const UInt64 value)
 	{
-		stringstream ss;
-		ss << hex << value;
+		std::stringstream ss;
+		ss << std::hex << value;
 		return Converters::toUpper(ss.str());
 	} // end function IntToHex
 
-	string lstrip(const string& str, const char value)
+	std::string lstrip(const std::string& str, const char value)
 	{
 		UInt32 s_pos = 0;
 		for (uint32_t i = 0; i < str.length(); i++, s_pos++)
@@ -32,9 +34,9 @@ namespace ChecksumHashTests
 			{
 				ICRC crc = HashFactory::Checksum::CreateCRC(CRCStandard(i));
 
-				string ExpectedString = lstrip(IntToHex(crc->GetCheckValue()), '0');
+				std::string ExpectedString = lstrip(IntToHex(crc->GetCheckValue()), '0');
 
-				string ActualString = lstrip(crc->ComputeBytes(OneToNineBytes)->ToString(), '0');
+				std::string ActualString = lstrip(crc->ComputeBytes(OneToNineBytes)->ToString(), '0');
 
 				REQUIRE(ExpectedString == ActualString);
 			} // end for
@@ -48,7 +50,7 @@ namespace ChecksumHashTests
 
 				crc->Initialize();
 
-				string ExpectedString = lstrip(IntToHex(crc->GetCheckValue()), '0');
+				std::string ExpectedString = lstrip(IntToHex(crc->GetCheckValue()), '0');
 
 				crc->TransformString(OneToNine.substr(0, 3));
 				crc->TransformString(OneToNine.substr(3, 3));
@@ -56,7 +58,7 @@ namespace ChecksumHashTests
 
 				IHashResult res = crc->TransformFinal();
 
-				string ActualString = lstrip(res->ToString(), '0');
+				std::string ActualString = lstrip(res->ToString(), '0');
 
 				REQUIRE(ExpectedString == ActualString);
 			} // end for

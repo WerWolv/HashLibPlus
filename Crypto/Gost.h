@@ -47,7 +47,7 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Gost>(HashInstance);
+		return std::make_shared<Gost>(HashInstance);
 	}
 
 	virtual void Initialize()
@@ -421,7 +421,7 @@ protected:
 			ax = sbox[1][a] << 15;
 			bx = sbox[3][a] << 23;
 			cx = sbox[5][a];
-			cx = Bits::RotateRight32(cx, 1);
+			cx = Bits::rotateRight32(cx, 1);
 			dx = sbox[7][a] << 7;
 
 			for (UInt32 b = 0; b < 16; b++)

@@ -45,10 +45,10 @@ public:
 
 		HashInstance.SetBufferSize(GetBufferSize());
 
-		return make_shared<Snefru>(HashInstance);
+		return std::make_shared<Snefru>(HashInstance);
 	}
 
-	virtual string GetName() const
+	virtual std::string GetName() const
 	{
 		return Utils::string_format("Snefru_%u_%u", _security_level, _hash_size * 8);
 	}
@@ -165,7 +165,7 @@ protected:
 				k = 0;
 				while (k < 16)
 				{
-					work[k] = Bits::RotateRight32(work[k], shift);
+					work[k] = Bits::rotateRight32(work[k], shift);
 					k++;
 				} // end while
 

@@ -42,14 +42,14 @@ public:
 	
 	virtual IHash Clone() const
 	{
-		IHash _hash = make_shared<XXHash64>(Copy());
+		IHash _hash = std::make_shared<XXHash64>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 
 	virtual IHashWithKey CloneHashWithKey() const
 	{
-		IHashWithKey _hash = make_shared<XXHash64>(Copy());
+		IHashWithKey _hash = std::make_shared<XXHash64>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
@@ -99,10 +99,10 @@ public:
 
 			memmove(ptrTemp, ptrBuffer, (Int32)(32 - _state.memsize));
 
-			_state.v1 = PRIME64_1 * Bits::RotateLeft64(_state.v1 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 0), 31);
-			_state.v2 = PRIME64_1 * Bits::RotateLeft64(_state.v2 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 8), 31);
-			_state.v3 = PRIME64_1 * Bits::RotateLeft64(_state.v3 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 16), 31);
-			_state.v4 = PRIME64_1 * Bits::RotateLeft64(_state.v4 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 24), 31);
+			_state.v1 = PRIME64_1 * Bits::rotateLeft64(_state.v1 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 0), 31);
+			_state.v2 = PRIME64_1 * Bits::rotateLeft64(_state.v2 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 8), 31);
+			_state.v3 = PRIME64_1 * Bits::rotateLeft64(_state.v3 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 16), 31);
+			_state.v4 = PRIME64_1 * Bits::rotateLeft64(_state.v4 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrMemory, 24), 31);
 
 			ptrBuffer = ptrBuffer + (32 - _state.memsize);
 			_state.memsize = 0;
@@ -119,10 +119,10 @@ public:
 
 			do
 			{
-				_v1 = PRIME64_1 * Bits::RotateLeft64(_v1 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 0), 31);
-				_v2 = PRIME64_1 * Bits::RotateLeft64(_v2 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 8), 31);
-				_v3 = PRIME64_1 * Bits::RotateLeft64(_v3 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 16), 31);
-				_v4 = PRIME64_1 * Bits::RotateLeft64(_v4 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 24), 31);
+				_v1 = PRIME64_1 * Bits::rotateLeft64(_v1 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 0), 31);
+				_v2 = PRIME64_1 * Bits::rotateLeft64(_v2 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 8), 31);
+				_v3 = PRIME64_1 * Bits::rotateLeft64(_v3 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 16), 31);
+				_v4 = PRIME64_1 * Bits::rotateLeft64(_v4 + PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 24), 31);
 				ptrBuffer += 32;
 			} while (ptrBuffer <= ptrLimit);
 
@@ -154,18 +154,18 @@ public:
 			_v3 = _state.v3;
 			_v4 = _state.v4;
 
-			_hash = Bits::RotateLeft64(_v1, 1) + Bits::RotateLeft64(_v2, 7) + Bits::RotateLeft64(_v3, 12) + Bits::RotateLeft64(_v4, 18);
+			_hash = Bits::rotateLeft64(_v1, 1) + Bits::rotateLeft64(_v2, 7) + Bits::rotateLeft64(_v3, 12) + Bits::rotateLeft64(_v4, 18);
 
-			_v1 = Bits::RotateLeft64(_v1 * PRIME64_2, 31) * PRIME64_1;
+			_v1 = Bits::rotateLeft64(_v1 * PRIME64_2, 31) * PRIME64_1;
 			_hash = (_hash ^ _v1) * PRIME64_1 + PRIME64_4;
 
-			_v2 = Bits::RotateLeft64(_v2 * PRIME64_2, 31) * PRIME64_1;
+			_v2 = Bits::rotateLeft64(_v2 * PRIME64_2, 31) * PRIME64_1;
 			_hash = (_hash ^ _v2) * PRIME64_1 + PRIME64_4;
 
-			_v3 = Bits::RotateLeft64(_v3 * PRIME64_2, 31) * PRIME64_1;
+			_v3 = Bits::rotateLeft64(_v3 * PRIME64_2, 31) * PRIME64_1;
 			_hash = (_hash ^ _v3) * PRIME64_1 + PRIME64_4;
 
-			_v4 = Bits::RotateLeft64(_v4 * PRIME64_2, 31) * PRIME64_1;
+			_v4 = Bits::rotateLeft64(_v4 * PRIME64_2, 31) * PRIME64_1;
 			_hash = (_hash ^ _v4) * PRIME64_1 + PRIME64_4;
 		} // end if
 		else
@@ -178,22 +178,22 @@ public:
 		ptrEnd = ptrBuffer + _state.memsize;
 		while ((ptrBuffer + 8) <= ptrEnd)
 		{
-			_hash = _hash ^ (PRIME64_1 * Bits::RotateLeft64(PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 0), 31));
-			_hash = Bits::RotateLeft64(_hash, 27) * PRIME64_1 + PRIME64_4;
+			_hash = _hash ^ (PRIME64_1 * Bits::rotateLeft64(PRIME64_2 * Converters::ReadBytesAsUInt64LE(ptrBuffer, 0), 31));
+			_hash = Bits::rotateLeft64(_hash, 27) * PRIME64_1 + PRIME64_4;
 			ptrBuffer += 8;
 		} // end while
 
 		if ((ptrBuffer + 4) <= ptrEnd)
 		{
 			_hash = _hash ^ Converters::ReadBytesAsUInt32LE(ptrBuffer, 0) * PRIME64_1;
-			_hash = Bits::RotateLeft64(_hash, 23) * PRIME64_2 + PRIME64_3;
+			_hash = Bits::rotateLeft64(_hash, 23) * PRIME64_2 + PRIME64_3;
 			ptrBuffer += 4;
 		} // end if
 
 		while (ptrBuffer < ptrEnd)
 		{
 			_hash = _hash ^ (*ptrBuffer) * PRIME64_5;
-			_hash = Bits::RotateLeft64(_hash, 11) * PRIME64_1;
+			_hash = Bits::rotateLeft64(_hash, 11) * PRIME64_1;
 			ptrBuffer++;
 		} // end while
 
@@ -204,7 +204,7 @@ public:
 		_hash = _hash ^ (_hash >> 32);
 		
 
-		IHashResult result = make_shared<HashResult>(_hash);
+		IHashResult result = std::make_shared<HashResult>(_hash);
 
 		Initialize();
 
