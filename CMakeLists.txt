@@ -43,8 +43,8 @@ target_include_directories(hashplus
 		${CMAKE_CURRENT_SOURCE_DIR}/Utils
 )
 
-add_executable(HashLibPlus.Tests HashLibPlus.Tests/HashLibPlus.Tests.cpp)
-target_include_directories(HashLibPlus.Tests 
+add_executable(HashLibPlus_Tests EXCLUDE_FROM_ALL HashLibPlus.Tests/HashLibPlus.Tests.cpp)
+target_include_directories(HashLibPlus_Tests
 	PUBLIC 
 		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Base
 		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Checksum
@@ -57,5 +57,5 @@ target_include_directories(HashLibPlus.Tests
 		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/XOF
 		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/NullDigest
 )
-add_subdirectory ( HashLibPlus.Tests/Catch2-2.13.6 )
-target_link_libraries(HashLibPlus.Tests PUBLIC hashplus)
+add_subdirectory(HashLibPlus.Tests/Catch2-2.13.6 )
+target_link_libraries(HashLibPlus_Tests PUBLIC hashplus)
