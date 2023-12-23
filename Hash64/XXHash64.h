@@ -40,21 +40,21 @@ public:
 		_state.memory.resize(32);
 	} // end constructor
 	
-	virtual IHash Clone() const
+	IHash Clone() const override
 	{
 		IHash _hash = std::make_shared<XXHash64>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 
-	virtual IHashWithKey CloneHashWithKey() const
+	IHashWithKey CloneHashWithKey() const override
 	{
 		IHashWithKey _hash = std::make_shared<XXHash64>(Copy());
 		_hash->SetBufferSize(GetBufferSize());
 		return _hash;
 	}
 	
-	virtual void Initialize() override
+	void Initialize() override
 	{
 		_hash = 0;
 		_state.v1 = _key + PRIME64_1 + PRIME64_2;
@@ -65,7 +65,7 @@ public:
 		_state.memsize = 0;
 	} // end function Initialize
 
-	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length) override
+	void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length) override
 	{
 		UInt64 _v1, _v2, _v3, _v4;
 		byte* ptrTemp, * ptrMemory;

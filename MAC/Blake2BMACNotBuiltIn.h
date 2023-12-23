@@ -44,7 +44,7 @@ public:
 		return std::make_shared<Blake2BMACNotBuildInAdapter>(HashInstance);
 	}
 
-	virtual IMACNotBuildIn CloneMAC() const
+	IMACNotBuildIn CloneMAC() const override
 	{
 		Blake2BMACNotBuildInAdapter HashInstance = Blake2BMACNotBuildInAdapter(_hash, _key);
 
@@ -53,33 +53,33 @@ public:
 		return std::make_shared<Blake2BMACNotBuildInAdapter>(HashInstance);
 	} // end function CloneMAC
 
-	virtual void Clear() override
+	void Clear() override
 	{
 		ArrayUtils::zeroFill(_key);
 	}
 
-	virtual HashLibByteArray GetKey() const override
+	HashLibByteArray GetKey() const override
 	{
 		return _key;
 	}
 
-	virtual void SetKey(const HashLibByteArray& value) override
+	void SetKey(const HashLibByteArray& value) override
 	{
 		_key = value;
 	}
 
-	virtual void Initialize() override
+	void Initialize() override
 	{
 		_hash.GetConfig()->SetKey(_key);
 		_hash.Initialize();
 	}
 
-	virtual IHashResult TransformFinal() override
+	IHashResult TransformFinal() override
 	{
 		return _hash.TransformFinal();
 	}
 
-	virtual void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length) override
+	void TransformBytes(const HashLibByteArray& a_data, const Int32 a_index, const Int32 a_length) override
 	{
 		_hash.TransformBytes(a_data, a_index, a_length);
 	}

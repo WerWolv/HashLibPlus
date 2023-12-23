@@ -354,7 +354,7 @@ public:
 	{
 		std::string a_in = _a_in;
 
-		remove(a_in.begin(), a_in.end(), '-');
+		std::erase(a_in, '-');
 		HashLibByteArray result(a_in.size() >> 1);
 
 		for (UInt32 i = 0, j = 0; i < a_in.length(); i += 2, j += 1)

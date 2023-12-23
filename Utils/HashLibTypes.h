@@ -24,10 +24,10 @@
 #pragma once
 
 #include <stdint.h>
-#include <memory>
-#include <utility>
 #include <stdexcept>
 #include <vector>
+#include <memory>
+#include <string>
 #include <string.h>
 
 class HashLibException : public std::runtime_error
