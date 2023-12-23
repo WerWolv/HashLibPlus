@@ -25,6 +25,8 @@
 
 #include "HashLibTypes.h"
 
+#include <bit>
+
 class BitConverter
 {
 public:
@@ -168,7 +170,8 @@ public:
 			i2 = (value[size_t(StartIndex) + 4]) | (value[size_t(StartIndex) + 5] << 8) |
 				(value[size_t(StartIndex) + 6] << 16) | (value[size_t(StartIndex) + 7] << 24);
 			val = UInt32(i1) | (Int64(i2) << 32);
-			return *(double *)(&val);
+
+			return std::bit_cast<double>(val);
 		}
 
 		i1 = (value[StartIndex] << 24) | (value[size_t(StartIndex) + 1] << 16) |
@@ -176,7 +179,8 @@ public:
 		i2 = (value[size_t(StartIndex) + 4] << 24) | (value[size_t(StartIndex) + 5] << 16) |
 		(value[size_t(StartIndex) + 6] << 8) | (value[size_t(StartIndex) + 7]);
 		val = UInt32(i2) | (Int64(i1) << 32);
-		return *(double *)(&val);
+
+		return std::bit_cast<double>(val);
 	} // end function ToDouble
 
 	inline static Int16 ToInt16(const HashLibByteArray &value, const Int32 StartIndex)
@@ -229,12 +233,14 @@ public:
 		{
 			val = (value[StartIndex] | (value[size_t(StartIndex) + 1] << 8) |
 			(value[size_t(StartIndex) + 2] << 16) | (value[size_t(StartIndex) + 3] << 24));
-			return *(float *)(&val);
+
+			return std::bit_cast<float>(val);
 		} // end if
 	
 		val = (value[StartIndex] << 24) | (value[size_t(StartIndex) + 1] << 16) |
 		(value[size_t(StartIndex) + 2] << 8) | (value[size_t(StartIndex) + 3]);
-		return *(float *)(&val);
+
+		return std::bit_cast<float>(val);
 	} // end function ToFloat
 	
 	inline static std::string ToString(const HashLibByteArray &value)
