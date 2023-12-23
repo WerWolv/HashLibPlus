@@ -58,7 +58,7 @@ public:
 		Int32	lLength;
 
 		// if all pointers and length are 32-bits aligned
-		if (((Int32((byte*)(dest)-(byte*)(0)) | ((byte*)(src)-(byte*)(0)) | src_index |
+		if (((Int32((byte*)(dest)) | Int32((byte*)(src)) | src_index |
 			dest_index | length) & 3) == 0)
 		{
 			// copy memory as 32-bit words
@@ -97,7 +97,7 @@ public:
 		Int32	lLength;
 
 		// if all pointers and length are 64-bits aligned
-		if (((Int32((byte*)(dest)-(byte*)(0)) | ((byte*)(src)-(byte*)(0)) | src_index |
+		if (((Int32((byte*)(dest)) | Int32((byte*)(src)) | src_index |
 			dest_index | length) & 7) == 0)
 		{
 			// copy aligned memory block as 64-bit integers

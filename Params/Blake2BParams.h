@@ -62,7 +62,7 @@ public:
 		return std::make_shared<Blake2BConfig>(a_hash_size);
 	}
 
-	~Blake2BConfig()
+	virtual ~Blake2BConfig()
 	{
 		Clear();
 	}
@@ -180,6 +180,8 @@ public:
 		_nodeOffset(0),
 		_isLastNode(false)
 	{}
+
+	virtual ~Blake2BTreeConfig() = default;
 
 	static IBlake2BTreeConfig CreateBlake2BTreeConfig()
 	{

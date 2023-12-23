@@ -39,6 +39,8 @@ private:
 public:
 	Blake2XBConfig() {}
 
+	virtual ~Blake2XBConfig() = default;
+
 	Blake2XBConfig(const IBlake2BConfig config, const IBlake2BTreeConfig treeConfig)
 	{
 		_config = std::move(config);

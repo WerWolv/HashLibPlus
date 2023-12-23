@@ -32,6 +32,8 @@ typedef std::shared_ptr<IIBlake2STreeConfig> IBlake2STreeConfig;
 class IIBlake2STreeConfig
 {
 public:
+	virtual ~IIBlake2STreeConfig() = default;
+
 	virtual byte GetFanOut() const = 0;
 	virtual void SetFanOut(const byte value) = 0;
 

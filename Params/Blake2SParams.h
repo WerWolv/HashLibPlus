@@ -63,7 +63,7 @@ public:
 		return std::make_shared<Blake2SConfig>(a_hash_size);
 	}
 
-	~Blake2SConfig()
+	~Blake2SConfig() override
 	{
 		Clear();
 	}
@@ -73,51 +73,51 @@ public:
 		return std::make_shared<Blake2SConfig>();
 	}
 
-	virtual HashLibByteArray GetPersonalization() const
+	HashLibByteArray GetPersonalization() const override
 	{
 		return _personalisation;
 	}
 
-	virtual void SetPersonalization(const HashLibByteArray& value)
+	void SetPersonalization(const HashLibByteArray& value) override
 	{
 		ValidatePersonalizationLength(value);
 		_personalisation = value;
 	}
 
-	virtual HashLibByteArray GetSalt() const
+	HashLibByteArray GetSalt() const override
 	{
 		return _salt;
 	}
 
-	virtual void SetSalt(const HashLibByteArray& value)
+	void SetSalt(const HashLibByteArray& value) override
 	{
 		ValidateSaltLength(value);
 		_salt = value;
 	}
 
-	virtual HashLibByteArray GetKey() const
+	HashLibByteArray GetKey() const override
 	{
 		return _key;
 	}
 
-	virtual void SetKey(const HashLibByteArray& value)
+	void SetKey(const HashLibByteArray& value) override
 	{
 		ValidateKeyLength(value);
 		_key = value;
 	}
 
-	virtual Int32 GetHashSize() const
+	Int32 GetHashSize() const override
 	{
 		return _hash_size;
 	}
 
-	virtual void SetHashSize(const Int32 value)
+	void SetHashSize(const Int32 value) override
 	{
 		ValidateHashSize(value);
 		_hash_size = value;
 	}
 
-	virtual IBlake2SConfig Clone() const
+	IBlake2SConfig Clone() const override
 	{
 		Blake2SConfig result = Blake2SConfig(GetHashSize());
 		result._key = _key;
@@ -127,7 +127,7 @@ public:
 		return std::make_shared<Blake2SConfig>(result);
 	}
 
-	virtual void Clear()
+	void Clear() override
 	{
 		ArrayUtils::zeroFill(_key);
 		ArrayUtils::zeroFill(_salt);

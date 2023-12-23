@@ -80,7 +80,7 @@ public:
 		_version = version;
 	} //
 
-	~Argon2Parameters()
+	virtual ~Argon2Parameters()
 	{
 		Clear();
 	} //

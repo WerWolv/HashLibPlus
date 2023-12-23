@@ -32,6 +32,8 @@ typedef std::shared_ptr<IIBlake2SConfig> IBlake2SConfig;
 class IIBlake2SConfig
 {
 public:
+	virtual ~IIBlake2SConfig() = default;
+
 	virtual HashLibByteArray GetPersonalization() const = 0;
 	virtual void SetPersonalization(const HashLibByteArray& value) = 0;
 	virtual HashLibByteArray GetSalt() const = 0;
