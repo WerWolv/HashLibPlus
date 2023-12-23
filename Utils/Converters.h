@@ -379,7 +379,7 @@ public:
 
 	static HashLibStringArray SplitString(const std::string& S, const char Delimiter)
 	{
-		Int32 PosStart, PosDel, SplitPoints, I, Len;
+		size_t PosStart, PosDel, SplitPoints, I, Len;
 		HashLibStringArray result;
 
 		if (!S.empty())
@@ -396,12 +396,12 @@ public:
 			I = 0;
 			Len = 1;
 			PosStart = 0;
-			PosDel = (Int32)S.find(Delimiter, 0);
+			PosDel = S.find(Delimiter, 0);
 			while (PosDel != std::string::npos)
 			{
 				result[I] = S.substr(PosStart, size_t(PosDel) - PosStart);
 				PosStart = PosDel + Len;
-				PosDel = (Int32)S.find(Delimiter, PosStart);
+				PosDel = S.find(Delimiter, PosStart);
 				I += 1;
 			} // end while
 
