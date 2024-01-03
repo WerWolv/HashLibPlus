@@ -43,19 +43,21 @@ target_include_directories(hashplus
 		${CMAKE_CURRENT_SOURCE_DIR}/Utils
 )
 
-add_executable(HashLibPlus_Tests EXCLUDE_FROM_ALL HashLibPlus.Tests/HashLibPlus.Tests.cpp)
-target_include_directories(HashLibPlus_Tests
-	PUBLIC 
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Base
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Checksum
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Crypto
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Hash32
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Hash64
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Hash128
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/KDF
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/MAC
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/XOF
-		${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/NullDigest
-)
-add_subdirectory(HashLibPlus.Tests/Catch2-2.13.6 )
-target_link_libraries(HashLibPlus_Tests PUBLIC hashplus)
+if (HASHLIBPLUS_ENABLE_TESTS)
+	add_executable(HashLibPlus_Tests EXCLUDE_FROM_ALL HashLibPlus.Tests/HashLibPlus.Tests.cpp)
+	target_include_directories(HashLibPlus_Tests
+		PUBLIC
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Base
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Checksum
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Crypto
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Hash32
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Hash64
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/Hash128
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/KDF
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/MAC
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/XOF
+			${CMAKE_CURRENT_SOURCE_DIR}/HashLibPlus.Tests/NullDigest
+	)
+	add_subdirectory(HashLibPlus.Tests/Catch2-2.13.6 )
+	target_link_libraries(HashLibPlus_Tests PUBLIC hashplus)
+endif()
