@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(HashLibPlus VERSION 1.0)
 
 file(GLOB_RECURSE SRC_FILES Base/*.cpp Crypto/*.cpp Params/*.cpp Utils/*.cpp)
-add_executable(HashLibPlus HashLibPlus.cpp ${SRC_FILES})
+add_executable(HashLibPlus EXCLUDE_FROM_ALL HashLibPlus.cpp ${SRC_FILES})
 target_include_directories(HashLibPlus 
 	PUBLIC 
 		${CMAKE_CURRENT_SOURCE_DIR}/Base
