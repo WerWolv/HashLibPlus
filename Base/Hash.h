@@ -214,7 +214,7 @@ public:
 		{
 			if (a_length > -1)
 			{
-				if (UInt64(a_stream.tellg() + a_length) > size)
+				if (UInt64(UInt64(a_stream.tellg()) + UInt64(a_length)) > size)
 					throw IndexOutOfRangeHashLibException(IndexOutOfRange);
 			} // end if
 
