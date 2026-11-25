@@ -25,6 +25,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <cstdlib>
 #include "../Utils/Bits.h"
 #include "../Utils/BitConverter.h"
 
